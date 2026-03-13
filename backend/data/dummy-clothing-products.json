@@ -1,0 +1,170 @@
+[
+  {
+    "name": "Men Classic Oxford Shirt",
+    "description": "Breathable cotton oxford shirt designed for everyday and office wear.",
+    "price": 2499,
+    "discountPrice": 2199,
+    "countInPrice": 40,
+    "sku": "MEN-OXF-001",
+    "category": "Top Wear",
+    "brand": "Urban Threads",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["White", "Blue", "Black"],
+    "collections": "Everyday Essentials",
+    "material": "Cotton",
+    "gender": "Men",
+    "images": [
+      {
+        "url": "https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg",
+        "altText": "Men oxford shirt front"
+      }
+    ],
+    "isFeatured": true,
+    "isPublished": true,
+    "rating": 4.5,
+    "tags": ["men", "shirt", "cotton", "formal"],
+    "metaTitle": "Men Classic Oxford Shirt",
+    "metaDescription": "Premium men oxford shirt with clean fit.",
+    "metaKeywords": "men shirt, oxford shirt, cotton shirt"
+  },
+  {
+    "name": "Men Slim Fit Chino Pants",
+    "description": "Stretch chino pants with slim fit and all-day comfort.",
+    "price": 2999,
+    "discountPrice": 2699,
+    "countInPrice": 35,
+    "sku": "MEN-CHN-002",
+    "category": "Bottom Wear",
+    "brand": "Modern Fit",
+    "sizes": ["30", "32", "34", "36"],
+    "colors": ["Khaki", "Navy", "Black"],
+    "collections": "Workwear",
+    "material": "Cotton Blend",
+    "gender": "Men",
+    "images": [
+      {
+        "url": "https://images.pexels.com/photos/2929980/pexels-photo-2929980.jpeg",
+        "altText": "Men chino pants"
+      }
+    ],
+    "isFeatured": false,
+    "isPublished": true,
+    "rating": 4.3,
+    "tags": ["men", "pants", "chino"],
+    "metaTitle": "Men Slim Fit Chino Pants",
+    "metaDescription": "Comfort-fit chino pants for men.",
+    "metaKeywords": "men chino, slim fit pants"
+  },
+  {
+    "name": "Women Floral Summer Dress",
+    "description": "Lightweight floral midi dress perfect for casual and summer outings.",
+    "price": 3299,
+    "discountPrice": 2899,
+    "countInPrice": 30,
+    "sku": "WMN-DRS-003",
+    "category": "Top Wear",
+    "brand": "ChicStyle",
+    "sizes": ["XS", "S", "M", "L"],
+    "colors": ["Pink", "Blue", "Beige"],
+    "collections": "Summer Edit",
+    "material": "Viscose",
+    "gender": "Women",
+    "images": [
+      {
+        "url": "https://images.pexels.com/photos/985635/pexels-photo-985635.jpeg",
+        "altText": "Women floral dress"
+      }
+    ],
+    "isFeatured": true,
+    "isPublished": true,
+    "rating": 4.7,
+    "tags": ["women", "dress", "summer"],
+    "metaTitle": "Women Floral Summer Dress",
+    "metaDescription": "Soft and airy floral dress for women.",
+    "metaKeywords": "women dress, floral dress"
+  },
+  {
+    "name": "Women High Waist Wide-Leg Jeans",
+    "description": "High-rise denim jeans with wide-leg silhouette and soft stretch fabric.",
+    "price": 3599,
+    "discountPrice": 3199,
+    "countInPrice": 28,
+    "sku": "WMN-JNS-004",
+    "category": "Bottom Wear",
+    "brand": "Fashionista",
+    "sizes": ["26", "28", "30", "32"],
+    "colors": ["Blue", "Gray"],
+    "collections": "Street Luxe",
+    "material": "Denim",
+    "gender": "Women",
+    "images": [
+      {
+        "url": "https://images.pexels.com/photos/6311475/pexels-photo-6311475.jpeg",
+        "altText": "Women wide-leg jeans"
+      }
+    ],
+    "isFeatured": false,
+    "isPublished": true,
+    "rating": 4.4,
+    "tags": ["women", "jeans", "denim"],
+    "metaTitle": "Women High Waist Wide-Leg Jeans",
+    "metaDescription": "Modern wide-leg jeans for women.",
+    "metaKeywords": "women jeans, high waist jeans"
+  },
+  {
+    "name": "Men Performance Polo Shirt",
+    "description": "Moisture-wicking polo shirt suitable for casual and semi-formal wear.",
+    "price": 2199,
+    "discountPrice": 1999,
+    "countInPrice": 50,
+    "sku": "MEN-PLS-005",
+    "category": "Top Wear",
+    "brand": "Active Line",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "colors": ["White", "Navy", "Green"],
+    "collections": "Athleisure",
+    "material": "Polyester",
+    "gender": "Men",
+    "images": [
+      {
+        "url": "https://images.pexels.com/photos/769733/pexels-photo-769733.jpeg",
+        "altText": "Men polo shirt"
+      }
+    ],
+    "isFeatured": true,
+    "isPublished": true,
+    "rating": 4.6,
+    "tags": ["men", "polo", "performance"],
+    "metaTitle": "Men Performance Polo Shirt",
+    "metaDescription": "Breathable polo shirt for active lifestyle.",
+    "metaKeywords": "men polo, performance shirt"
+  },
+  {
+    "name": "Women Knit Cardigan",
+    "description": "Soft knit cardigan with relaxed fit for layering in all seasons.",
+    "price": 2899,
+    "discountPrice": 2499,
+    "countInPrice": 22,
+    "sku": "WMN-CRD-006",
+    "category": "Top Wear",
+    "brand": "Cozywear",
+    "sizes": ["S", "M", "L"],
+    "colors": ["Beige", "Gray", "Black"],
+    "collections": "Layering Essentials",
+    "material": "Wool",
+    "gender": "Women",
+    "images": [
+      {
+        "url": "https://images.pexels.com/photos/914668/pexels-photo-914668.jpeg",
+        "altText": "Women knit cardigan"
+      }
+    ],
+    "isFeatured": false,
+    "isPublished": true,
+    "rating": 4.2,
+    "tags": ["women", "cardigan", "knit"],
+    "metaTitle": "Women Knit Cardigan",
+    "metaDescription": "Lightweight knit cardigan for women.",
+    "metaKeywords": "women cardigan, knitwear"
+  }
+]

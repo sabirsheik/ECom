@@ -1,0 +1,88 @@
+# Backend Project Documentation
+
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [Tech Stack](#tech-stack)
+3. [Folder Structure](#folder-structure)
+4. [Setup Instructions](#setup-instructions)
+5. [API Endpoints](#api-endpoints)
+6. [Database Schema](#database-schema)
+7. [Running Tests](#running-tests)
+8. [Common Issues](#common-issues)
+9. [Contributing](#contributing)
+
+---
+
+## Project Overview
+Briefly describe what your backend does.  
+*Example:*  
+This backend provides a REST API for managing users and tasks in a todo application.
+
+## Tech Stack
+- Programming Language: (e.g., Node.js, Python, Java)
+- Framework: (e.g., Express, Django, Spring Boot)
+- Database: (e.g., MongoDB, PostgreSQL)
+- Other Tools: (e.g., Docker, Redis)
+
+## Folder Structure
+```
+/project-root
+  /src
+    /controllers
+    /models
+    /routes
+    /middlewares
+  /tests
+  package.json
+  README.md
+```
+*Explain what each folder/file is for.*
+
+## Setup Instructions
+1. **Clone the repository**
+   ```
+   git clone https://github.com/yourusername/your-repo.git
+   cd your-repo
+   ```
+2. **Install dependencies**
+   ```
+   npm install
+   ```
+3. **Configure environment variables**  
+   Create a `.env` file and add:
+   ```
+   PORT=3000
+   DB_URL=your_database_url
+   ```
+4. **Run the server**
+   ```
+   npm start
+   ```
+
+## API Endpoints
+| Method | Endpoint         | Description           | Request Body | Response |
+|--------|------------------|-----------------------|--------------|----------|
+| GET    | /api/users       | Get all users         | -            | List     |
+| POST   | /api/users       | Create a new user     | JSON         | User     |
+| ...    | ...              | ...                   | ...          | ...      |
+
+*Add details for each endpoint, including example requests and responses.*
+
+## Database Schema
+Describe your main tables/collections and their fields.
+
+## Running Tests
+Explain how to run unit/integration tests.
+```
+npm test
+```
+
+## Common Issues
+List any common problems and solutions.
+
+## Contributing
+Explain how others can contribute.
+
+---
+
+*Fill in each section as you build your backend. This structure helps anyone understand and develop your project easily.*
