@@ -1,88 +1,148 @@
-# Backend Project Documentation
+# E-Commerce Backend
 
-## Table of Contents
-1. [Project Overview](#project-overview)
-2. [Tech Stack](#tech-stack)
-3. [Folder Structure](#folder-structure)
-4. [Setup Instructions](#setup-instructions)
-5. [API Endpoints](#api-endpoints)
-6. [Database Schema](#database-schema)
-7. [Running Tests](#running-tests)
-8. [Common Issues](#common-issues)
-9. [Contributing](#contributing)
-
----
-
-## Project Overview
-Briefly describe what your backend does.  
-*Example:*  
-This backend provides a REST API for managing users and tasks in a todo application.
+REST API for the ECom clothing store. It handles user accounts, product browsing and administration, guest/user carts, checkout and orders, image uploads, subscriptions, and Stripe payments.
 
 ## Tech Stack
-- Programming Language: (e.g., Node.js, Python, Java)
-- Framework: (e.g., Express, Django, Spring Boot)
-- Database: (e.g., MongoDB, PostgreSQL)
-- Other Tools: (e.g., Docker, Redis)
+
+- Node.js with Express 5
+- MongoDB with Mongoose
+- JWT authentication and bcryptjs password hashing
+- Stripe Checkout and webhooks
+- Cloudinary image storage
+- Multer, CORS, Morgan, and dotenv
 
 ## Folder Structure
-```
-/project-root
-  /src
-    /controllers
-    /models
-    /routes
-    /middlewares
-  /tests
-  package.json
-  README.md
-```
-*Explain what each folder/file is for.*
 
-## Setup Instructions
-1. **Clone the repository**
-   ```
-   git clone https://github.com/yourusername/your-repo.git
-   cd your-repo
-   ```
-2. **Install dependencies**
-   ```
+```text
+backend/
+  config/       MongoDB connection
+  controllers/  Request handlers, including Admin handlers
+  data/         Seed data
+  Middleware/   JWT authentication and admin-role checks
+  models/       Mongoose schemas
+  routes/       Express route definitions
+  scripts/      Maintenance scripts, including product seeding
+  server.js     Express app entry point
+  package.json  Dependencies and npm scripts
+```
+
+## Setup
+
+Requirements: Node.js 18+, MongoDB, and npm.
+
+1. Install dependencies:
+
+   ```bash
    npm install
    ```
-3. **Configure environment variables**  
-   Create a `.env` file and add:
+
+2. Configure `backend/.env`. The file in this project contains the required variable names and safe placeholders:
+
+   ```dotenv
+   PORT=5100
+   HOST=localhost
+   MONGODB_URI=mongodb://127.0.0.1:27017/ecom
+   JWT_SECRET=replace_with_a_long_random_secret
+   FRONTEND_URL=http://localhost:5173
+   CLOUDINARY_CLOUD_NAME=replace_with_cloudinary_cloud_name
+   CLOUDINARY_API_KEY=replace_with_cloudinary_api_key
+   CLOUDINARY_API_SECRET=replace_with_cloudinary_api_secret
+   STRIPE_SECRET_KEY=sk_test_replace_with_stripe_secret_key
+   STRIPE_WEBHOOK_SECRET=whsec_replace_with_stripe_webhook_secret
    ```
-   PORT=3000
-   DB_URL=your_database_url
-   ```
-4. **Run the server**
-   ```
+
+   `MONGODB_URI` and `JWT_SECRET` are required for the API. Cloudinary variables are required by image upload, and Stripe variables are required only when using Stripe payments. Keep real secrets out of Git.
+
+3. Start the development server:
+
+   ```bash
    npm start
    ```
 
-## API Endpoints
-| Method | Endpoint         | Description           | Request Body | Response |
-|--------|------------------|-----------------------|--------------|----------|
-| GET    | /api/users       | Get all users         | -            | List     |
-| POST   | /api/users       | Create a new user     | JSON         | User     |
-| ...    | ...              | ...                   | ...          | ...      |
+   The default URL is `http://localhost:5100`. `GET /` returns a health response.
 
-*Add details for each endpoint, including example requests and responses.*
+4. Optional: seed the sample clothing products. This also creates an admin user if none exists:
+
+   ```bash
+   npm run seed:products
+   ```
+
+   Seed admin credentials are `seed-admin@example.com` / `SeedAdmin123`; change the password after local setup.
+
+## Authentication
+
+Send the login/register token on protected requests:
+
+```http
+Authorization: Bearer <jwt-token>
+```
+
+Admin endpoints additionally require a user whose `role` is `admin`.
+
+## API Endpoints
+
+### Public and user endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/users/register` | Register with `name`, `email`, `password`. |
+| POST | `/api/users/login` | Login with `email`, `password`; returns a JWT. |
+| GET/PUT/DELETE | `/api/users/profile` | Read, update, or delete the authenticated profile. |
+| GET | `/api/products` or `/api/product` | List products. Supports filters such as `collection`, `category`, `sizes`, `colors`, `minPrice`, `maxPrice`, `sortBy`, `search`, `brand`, `minRating`, and `availability`. |
+| GET | `/api/products/:id` | Get one product. |
+| GET | `/api/products/product-bestSeller` | Get best sellers. |
+| GET | `/api/products/product-newArrivals` | Get new arrivals. |
+| GET | `/api/products/similar/:id` | Get similar products. |
+| GET | `/api/products/recommendations` | Get recommendations; JWT is optional. |
+| POST | `/api/products/:id/view` | Track a product view; JWT is optional. |
+| POST | `/api/products/:id/wishlist-toggle` | Add/remove a product from the user wishlist. |
+| POST | `/api/products/:id/rate` | Rate a product with a value from 1 to 5. |
+| GET/POST/PUT/DELETE | `/api/cart` and `/api/cart/create`, `/api/cart/update`, `/api/cart/delete` | Manage guest or authenticated carts. Use `guestId` for guest carts and product selection fields such as `productId`, `quantity`, `size`, and `color`. |
+| POST | `/api/cart/merge` | Merge a guest cart into the authenticated user cart. |
+| POST | `/api/checkout/create` | Create a checkout with `checkoutItems`, `shippingAddress`, `totalPrice`, and `paymentMethod` (`COD` or `STRIPE`). |
+| POST | `/api/checkout/stripe/session` | Create a Stripe session with `checkoutId`. |
+| POST | `/api/checkout/stripe/verify-session` | Verify a Stripe session. |
+| GET/PUT/POST | `/api/checkout/:id/status`, `/api/checkout/:id/pay`, `/api/checkout/:id/finalize` | Check, pay, or finalize a checkout. |
+| GET | `/api/order/my-orders` | List the authenticated user's orders. |
+| GET | `/api/order/:id` | Get one authenticated user's order. |
+| POST | `/api/subscribe` | Subscribe with `{ "email": "customer@example.com" }`. |
+| POST | `/api/upload` | Upload an image as multipart form field `image`; returns a Cloudinary URL. |
+| POST | `/api/checkout/webhook` | Stripe webhook endpoint; configure this URL in Stripe. No JWT is required. |
+
+### Admin endpoints
+
+All admin routes require a JWT and `role: "admin"`.
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET/POST/PUT/DELETE | `/auth/admin/all-users`, `/auth/admin/create-user`, `/auth/admin/user-update/:id`, `/auth/admin/user-delete/:id` | Manage users. |
+| GET | `/auth/admin/products` | List all products, including unpublished products. |
+| POST/PUT/DELETE | `/api/products/create`, `/api/products/:id`, `/api/products/:id` | Create, update, or delete products. |
+| GET/PUT/DELETE | `/auth/admin/orders`, `/auth/admin/order-update/:id`, `/auth/admin/order-delete/:id` | Manage orders. Order status can be `Processing`, `Shipped`, `Delivered`, or `Cancelled`. |
 
 ## Database Schema
-Describe your main tables/collections and their fields.
+
+MongoDB collections are created by Mongoose:
+
+- `User`: name, email, hashed password, role, wishlist, viewed products, timestamps.
+- `Product`: name, description, pricing, stock, SKU, category, brand, sizes, colors, collection, images, ratings, publication flags, and owner.
+- `Cart`: optional user or guest ID, selected products, quantities, and total price.
+- `Checkout`: checkout items, shipping address, payment method/status, total, and finalization state.
+- `Order`: user, items, shipping address, payment information, delivery state, and order status.
+- `Subscriber`: unique email and subscription timestamp.
 
 ## Running Tests
-Explain how to run unit/integration tests.
-```
-npm test
-```
+
+No automated tests are configured yet. `npm test` currently exits with the package placeholder message. Use `npm start` and exercise the API with Postman or the frontend.
 
 ## Common Issues
-List any common problems and solutions.
+
+- **Database connection failed:** verify `MONGODB_URI`, MongoDB availability, and network access for Atlas.
+- **Invalid token:** use `Authorization: Bearer <token>` and ensure `JWT_SECRET` is unchanged between login and protected requests.
+- **Stripe errors:** set a valid test `STRIPE_SECRET_KEY`; configure `STRIPE_WEBHOOK_SECRET` for webhook verification.
+- **Upload errors:** verify all three Cloudinary variables and send a multipart field named `image`.
+- **Port already in use:** change `PORT` in `.env` and update the frontend API URL if necessary.
 
 ## Contributing
-Explain how others can contribute.
 
----
-
-*Fill in each section as you build your backend. This structure helps anyone understand and develop your project easily.*
+Create a focused branch, keep secrets out of commits, follow the existing Express/Mongoose structure, and test affected endpoints before opening a pull request.
