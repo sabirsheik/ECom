@@ -1,168 +1,58 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaHeart, FaStar } from "react-icons/fa";
+import { Heart, Plus } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  rateProduct,
-  toggleWishlistProduct,
-  fetchRecommendations,
-} from "../../redux/slices/ProductSlice";
+import { toggleWishlistProduct, fetchRecommendations } from "../../redux/slices/ProductSlice";
 import { setUserWishlist } from "../../redux/slices/authSlices";
 import { toast } from "sonner";
 
+const ProductSkeleton = () => (
+  <div className="animate-pulse"><div className="aspect-[3/4] bg-[#e6e0d7]" /><div className="mt-4 h-4 w-3/4 bg-[#e6e0d7]" /><div className="mt-2 h-3 w-1/3 bg-[#e6e0d7]" /></div>
+);
 const ProductGrid = ({ products, loading, error, onWishlistToggle }) => {
   const dispatch = useDispatch();
-  const [ratings, setRatings] = useState({});
-  const { user } = useSelector((state) => state.auth);
-  const { guestWishlist, viewedProductIds } = useSelector((state) => state.product);
-
-  const likedIds = user?.wishlist?.map((id) => id.toString()) || guestWishlist;
-
-  // Initialize ratings once products are available
-  useEffect(() => {
-    if (Array.isArray(products)) {
-      const initialRatings = products.reduce((acc, product) => {
-        acc[product._id] = Math.round(product.rating) || 0;
-        return acc;
-      }, {});
-      setRatings(initialRatings);
+  const [pendingWishlist, setPendingWishlist] = useState(null);
+  const { user, guestWishlist, viewedProductIds } = useSelector((state) => state.auth ? { ...state.auth, ...state.product } : {});
+  const likedIds = user?.wishlist?.map((id) => id.toString()) || guestWishlist || [];
+  const handleWishlistToggle = async (productId) => {
+    setPendingWishlist(productId);
+    try {
+      const payload = await dispatch(toggleWishlistProduct({ productId, isAuthenticated: Boolean(user) })).unwrap();
+      if (payload.wishlist) dispatch(setUserWishlist(payload.wishlist));
+      dispatch(fetchRecommendations({ user, viewedProductIds }));
+      onWishlistToggle?.(productId);
+    } catch (err) {
+      toast.error(err?.message || "Unable to update wishlist");
+    } finally {
+      setPendingWishlist(null);
     }
-  }, [products]);
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center py-16">
-        <p className="text-gray-500 text-lg">Loading products...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex justify-center items-center py-16">
-        <p className="text-red-500">Error: {error}</p>
-      </div>
-    );
-  }
-
-  if (!Array.isArray(products) || products.length === 0) {
-    return (
-      <div className="flex justify-center items-center py-16">
-        <p className="text-gray-500">No products found.</p>
-      </div>
-    );
-  }
-
-  const handleRatingChange = (productId, newRating) => {
-    setRatings((prevRatings) => ({
-      ...prevRatings,
-      [productId]: newRating,
-    }));
-
-    if (!user) {
-      toast.error("Please login to submit ratings");
-      return;
-    }
-
-    dispatch(rateProduct({ productId, rating: newRating }))
-      .unwrap()
-      .then(() => toast.success("Rating submitted"))
-      .catch((err) => toast.error(err?.message || "Failed to submit rating"));
   };
-
-  const handleWishlistToggle = (productId) => {
-    const isAuthenticated = Boolean(user);
-
-    dispatch(toggleWishlistProduct({ productId, isAuthenticated }))
-      .unwrap()
-      .then((payload) => {
-        if (payload.wishlist) {
-          dispatch(setUserWishlist(payload.wishlist));
-        }
-        dispatch(fetchRecommendations({ user, viewedProductIds }));
-        if (onWishlistToggle) {
-          onWishlistToggle(productId);
-        }
-      })
-      .catch((err) => {
-        toast.error(err?.message || "Failed to update wishlist");
-      });
-  };
-
+  if (loading) return <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">{Array.from({ length: 8 }).map((_, index) => <ProductSkeleton key={index} />)}</div>;
+  if (error) return <div className="border border-[var(--line)] bg-[var(--surface)] p-10 text-center text-sm text-[var(--error)]">{error}</div>;
+  if (!Array.isArray(products) || products.length === 0) return <div className="border border-[var(--line)] bg-[var(--surface)] p-16 text-center"><p className="display-title text-3xl">Nothing here yet.</p><p className="mt-3 text-sm text-[var(--ink-soft)]">Try adjusting your filters or search.</p></div>;
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+    <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
       {products.map((product) => {
-        // Backend uses countInPrice as stock quantity.
-        const hasStock = Number(product.countInPrice || 0) > 0;
+        const firstImage = product.images?.[0];
+        const secondImage = product.images?.[1];
+        const isLiked = likedIds.includes(product._id) || likedIds.includes(product._id?.toString());
+        const inStock = Number(product.countInPrice || 0) > 0;
         return (
-        <div
-          key={product._id}
-          className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-3 transition-all duration-500"
-        >
-          <div className="w-full h-80 overflow-hidden relative">
-            <img
-              src={product.images[0]?.url}
-              alt={product.images[0]?.alt || product.name}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-            {/* Stock Badge */}
-            <span
-              className={`absolute top-4 left-4 px-3 py-1 text-xs font-bold rounded-full ${
-                hasStock
-                  ? "bg-green-500 text-white"
-                  : "bg-red-500 text-white"
-              }`}
-            >
-              {hasStock ? "In Stock" : "Out of Stock"}
-            </span>
-
-            {/* Wishlist Icon */}
-            <button
-              onClick={() => handleWishlistToggle(product._id)}
-              className="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md hover:bg-red-500 hover:text-white transition-all duration-300"
-            >
-              <FaHeart className={likedIds.includes(product._id) ? "text-red-600" : "text-gray-500"} />
-            </button>
-          </div>
-
-          <div className="p-6">
-            <h3 className="text-lg font-bold text-gray-800 mb-1 group-hover:text-e-hover transition-colors duration-300">
-              {product.name}
-            </h3>
-
-            {/* Price */}
-            <p className="text-gray-700 font-semibold text-base">
-              Rs {product.price}
-            </p>
-
-            {/* Rating */}
-            <div className="flex items-center mt-2">
-              {Array.from({ length: 5 }).map((_, index) => (
-                <FaStar
-                  key={index}
-                  className={`h-6 w-6 cursor-pointer transition-colors duration-300 ${
-                    index < ratings[product._id]
-                      ? "text-yellow-400"
-                      : "text-gray-300"
-                  }`}
-                  onClick={() => handleRatingChange(product._id, index + 1)}
-                />
-              ))}
-              <span className="ml-2 text-sm text-gray-600">
-                {Number(product.rating || ratings[product._id] || 0)} / 5 ({Number(product.ratingCount || 0)})
-              </span>
+          <article key={product._id} className="group">
+            <div className="relative aspect-[3/4] overflow-hidden bg-[#e9e3da]">
+              <Link to={`/product/${product._id}`} className="block h-full">
+                {firstImage?.url && <img src={firstImage.url} alt={firstImage.alt || product.name} loading="lazy" className={`absolute inset-0 h-full w-full object-cover transition duration-700 ${secondImage?.url ? "group-hover:opacity-0" : "group-hover:scale-[1.03]"}`} />}
+                {secondImage?.url && <img src={secondImage.url} alt={secondImage.alt || product.name} loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-0 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100" />}
+              </Link>
+              {!inStock && <span className="absolute left-3 top-3 bg-[var(--surface)] px-2 py-1 text-[0.58rem] font-bold uppercase tracking-wider">Sold out</span>}
+              {Number(product.discountPrice || 0) > 0 && <span className="absolute left-3 top-3 bg-[var(--ink)] px-2 py-1 text-[0.58rem] font-bold uppercase tracking-wider text-white">Sale</span>}
+              <button onClick={() => handleWishlistToggle(product._id)} disabled={pendingWishlist === product._id} className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center bg-[var(--surface)] transition hover:bg-[var(--ink)] hover:text-white" aria-label={isLiked ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}>
+                <Heart size={16} strokeWidth={1.5} fill={isLiked ? "currentColor" : "none"} />
+              </button>
+              <Link to={`/product/${product._id}`} className="absolute bottom-3 left-3 right-3 flex translate-y-2 items-center justify-center gap-2 bg-[var(--surface)] py-3 text-[0.62rem] font-bold uppercase tracking-[0.16em] opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">View product <Plus size={14} strokeWidth={1.5} /></Link>
             </div>
-
-            {/* View Details Button */}
-            <Link
-              to={`/product/${product._id}`}
-              className="block mt-4 text-center bg-e-black text-white py-2 text-sm font-medium hover:bg-e-hover transition-all duration-300 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0"
-            >
-              View Details
-            </Link>
-          </div>
-        </div>
+            <Link to={`/product/${product._id}`} className="block pt-4"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><h3 className="truncate text-sm font-semibold">{product.name}</h3><p className="mt-1 text-xs text-[var(--ink-soft)]">{product.category || "Collection"}</p></div><p className="shrink-0 text-sm font-semibold">Rs {Number(product.price || 0).toLocaleString()}</p></div></Link>
+          </article>
         );
       })}
     </div>

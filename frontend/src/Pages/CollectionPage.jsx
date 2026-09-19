@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FaFilter } from "react-icons/fa";
+import { SlidersHorizontal } from "lucide-react";
 import FilterSidebar from "../components/Products/FilterSidebar";
 import SortOptions from "../components/Products/SortOptions";
 import ProductGrid from "../components/Products/ProductGrid";
@@ -51,14 +51,15 @@ const CollectionPage = () => {
     );
   }, [dispatch, searchParams]);
   return (
-    <>                                                             
-      <div ref={sidebarRef} className="flex flex-col lg:flex-row">
+    <div className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-14 lg:px-12">
+      <div ref={sidebarRef} className="flex flex-col gap-8 lg:flex-row">
         {/* Mobile Filter Button */}
         <button
           onClick={toggleSidebar}
-          className="lg:hidden border p-2 flex justify-center items-center"
+            className="flex items-center justify-center gap-2 border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-xs font-bold uppercase tracking-[0.14em] lg:hidden"
         >
-          <FaFilter className="mr-2" />
+            <SlidersHorizontal size={16} strokeWidth={1.5} />
+            Filters
         </button>
         {/* Filter Sidebar */}
         <div>
@@ -69,10 +70,11 @@ const CollectionPage = () => {
             } fixed inset-y-0 z-50 left-0 w-64 bg-white overflow-y-auto transition-transform duration-300 lg:static lg:translate-x-0`}
           />
         </div>
-        <div className="flex-grow p-4">
-            <h2 className="text-2xl uppercase mb-4">
-                All Collection
-            </h2>
+        <div className="min-w-0 flex-grow">
+          <div className="mb-8 flex flex-col justify-between gap-4 border-b border-[var(--line)] pb-6 sm:flex-row sm:items-end">
+            <div><p className="eyebrow mb-2">The catalogue</p><h1 className="display-title text-5xl">All collection</h1></div>
+            <p className="text-sm text-[var(--ink-soft)]">Discover pieces for the everyday edit.</p>
+          </div>
 
             {/* Sort Options */}
              <SortOptions />
@@ -80,7 +82,7 @@ const CollectionPage = () => {
              <ProductGrid products={products} loading={loading} error={error} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
