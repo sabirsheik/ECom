@@ -17,14 +17,10 @@ const MyOrderPages = () => {
   }
 
   return (
-    <div className="mx-auto max-w-screen-xl px-2 py-6 sm:px-4 sm:py-8">
-      <h1 className="mb-6 text-center text-2xl font-bold text-gray-800 sm:mb-8 sm:text-3xl">
-        My Orders
-      </h1>
-
-      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+    <div className="py-5">
+      <div className="overflow-x-auto border-y border-[var(--line)]">
         <table className="min-w-full table-fixed">
-          <thead className="bg-gradient-to-r from-gray-200 via-gray to-gray-100 text-gray-700">
+          <thead className="text-[0.62rem] uppercase tracking-[0.16em] text-[var(--ink-soft)]">
             <tr className="text-sm sm:text-base text-left whitespace-nowrap">
               <th className="px-4 py-4 font-semibold tracking-wide">Image</th>
               <th className="px-4 py-4 font-semibold tracking-wide">
@@ -48,7 +44,7 @@ const MyOrderPages = () => {
             </tr>
           </thead>
 
-          <tbody className="text-gray-800 text-sm sm:text-base">
+          <tbody className="text-sm text-[var(--ink)]">
             {orders.length > 0 ? (
               orders.map((order) => {
                 const firstItem = Array.isArray(order.orderItem) && order.orderItem.length > 0
@@ -59,17 +55,17 @@ const MyOrderPages = () => {
                 <tr
                 onClick={()=>handleRowClick(order._id)}
                   key={order._id}
-                  className="hover:bg-gray-50 cursor-pointer transition duration-200 border-b"
+                  className="cursor-pointer border-b border-[var(--line)] transition duration-200 hover:bg-[var(--surface)]"
                 >
                   <td className="p-4">
                     {firstItem ? (
                       <img
                         src={firstItem.image}
                         alt={firstItem.name}
-                        className="h-12 w-12 rounded-md border object-cover shadow-sm transition-transform duration-200 hover:scale-105"
+                        className="h-12 w-12 object-cover transition-transform duration-200 hover:scale-105"
                       />
                     ) : (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-md border text-xs text-slate-400">
+                      <div className="flex h-12 w-12 items-center justify-center border border-[var(--line)] text-xs text-[var(--ink-soft)]">
                         N/A
                       </div>
                     )}
@@ -79,11 +75,11 @@ const MyOrderPages = () => {
                   </td>
                   <td className="p-4">
                     <div>{new Date(order.createdAt).toLocaleDateString()}</div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-[var(--ink-soft)]">
                       {new Date(order.createdAt).toLocaleTimeString()}
                     </div>
                   </td>
-                  <td className="p-4 text-gray-600">
+                  <td className="p-4 text-[var(--ink-soft)]">
                     {order.shippingAddress
                       ? `${order.shippingAddress.address || ""}, ${order.shippingAddress.city}, ${order.shippingAddress.country}`
                       : "N/A"}
@@ -98,8 +94,8 @@ const MyOrderPages = () => {
                     <span
                       className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
                         order.isPaid
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-600"
+                          ? "bg-[#e2eee5] text-[var(--success)]"
+                          : "bg-[#f3e3de] text-[var(--error)]"
                       }`}
                     >
                       {order.isPaid ? "Paid" : "Pending"}
@@ -112,7 +108,7 @@ const MyOrderPages = () => {
               <tr>
                 <td
                   colSpan={7}
-                  className="text-center text-gray-400 py-10 font-medium"
+                  className="py-12 text-center font-medium text-[var(--ink-soft)]"
                 >
                   {loading ? "Loading orders..." : "No orders found"}
                 </td>
