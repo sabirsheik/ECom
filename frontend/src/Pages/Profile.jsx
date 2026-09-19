@@ -95,66 +95,68 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-8 md:py-10">
-      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-3">
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-slate-900">Profile Info</h2>
+    <div className="min-h-screen bg-[var(--paper)] px-5 py-12 sm:px-8 lg:px-12">
+      <div className="mx-auto grid max-w-[1200px] gap-8 lg:grid-cols-3">
+        <div className="premium-panel p-6">
+          <p className="eyebrow mb-3">Account / Identity</p>
+          <h2 className="display-title mb-5 text-4xl">Profile</h2>
           <div className="text-center">
-            <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-amber-100 text-3xl font-bold text-amber-700">
+            <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center bg-[var(--graphite)] text-3xl font-bold text-[#eee9df]">
               {initials}
             </div>
-            <h1 className="text-xl font-semibold text-slate-900">{user?.name || "User"}</h1>
-            <p className="mt-1 text-sm text-slate-500">{user?.email || "-"}</p>
-            <span className="mt-3 inline-block rounded-full bg-slate-100 px-3 py-1 text-xs font-medium uppercase text-slate-600">
+            <h1 className="display-title text-3xl">{user?.name || "User"}</h1>
+            <p className="mt-1 text-sm text-[var(--ink-soft)]">{user?.email || "-"}</p>
+            <span className="mt-3 inline-block bg-[var(--paper)] px-3 py-1 text-xs font-medium uppercase text-[var(--ink-soft)]">
               {user?.role || "customer"}
             </span>
           </div>
 
           <button
             onClick={handleLogout}
-            className="mt-6 w-full rounded-lg bg-red-600 px-4 py-2.5 font-medium text-white transition-colors duration-300 hover:bg-red-700"
+            className="premium-button mt-6 w-full"
           >
             Logout
           </button>
 
           <button
             onClick={handleDeleteAccount}
-            className="mt-3 w-full rounded-lg border border-red-300 bg-white px-4 py-2.5 font-medium text-red-600 transition-colors duration-300 hover:bg-red-50"
+            className="mt-3 w-full border border-[#d9aaa0] bg-transparent px-4 py-2.5 font-medium text-[var(--error)] transition-colors duration-300 hover:bg-[#f7e9e5]"
           >
             Delete Account
           </button>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-2">
-          <h2 className="mb-5 text-2xl font-semibold text-slate-900">Edit Profile</h2>
+        <div className="premium-panel p-6 lg:col-span-2">
+          <p className="eyebrow mb-2">Account / Details</p>
+          <h2 className="display-title mb-7 text-4xl">Edit profile</h2>
 
           <form onSubmit={handleUpdateProfile} className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">Full Name</label>
+              <label className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[var(--ink-soft)]">Full Name</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-slate-300 px-3 py-2.5 outline-none transition-all duration-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200"
+                className="premium-input"
               />
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">Email Address</label>
+              <label className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[var(--ink-soft)]">Email Address</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-slate-300 px-3 py-2.5 outline-none transition-all duration-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200"
+                className="premium-input"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="mb-2 block text-sm font-medium text-slate-700">New Password (optional)</label>
+              <label className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[var(--ink-soft)]">New Password (optional)</label>
               <input
                 type="password"
                 name="password"
@@ -162,7 +164,7 @@ const Profile = () => {
                 onChange={handleChange}
                 minLength={6}
                 placeholder="Leave empty to keep existing password"
-                className="w-full rounded-lg border border-slate-300 px-3 py-2.5 outline-none transition-all duration-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200"
+                className="premium-input"
               />
             </div>
 
@@ -170,7 +172,7 @@ const Profile = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="rounded-lg bg-slate-900 px-5 py-2.5 font-medium text-white transition-colors duration-300 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-60"
+                className="premium-button disabled:cursor-not-allowed"
               >
                 {loading ? "Saving..." : "Save Changes"}
               </button>
@@ -179,8 +181,9 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="mx-auto mt-8 max-w-6xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="mb-4 text-2xl font-semibold text-slate-900">My Orders</h2>
+      <div className="premium-panel mx-auto mt-8 max-w-[1200px] p-6">
+        <p className="eyebrow mb-2">Account / Activity</p>
+        <h2 className="display-title mb-4 text-4xl">My orders</h2>
         <MyOrderPages />
       </div>
     </div>
