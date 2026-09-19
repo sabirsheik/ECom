@@ -65,15 +65,15 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <nav className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
         <div>
-          <Link to="/" className="text-2xl font-semibold tracking-tight text-slate-900 transition-colors duration-300 hover:text-amber-600">
-            E-Commerce
+          <Link to="/" className="display-title text-3xl font-semibold tracking-tight text-[var(--ink)] transition-colors duration-300 hover:text-[var(--bronze-deep)]">
+            E / C
           </Link>
         </div>
 
         <div className="relative hidden items-center gap-8 md:flex">
-          <Link to="/" className="text-sm font-semibold uppercase tracking-wide text-slate-700 transition-colors duration-300 hover:text-amber-600">
+          <Link to="/" className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[var(--ink-soft)] transition-colors duration-300 hover:text-[var(--bronze-deep)]">
             Home
           </Link>
 
@@ -82,13 +82,13 @@ const Navbar = () => {
             onMouseEnter={() => setShopDropdownOpen(true)}
             onMouseLeave={() => setShopDropdownOpen(false)}
           >
-            <button className="flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-slate-700 transition-colors duration-300 hover:text-amber-600">
+            <button className="flex items-center gap-1 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[var(--ink-soft)] transition-colors duration-300 hover:text-[var(--bronze-deep)]">
               Shop
               <HiChevronDown className={`h-4 w-4 transition-transform duration-300 ${shopDropdownOpen ? "rotate-180" : ""}`} />
             </button>
 
             <div
-              className={`absolute left-0 top-8 w-56 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl transition-all duration-300 ${
+              className={`absolute left-0 top-8 w-56 overflow-hidden border border-[var(--line)] bg-[var(--surface-elevated)] shadow-xl transition-all duration-300 ${
                 shopDropdownOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0"
               }`}
             >
@@ -96,7 +96,7 @@ const Navbar = () => {
                 <Link
                   key={item.label}
                   to={item.to}
-                  className="block border-b border-slate-100 px-4 py-3 text-sm text-slate-700 transition-colors duration-300 last:border-b-0 hover:bg-amber-50 hover:text-amber-700"
+                  className="block border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--ink-soft)] transition-colors duration-300 last:border-b-0 hover:bg-[var(--paper)] hover:text-[var(--ink)]"
                 >
                   {item.label}
                 </Link>
@@ -104,7 +104,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          <Link to="/collections" className="text-sm font-semibold uppercase tracking-wide text-slate-700 transition-colors duration-300 hover:text-amber-600">
+          <Link to="/collections" className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[var(--ink-soft)] transition-colors duration-300 hover:text-[var(--bronze-deep)]">
             Collections
           </Link>
         </div>
@@ -113,7 +113,7 @@ const Navbar = () => {
           {user?.role === "admin" && (
             <Link
               to="/admin"
-              className="hidden rounded-md bg-slate-900 px-3 py-2 text-center text-xs font-medium text-white transition-all duration-300 hover:bg-slate-700 lg:inline-block"
+              className="hidden bg-[var(--graphite)] px-3 py-2 text-center text-[0.62rem] font-bold uppercase tracking-[0.14em] text-white transition-all duration-300 hover:bg-[var(--bronze-deep)] lg:inline-block"
             >
               Admin Dashboard
             </Link>
@@ -125,11 +125,11 @@ const Navbar = () => {
 
           <button
             onClick={toggleCartDrawer}
-            className="relative text-slate-700 transition-colors duration-300 hover:text-amber-600"
+            className="relative text-[var(--ink-soft)] transition-colors duration-300 hover:text-[var(--bronze-deep)]"
             aria-label="Open cart"
           >
             <HiOutlineShoppingBag className="h-6 w-6" />
-            <span className="absolute -right-2 -top-2 rounded-full bg-slate-900 px-1.5 py-0.5 text-[10px] text-white">
+            <span key={cartItemCount} className="cart-count absolute -right-2 -top-2 rounded-full bg-[var(--graphite)] px-1.5 py-0.5 text-[10px] text-white" aria-label={`${cartItemCount} items in cart`}>
               {cartItemCount}
             </span>
           </button>
@@ -139,30 +139,30 @@ const Navbar = () => {
               <>
                 <button
                   onClick={() => setAccountDropdownOpen((prev) => !prev)}
-                  className="flex items-center gap-1 text-slate-700 transition-colors duration-300 hover:text-amber-600"
+                  className="flex items-center gap-1 text-[var(--ink-soft)] transition-colors duration-300 hover:text-[var(--bronze-deep)]"
                 >
                   <HiOutlineUser className="h-6 w-6" />
                   <HiChevronDown className={`h-4 w-4 transition-transform duration-300 ${accountDropdownOpen ? "rotate-180" : ""}`} />
                 </button>
 
                 <div
-                  className={`absolute right-0 top-9 w-56 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl transition-all duration-300 ${
+                    className={`absolute right-0 top-9 w-56 overflow-hidden border border-[var(--line)] bg-[var(--surface-elevated)] shadow-xl transition-all duration-300 ${
                     accountDropdownOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0"
                   }`}
                 >
-                  <div className="border-b border-slate-100 px-4 py-3">
-                    <p className="text-sm font-semibold text-slate-900">{user.name}</p>
-                    <p className="truncate text-xs text-slate-500">{user.email}</p>
+                  <div className="border-b border-[var(--line)] px-4 py-3">
+                    <p className="text-sm font-semibold text-[var(--ink)]">{user.name}</p>
+                    <p className="truncate text-xs text-[var(--ink-soft)]">{user.email}</p>
                   </div>
-                  <Link to="/profile" onClick={() => setAccountDropdownOpen(false)} className="block border-b border-slate-100 px-4 py-3 text-sm text-slate-700 transition-colors duration-300 hover:bg-amber-50 hover:text-amber-700">
+                  <Link to="/profile" onClick={() => setAccountDropdownOpen(false)} className="block border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--ink-soft)] transition-colors duration-300 hover:bg-[var(--paper)] hover:text-[var(--ink)]">
                     Profile
                   </Link>
-                  <Link to="/my-order" onClick={() => setAccountDropdownOpen(false)} className="block border-b border-slate-100 px-4 py-3 text-sm text-slate-700 transition-colors duration-300 hover:bg-amber-50 hover:text-amber-700">
+                  <Link to="/my-order" onClick={() => setAccountDropdownOpen(false)} className="block border-b border-[var(--line)] px-4 py-3 text-sm text-[var(--ink-soft)] transition-colors duration-300 hover:bg-[var(--paper)] hover:text-[var(--ink)]">
                     My Orders
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="flex w-full items-center gap-2 px-4 py-3 text-left text-sm text-red-600 transition-colors duration-300 hover:bg-red-50"
+                    className="flex w-full items-center gap-2 px-4 py-3 text-left text-sm text-[var(--error)] transition-colors duration-300 hover:bg-[#f7e9e5]"
                   >
                     <HiArrowRightOnRectangle className="h-4 w-4" />
                     Logout
@@ -171,10 +171,10 @@ const Navbar = () => {
               </>
             ) : (
               <div className="flex items-center gap-2">
-                <Link to="/login" className="rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-700 transition-colors duration-300 hover:bg-slate-100">
+                <Link to="/login" className="border border-[var(--line)] px-3 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[var(--ink-soft)] transition-colors duration-300 hover:bg-[var(--paper)]">
                   Login
                 </Link>
-                <Link to="/register" className="rounded-md bg-slate-900 px-3 py-1.5 text-sm text-white transition-colors duration-300 hover:bg-slate-700">
+                <Link to="/register" className="bg-[var(--graphite)] px-3 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-white transition-colors duration-300 hover:bg-[var(--bronze-deep)]">
                   Register
                 </Link>
               </div>
@@ -182,7 +182,7 @@ const Navbar = () => {
           </div>
 
           <button onClick={toggleNavDrawer} className="md:hidden" aria-label="Open navigation menu">
-            <HiBars3BottomRight className="h-6 w-6 text-slate-800 transition-colors duration-300 hover:text-amber-600" />
+            <HiBars3BottomRight className="h-6 w-6 text-[var(--ink-soft)] transition-colors duration-300 hover:text-[var(--bronze-deep)]" />
           </button>
         </div>
       </nav>
@@ -190,26 +190,26 @@ const Navbar = () => {
       <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer} />
 
       <div
-        className={`fixed left-0 top-0 z-50 h-full w-3/4 transform bg-white shadow-xl transition-transform duration-300 sm:w-1/2 ${
+        className={`fixed left-0 top-0 z-50 h-full w-3/4 transform bg-[var(--surface-elevated)] shadow-xl transition-transform duration-300 sm:w-1/2 ${
           navDrawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-slate-200 p-4">
-          <p className="text-lg font-semibold text-slate-900">Menu</p>
+        <div className="flex items-center justify-between border-b border-[var(--line)] p-4">
+          <p className="display-title text-2xl">Menu</p>
           <button onClick={toggleNavDrawer}>
-            <IoMdClose className="h-6 w-6 text-slate-800 transition-colors duration-300 hover:text-amber-600" />
+            <IoMdClose className="h-6 w-6 text-[var(--ink-soft)] transition-colors duration-300 hover:text-[var(--bronze-deep)]" />
           </button>
         </div>
 
         <div className="p-4">
-          <div className="mb-4 border-b border-slate-200 pb-4 md:hidden">
+          <div className="mb-4 border-b border-[var(--line)] pb-4 md:hidden">
             <SearchBar />
           </div>
 
           <nav className="space-y-2">
             <Link
               to="/"
-              className="block rounded-md px-3 py-2 text-slate-700 transition-colors duration-300 hover:bg-slate-100"
+              className="block px-3 py-2 text-[var(--ink-soft)] transition-colors duration-300 hover:bg-[var(--paper)] hover:text-[var(--ink)]"
               onClick={toggleNavDrawer}
             >
               Home
@@ -219,7 +219,7 @@ const Navbar = () => {
               <Link
                 key={item.label}
                 to={item.to}
-                className="block rounded-md px-3 py-2 text-slate-700 transition-colors duration-300 hover:bg-slate-100"
+                className="block px-3 py-2 text-[var(--ink-soft)] transition-colors duration-300 hover:bg-[var(--paper)] hover:text-[var(--ink)]"
                 onClick={toggleNavDrawer}
               >
                 {item.label}
@@ -228,25 +228,25 @@ const Navbar = () => {
 
             {user ? (
               <>
-                <Link to="/profile" className="block rounded-md px-3 py-2 text-slate-700 transition-colors duration-300 hover:bg-slate-100" onClick={toggleNavDrawer}>
+                <Link to="/profile" className="block px-3 py-2 text-[var(--ink-soft)] transition-colors duration-300 hover:bg-[var(--paper)] hover:text-[var(--ink)]" onClick={toggleNavDrawer}>
                   Profile
                 </Link>
-                <Link to="/my-order" className="block rounded-md px-3 py-2 text-slate-700 transition-colors duration-300 hover:bg-slate-100" onClick={toggleNavDrawer}>
+                <Link to="/my-order" className="block px-3 py-2 text-[var(--ink-soft)] transition-colors duration-300 hover:bg-[var(--paper)] hover:text-[var(--ink)]" onClick={toggleNavDrawer}>
                   My Orders
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="mt-2 w-full rounded-md bg-red-50 px-3 py-2 text-left text-red-600 transition-colors duration-300 hover:bg-red-100"
+                  className="mt-2 w-full bg-[#f7e9e5] px-3 py-2 text-left text-[var(--error)] transition-colors duration-300 hover:bg-[#efd5ce]"
                 >
                   Logout
                 </button>
               </>
             ) : (
               <div className="grid grid-cols-2 gap-2 pt-3">
-                <Link to="/login" className="rounded-md border border-slate-300 px-3 py-2 text-center text-sm text-slate-700" onClick={toggleNavDrawer}>
+                <Link to="/login" className="border border-[var(--line)] px-3 py-2 text-center text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[var(--ink-soft)]" onClick={toggleNavDrawer}>
                   Login
                 </Link>
-                <Link to="/register" className="rounded-md bg-slate-900 px-3 py-2 text-center text-sm text-white" onClick={toggleNavDrawer}>
+                <Link to="/register" className="bg-[var(--graphite)] px-3 py-2 text-center text-[0.68rem] font-bold uppercase tracking-[0.12em] text-white" onClick={toggleNavDrawer}>
                   Register
                 </Link>
               </div>
