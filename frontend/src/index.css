@@ -1,30 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-#root{
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
+:root {
+  --ink: #171614;
+  --ink-soft: #5e5a53;
+  --paper: #f5f1ea;
+  --surface: #fffdf9;
+  --line: #ded8cf;
+  --bronze: #a37a47;
+  --bronze-deep: #79552e;
+  --success: #426b56;
+  --error: #a34f43;
+  --display: "Cormorant Garamond", Georgia, serif;
+  --sans: "DM Sans", "Helvetica Neue", sans-serif;
 }
 
-* {
-  border-radius: 0 !important;
+html {
+  background: var(--paper);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  :root {
+    --ink: #171614;
+    --ink-soft: #5e5a53;
+    --paper: #f5f1ea;
+    --surface: #fffdf9;
+    --line: #ded8cf;
+    --bronze: #a37a47;
+    --bronze-deep: #79552e;
+    --success: #426b56;
+    --error: #a34f43;
+    --display: "Cormorant Garamond", Georgia, serif;
+    --sans: "DM Sans", "Helvetica Neue", sans-serif;
+  }
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
 }
 
 input,
 select,
 textarea {
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--ink);
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-  border-color: #111827;
-  box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.15);
+  border-color: var(--bronze);
+  box-shadow: 0 0 0 3px rgba(163, 122, 71, 0.18);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--bronze);
+  outline-offset: 4px;
+}
+
+@layer components {
+  .storefront-shell {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .eyebrow {
+    color: var(--bronze-deep);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .display-title {
+    font-family: var(--display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .editorial-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--ink);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .editorial-link::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -0.45rem;
+    left: 0;
+    height: 1px;
+    background: var(--bronze);
+    transform: scaleX(0.35);
+    transform-origin: left;
+    transition: transform 220ms ease;
+  }
+
+  .editorial-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .reveal-up {
+    animation: reveal-up 700ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+  }
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
 }
 
 /* tailwind.css or global.css */
