@@ -41,80 +41,57 @@ const Register = () => {
   };
 
   return (
-    <>
-      <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-gray-50">
-        <div className="flex flex-col justify-center items-center p-8 md:p-12 animate-in fade-in duration-300">
-          <form
-            onSubmit={handleSubmit}
-            className="w-full max-w-md bg-white p-8 border border-gray-200 shadow-md"
-          >
-            <div className="mb-6">
-              <h2 className="text-xl font-medium tracking-wide">E - Commerce</h2>
-            </div>
-            <h2 className="text-3xl font-semibold mb-2">Create account</h2>
-            <p className="mb-6 text-sm text-gray-600">
-              Enter your Name, email and password to register
-            </p>
+    <div className="grid min-h-[calc(100vh-7rem)] grid-cols-1 bg-[var(--paper)] md:grid-cols-[0.85fr_1.15fr]">
+      <div className="flex items-center justify-center px-5 py-16 sm:px-10 lg:px-16">
+        <form onSubmit={handleSubmit} className="w-full max-w-md">
+          <p className="eyebrow mb-5">Begin here</p>
+          <h2 className="display-title text-5xl">Make room for more.</h2>
+          <p className="mb-8 mt-3 max-w-sm text-sm leading-6 text-[var(--ink-soft)]">Create an account to save pieces and follow your orders.</p>
             {error && (
-              <div className="mb-4 p-3 bg-red-50 border border-red-300 text-red-700 text-sm">
+              <div className="mb-5 border border-[#d9aaa0] bg-[#f7e9e5] p-3 text-sm text-[var(--error)]">
                 {typeof error === "string"
                   ? error
                   : error.message || "Registration failed. Please try again."}
               </div>
             )}
-            <div className="mb-4">
-              <label
-                htmlFor="name"
-                className="block text-sm font-semibold mb-2"
-              >
-                Name
-              </label>
+            <div className="mb-5">
+              <label htmlFor="name" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[var(--ink-soft)]">Name</label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 onChange={handleChange}
                 value={formData.name}
-                className="w-full p-3 border border-gray-300 bg-white"
-                placeholder="Enter your name"
+                className="premium-input"
+                placeholder="Your name"
                 required
                 autoComplete="name"
               />
             </div>
-            <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-semibold mb-2"
-              >
-                Email
-              </label>
+            <div className="mb-5">
+              <label htmlFor="email" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[var(--ink-soft)]">Email</label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 onChange={handleChange}
                 value={formData.email}
-                className="w-full p-3 border border-gray-300 bg-white"
-                placeholder="Enter your email"
+                className="premium-input"
+                placeholder="you@example.com"
                 required
                 autoComplete="email"
               />
             </div>
-            <div className="mb-4">
-              <label
-                htmlFor="password"
-                className="block text-sm font-semibold mb-2"
-              >
-                Password
-              </label>
+            <div className="mb-6">
+              <label htmlFor="password" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[var(--ink-soft)]">Password</label>
               <input
                 type="password"
                 id="password"
                 name="password"
                 onChange={handleChange}
                 value={formData.password}
-                className="w-full p-3 border border-gray-300 bg-white"
-                placeholder="Enter your password"
+                className="premium-input"
+                placeholder="At least 6 characters"
                 required
                 autoComplete="new-password"
                 minLength={6}
@@ -123,29 +100,26 @@ const Register = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-e-black text-white p-3 font-semibold hover:bg-e-hover transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="premium-button w-full"
             >
               {loading ? "Registering..." : "Register"}
             </button>
-            <p className="mt-6 text-center text-sm">
+            <p className="mt-7 text-center text-sm text-[var(--ink-soft)]">
               Already have an account?{" "}
-              <Link to="/login" className="text-blue-600">
+              <Link to="/login" className="font-semibold text-[var(--bronze-deep)] hover:underline">
                 Login
               </Link>
             </p>
           </form>
-        </div>
-        <div className="hidden md:block bg-gray-900">
-          <div className="h-full flex flex-col justify-center items-center">
-            <img
-              src={"https://picsum.photos/500/500?random=5"}
-              alt="Register to account"
-              className="h-full w-full object-cover opacity-90"
-            />
-          </div>
+      </div>
+      <div className="relative hidden overflow-hidden bg-[var(--graphite)] md:block">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_65%,rgba(170,128,80,0.3),transparent_40%),linear-gradient(135deg,#0b0b0c,#24201b)]" />
+        <div className="relative flex h-full flex-col justify-end p-12 text-[#eee9df] lg:p-20">
+          <p className="eyebrow text-[#c8a87e]">The current edit</p>
+          <p className="display-title mt-5 max-w-md text-6xl leading-[0.9]">Things with a longer life.</p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
