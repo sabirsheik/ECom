@@ -5,13 +5,13 @@ import { Outlet } from "react-router-dom";
 
 const UserLayout = () => {
   return (
-    <>
+    <div className="storefront-shell">
       <Header />
-      <main className="pt-[6.5rem] md:pt-[6.6rem]">
+      <main className="pt-[5.7rem] md:pt-[7.1rem]">
         <Outlet />
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
