@@ -6,7 +6,7 @@ import { FiFacebook } from "react-icons/fi";
 const Topbar = () => {
   return (
     <>
-      <div className="border-b border-slate-200 bg-white text-slate-700">
+      <div className="border-b border-[var(--line)] bg-[var(--surface)] text-[var(--ink-soft)]">
         <div className="mx-auto flex h-10 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="hidden items-center space-x-4 md:flex">
             <a href="#" className="transition-colors duration-300 hover:text-black" aria-label="Meta">
