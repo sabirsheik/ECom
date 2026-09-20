@@ -11,17 +11,17 @@ const FeatureCollection = () => {
           <h2 className="text-base font-semibold text-green-700 tracking-widest uppercase">
             Comfort Meets Style
           </h2>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+          <h1 className="display-title text-4xl leading-tight md:text-5xl">
             Apparel Made for You
           </h1>
-          <p className="text-lg text-gray-700">
+          <p className="text-lg text-[var(--ink-soft)]">
             Discover high-quality, comfortable clothing that effortlessly
             blends fashion and function. Designed to make you look and feel
             great every day.
           </p>
           <Link
             to="/collections"
-            className="inline-block bg-black text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-gray-500 transition duration-300"
+            className="premium-button"
           >
             Shop Now
           </Link>
