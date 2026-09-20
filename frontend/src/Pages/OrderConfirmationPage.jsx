@@ -18,29 +18,30 @@ const OrderConfirmationPage = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12 bg-gray-50 min-h-screen">
-      <div className="bg-white rounded-xl shadow-md p-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-center text-emerald-600 mb-10">
-          🎉 Thank You for Your Order!
+    <div className="min-h-screen bg-[var(--paper)] px-5 py-12 sm:px-8">
+      <div className="premium-panel mx-auto max-w-5xl p-6 sm:p-10">
+        <p className="eyebrow mb-3 text-center">Order confirmed</p>
+        <h1 className="display-title mb-10 text-center text-5xl sm:text-6xl">
+          Thank you for your order.
         </h1>
 
         {!order ? (
-          <p className="text-center text-gray-500">
+          <p className="py-12 text-center text-[var(--ink-soft)]">
             {loading ? "Loading confirmation..." : "No recent order available."}
           </p>
         ) : (
           <>
 
         {/* Order Info */}
-        <div className="flex flex-col md:flex-row justify-between mb-10 border-b pb-6">
+        <div className="mb-10 flex flex-col justify-between border-b border-[var(--line)] pb-6 md:flex-row">
           <div>
-            <h2 className="text-lg font-semibold mb-1 text-gray-800">
-              Order ID: <span className="font-normal text-gray-600">{order._id}</span>
+              <h2 className="text-lg font-semibold">
+              Order ID: <span className="font-normal text-[var(--ink-soft)]">{order._id}</span>
             </h2>
-            <p className="text-sm text-gray-500">
+              <p className="text-sm text-[var(--ink-soft)]">
               Order Date: {new Date(order.createdAt).toLocaleDateString()}
             </p>
-            <p className="text-sm text-gray-500">
+              <p className="text-sm text-[var(--ink-soft)]">
               Order Time:{" "}
               {new Date(order.createdAt).toLocaleString("en-US", {
                 dateStyle: "medium",
@@ -48,7 +49,7 @@ const OrderConfirmationPage = () => {
               })}
             </p>
           </div>
-          <div className="mt-4 md:mt-0 text-emerald-700 text-sm font-medium">
+          <div className="mt-4 text-sm font-medium text-[var(--success)] md:mt-0">
             Estimated Delivery: {calculateEstimatedDelivery(order.createdAt)}
           </div>
         </div>
@@ -58,7 +59,7 @@ const OrderConfirmationPage = () => {
           {(order.orderItem || []).map((item) => (
             <div
               key={item.productId?.toString()}
-              className="flex items-center justify-between border p-4 rounded-lg bg-gray-50 shadow-sm"
+              className="flex items-center justify-between border border-[var(--line)] bg-[var(--paper)] p-4"
             >
               <div className="flex items-center">
                 <img
@@ -67,15 +68,15 @@ const OrderConfirmationPage = () => {
                   className="w-16 h-16 rounded object-cover mr-4 border"
                 />
                 <div>
-                  <h4 className="text-md font-semibold text-gray-800">{item.name}</h4>
-                  <p className="text-sm text-gray-500">
+                  <h4 className="text-md font-semibold">{item.name}</h4>
+                  <p className="text-sm text-[var(--ink-soft)]">
                     {item.color} | Size {item.size}
                   </p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-md font-semibold text-gray-800">Rs {item.price}</p>
-                <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                <p className="text-md font-semibold">Rs {item.price}</p>
+                <p className="text-sm text-[var(--ink-soft)]">Qty: {item.quantity}</p>
               </div>
             </div>
           ))}
@@ -84,13 +85,13 @@ const OrderConfirmationPage = () => {
         {/* Payment & Delivery */}
         <div className="grid md:grid-cols-2 gap-6 border-t pt-6">
           <div>
-            <h4 className="text-lg font-semibold text-gray-800 mb-2">Payment Method</h4>
-            <p className="text-gray-600 text-sm">{order.paymentMethod || "N/A"}</p>
+            <h4 className="eyebrow mb-2">Payment method</h4>
+            <p className="text-sm text-[var(--ink-soft)]">{order.paymentMethod || "N/A"}</p>
           </div>
           <div>
-            <h4 className="text-lg font-semibold text-gray-800 mb-2">Delivery Address</h4>
-            <p className="text-gray-600 text-sm">{order.shippingAddress?.address || "N/A"}</p>
-            <p className="text-gray-600 text-sm">
+            <h4 className="eyebrow mb-2">Delivery address</h4>
+            <p className="text-sm text-[var(--ink-soft)]">{order.shippingAddress?.address || "N/A"}</p>
+            <p className="text-sm text-[var(--ink-soft)]">
               {order.shippingAddress?.city}, {order.shippingAddress?.country}
             </p>
           </div>
