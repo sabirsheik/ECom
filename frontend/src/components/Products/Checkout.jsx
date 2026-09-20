@@ -160,28 +160,32 @@ const Checkout = () => {
 
   return (
     <>
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-10 tracking-tight lg:grid-cols-2">
-        <div className="rounded-lg bg-white p-6 shadow-sm">
-          <h2 className="mb-6 text-2xl uppercase">Checkout</h2>
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-8 tracking-tight sm:px-6 lg:grid-cols-[minmax(0,1fr)_24rem] lg:px-10">
+        <div className="premium-panel p-5 sm:p-8">
+          <div className="mb-8 border-b border-[var(--line)] pb-5">
+            <p className="eyebrow mb-2">Almost yours</p>
+            <h2 className="display-title text-4xl">Checkout</h2>
+            <p className="mt-2 text-sm text-[var(--ink-soft)]">Delivery details, payment, then confirmation.</p>
+          </div>
           <form onSubmit={handleCreateCheckout}>
-            <h3 className="text-lg mb-4">Contact Details</h3>
+            <h3 className="eyebrow mb-4">Contact details</h3>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-700">
+              <label htmlFor="email" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
                 Email
               </label>
               <input
                 type="email"
                 name="email"
                 value={user?.email || ""}
-                className="w-full p-2 border rounded cursor-not-allowed"
+                  className="premium-input cursor-not-allowed opacity-70"
                 disabled
                 id="email"
               />
             </div>
-            <h3 className="text-lg mb-4">Delivery</h3>
+            <h3 className="eyebrow mb-4">Delivery</h3>
             <div className="mb-4 grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="firstName" className="block text-gray-700">
+                  <label htmlFor="firstName" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
                   First Name
                 </label>
                 <input
@@ -193,12 +197,12 @@ const Checkout = () => {
                       firstName: e.target.value,
                     });
                   }}
-                  className="w-full p-2 border rounded"
+                  className="premium-input"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="lastName" className="block text-gray-700">
+                  <label htmlFor="lastName" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
                   Last Name
                 </label>
                 <input
@@ -210,13 +214,13 @@ const Checkout = () => {
                       lastName: e.target.value,
                     });
                   }}
-                  className="w-full p-2 border rounded"
+                  className="premium-input"
                   required
                 />
               </div>
             </div>
             <div className="mb-4">
-                <label htmlFor="address" className="block text-gray-700">
+                <label htmlFor="address" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
                   Address
                 </label>
                 <input
@@ -228,13 +232,13 @@ const Checkout = () => {
                       address: e.target.value,
                     })
                 }
-                className="w-full p-2 border rounded"
+                className="premium-input"
                 required
                 />
               </div>
               <div className="mb-4 grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="city" className="block text-gray-700">
+                <label htmlFor="city" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
                   City
                 </label>
                 <input
@@ -246,12 +250,12 @@ const Checkout = () => {
                       city: e.target.value,
                     });
                   }}
-                  className="w-full p-2 border rounded"
+                  className="premium-input"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="postalCode" className="block text-gray-700">
+                <label htmlFor="postalCode" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
                 Postal Code
                 </label>
                 <input
@@ -263,13 +267,13 @@ const Checkout = () => {
                       postalCode: e.target.value,
                     });
                   }}
-                  className="w-full p-2 border rounded"
+                  className="premium-input"
                   required
                 />
               </div>
             </div>
               <div className="mb-4">
-                <label htmlFor="country" className="block text-gray-700">
+                <label htmlFor="country" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
                   Country
                 </label>
                 <input
@@ -281,12 +285,12 @@ const Checkout = () => {
                       country: e.target.value,
                     })
                 }
-                className="w-full p-2 border rounded"
+                className="premium-input"
                 required
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="phone" className="block text-gray-700">
+                <label htmlFor="phone" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
                   Phone
                 </label>
                 <input
@@ -298,15 +302,15 @@ const Checkout = () => {
                       phone: e.target.value,
                     })
                 }
-                className="w-full p-2 border rounded"
+                className="premium-input"
                 required
                 />
               </div>
 
             <div className="mb-4">
-              <p className="mb-2 block text-gray-700">Payment Method</p>
+              <p className="eyebrow mb-3">Payment method</p>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <label className={`cursor-pointer rounded border p-3 transition ${paymentMethod === "COD" ? "border-slate-900 bg-slate-50" : "border-slate-300"}`}>
+                <label className={`cursor-pointer border p-3 transition ${paymentMethod === "COD" ? "border-[var(--bronze)] bg-[var(--paper)]" : "border-[var(--line)]"}`}>
                   <input
                     type="radio"
                     name="paymentMethod"
@@ -317,7 +321,7 @@ const Checkout = () => {
                   />
                   Cash on Delivery
                 </label>
-                <label className={`cursor-pointer rounded border p-3 transition ${paymentMethod === "STRIPE" ? "border-slate-900 bg-slate-50" : "border-slate-300"}`}>
+                <label className={`cursor-pointer border p-3 transition ${paymentMethod === "STRIPE" ? "border-[var(--bronze)] bg-[var(--paper)]" : "border-[var(--line)]"}`}>
                   <input
                     type="radio"
                     name="paymentMethod"
@@ -335,7 +339,7 @@ const Checkout = () => {
               <button
                 type="submit"
                 disabled={loading || cartItems.length === 0}
-                className="w-full rounded bg-e-black py-3 text-white transition-colors duration-300 hover:bg-e-hover disabled:cursor-not-allowed disabled:opacity-60"
+                className="premium-button w-full disabled:cursor-not-allowed"
               >
                 {loading
                   ? "Processing..."
@@ -346,24 +350,24 @@ const Checkout = () => {
               </div>
           </form>
         </div>
-        <div className="rounded-lg bg-gray-50 p-6">
-            <h3 className="text-lg mb-4">Order Summary</h3>
-            <div className="border-t py-4 mb-4">
+        <div className="h-fit border-t border-[var(--line)] p-5 lg:sticky lg:top-28 lg:border-t-0 lg:border-l">
+          <h3 className="display-title mb-4 text-3xl">Order summary</h3>
+            <div className="mb-4 border-t border-[var(--line)] py-4">
               {cartItems.map((product, index) =>
                 (
-                    <div key={index} className="flex items-start justify-between py-2 border-b">
+                    <div key={index} className="flex items-start justify-between border-b border-[var(--line)] py-2">
                         <div className="flex items-center">
                             <img src={product.image} alt={product.name}
-                            className="w-20 h-2/4 object-cover mr-4"
+                            className="mr-4 h-20 w-16 object-cover"
                             />
                             <div>
                                 <h3 className="text-md">{product.name}</h3>
-                                <p className="text-gray-500">Size : {product.size}</p>
-                                <p className="text-gray-500">Color : {product.color}</p>
-                              <p className="text-gray-500">Qty : {product.quantity}</p>
+                                <p className="text-[var(--ink-soft)]">Size : {product.size}</p>
+                                <p className="text-[var(--ink-soft)]">Color : {product.color}</p>
+                              <p className="text-[var(--ink-soft)]">Qty : {product.quantity}</p>
                             </div>
                         </div>
-                            <p className="text-xl">Rs{(Number(product.price || 0) * Number(product.quantity || 0)).toLocaleString()}</p>
+                            <p className="whitespace-nowrap text-sm font-semibold">Rs {(Number(product.price || 0) * Number(product.quantity || 0)).toLocaleString()}</p>
                     </div>
                 )
                 )}
@@ -377,8 +381,8 @@ const Checkout = () => {
                 <p>Free</p>
             </div>
             <div className="flex justify-between items-center text-lg mt-4 border-t pt-4">
-                <p>Total</p>
-                <p>Rs {totalPrice.toLocaleString()}</p>
+                <p className="font-semibold">Total</p>
+                <p className="font-semibold">Rs {totalPrice.toLocaleString()}</p>
             </div>
         </div>
       </div>
