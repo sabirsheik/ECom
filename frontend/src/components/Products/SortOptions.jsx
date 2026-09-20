@@ -14,19 +14,19 @@ const SortOptions = () => {
     <div className="w-full mb-6">
       <div className="flex justify-end">
         <div className="w-full sm:w-60 relative">
-          <label htmlFor="sort" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="sort" className="mb-1 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
             Sort Products
           </label>
           <select
             id="sort"
             onChange={handleSortChange}
             value={searchParams.get("sortBy") || ""}
-            className="block w-full px-4 py-2 pr-8 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="block w-full border border-[var(--line)] bg-[var(--surface-elevated)] px-4 py-2 pr-8 text-[var(--ink)] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#aa8050]/20 focus:border-[var(--bronze)]"
           >
-            <option value="">Default</option>
+            <option value="">Newest</option>
             <option value="priceAsc">Price: Low to High</option>
             <option value="priceDesc">Price: High to Low</option>
-            <option value="popularity">Popularity</option>
+            <option value="popularity">Featured</option>
           </select>
         </div>
       </div>
