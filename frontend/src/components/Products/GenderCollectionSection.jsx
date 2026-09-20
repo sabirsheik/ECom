@@ -15,9 +15,9 @@ const GenderCollectionSection = () => {
               alt="Woman's Collections" 
               className='w-full h-[500px] object-cover rounded-lg shadow-xl transition-transform duration-500 ease-in-out transform hover:scale-105'
             />
-            <div className="absolute bottom-8 left-8 bg-white bg-opacity-80 p-4 rounded-lg shadow-lg">
-              <h2 className='text-2xl font-semibold text-gray-800 mb-2'>Woman's Collections</h2>
-              <Link to="/collections?gender=Women" className="text-gray-800 underline text-base hover:text-e-hover">
+            <div className="absolute bottom-8 left-8 border border-[var(--line)] bg-[var(--surface-elevated)]/90 p-4 shadow-lg">
+              <h2 className="display-title mb-2 text-2xl">Woman's Collections</h2>
+              <Link to="/collections?gender=Women" className="text-base text-[var(--bronze-deep)] underline">
                 Shop Now
               </Link>
             </div>
@@ -30,10 +30,10 @@ const GenderCollectionSection = () => {
               alt="Man's Collections" 
               className='w-full h-[500px] object-cover rounded-lg shadow-xl transition-transform duration-500 ease-in-out transform hover:scale-105'
             />
-            <div className="absolute bottom-8 left-8 bg-white bg-opacity-80 p-4 rounded-lg shadow-lg">
-              <h2 className='text-2xl font-semibold text-gray-800 mb-2'>Man's Collections</h2>
+            <div className="absolute bottom-8 left-8 border border-[var(--line)] bg-[var(--surface-elevated)]/90 p-4 shadow-lg">
+              <h2 className="display-title mb-2 text-2xl">Man's Collections</h2>
               {/* <Link to="/collection/all?gender=Man" className="text-gray-800 underline text-base hover:text-e-hover"> */}
-              <Link to="/collections?gender=Men" className="text-gray-800 underline text-base hover:text-e-hover">
+              <Link to="/collections?gender=Men" className="text-base text-[var(--bronze-deep)] underline">
                 Shop Now
               </Link>
             </div>
