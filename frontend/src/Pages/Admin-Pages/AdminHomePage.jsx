@@ -12,15 +12,16 @@ const AdminHomePage = () => {
 
   // Status color map
   const statusColors = {
-    processing: "bg-yellow-100 text-yellow-700",
-    shipped: "bg-blue-100 text-blue-700",
-    delivered: "bg-green-100 text-green-700",
-    cancelled: "bg-red-100 text-red-700",
+    processing: "bg-[#f3eadc] text-[var(--warning)]",
+    shipped: "bg-[#e4e9ed] text-[#4d6575]",
+    delivered: "bg-[#e2eee5] text-[var(--success)]",
+    cancelled: "bg-[#f3e3de] text-[var(--error)]",
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-gray-50 to-gray-100 p-6">
-      <h1 className="text-4xl font-extrabold text-gray-800 mb-10 text-center">
+    <div className="min-h-screen bg-[var(--paper)] p-6">
+      <p className="eyebrow mb-3 text-center">Operations / Overview</p>
+      <h1 className="display-title mb-10 text-center text-5xl">
         Admin Dashboard
       </h1>
 
@@ -33,14 +34,14 @@ const AdminHomePage = () => {
         ].map((card, idx) => (
           <div
             key={idx}
-            className="p-6 cursor-pointer rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:bg-blue-50"
+            className="premium-panel cursor-pointer p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--bronze)]"
           >
-            <h2 className="text-lg font-semibold text-gray-600">{card.title}</h2>
-            <p className="text-3xl font-bold text-gray-900 my-3">{card.value}</p>
+            <h2 className="eyebrow">{card.title}</h2>
+            <p className="display-title my-3 text-4xl">{card.value}</p>
             {card.link && (
               <Link
                 to={card.link}
-                className="inline-block mt-2 text-blue-600 font-medium text-sm hover:underline"
+                className="mt-2 inline-block text-sm font-medium text-[var(--bronze-deep)] hover:underline"
               >
                 Manage {card.title}
               </Link>
@@ -50,13 +51,13 @@ const AdminHomePage = () => {
       </div>
 
       {/* Recent Orders */}
-      <div className="bg-white rounded-2xl shadow-md p-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">
+      <div className="premium-panel p-6">
+        <h2 className="display-title mb-6 text-4xl">
           Recent Orders
         </h2>
         <div className="overflow-x-auto">
-          <table className="min-w-full text-sm text-gray-700">
-            <thead className="bg-gray-100 uppercase text-gray-600 text-xs">
+          <table className="min-w-full text-sm text-[var(--ink-soft)]">
+            <thead className="border-y border-[var(--line)] uppercase text-[var(--ink-soft)] text-xs">
               <tr>
                 <th className="py-3 px-6 text-left">Order ID</th>
                 <th className="py-3 px-6 text-left">User</th>
@@ -69,9 +70,9 @@ const AdminHomePage = () => {
                 orders.map((order) => (
                   <tr
                     key={order._id}
-                    className="border-b cursor-pointer hover:bg-blue-50 transition-all duration-300"
+                    className="cursor-pointer border-b border-[var(--line)] transition-all duration-300 hover:bg-[var(--paper)]"
                   >
-                    <td className="py-4 px-6 font-semibold text-gray-800">#{order._id}</td>
+                    <td className="py-4 px-6 font-semibold text-[var(--ink)]">#{order._id}</td>
                     <td className="py-4 px-6">{order.user.name}</td>
                     <td className="py-4 px-6">Rs {order.totalPrice}</td>
                     <td className="py-4 px-6">
@@ -83,7 +84,7 @@ const AdminHomePage = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="py-6 px-6 text-center text-gray-500">
+                  <td colSpan="4" className="px-6 py-6 text-center text-[var(--ink-soft)]">
                     No orders found
                   </td>
                 </tr>
