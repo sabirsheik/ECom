@@ -66,7 +66,7 @@ const SearchBar = () => {
           <button
             type="button"
             onClick={handleSearchToggle}
-            className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 transition-colors duration-200 hover:text-black"
+            className="absolute left-2 top-1/2 -translate-y-1/2 text-[var(--ink-soft)] transition-colors duration-200 hover:text-[var(--ink)]"
           >
             <HiMiniXMark className="h-6 w-6" />
           </button>
@@ -77,12 +77,12 @@ const SearchBar = () => {
               value={searchItem}
               placeholder="Search for products..."
               onChange={(e) => setSearchItem(e.target.value)}
-              className="w-full rounded-full border border-slate-300 bg-white px-10 py-2.5 text-sm text-gray-800 placeholder-gray-500 shadow-sm transition-all duration-300 ease-in-out focus:border-black focus:outline-none focus:ring-2 focus:ring-slate-300"
+              className="w-full border border-[var(--line)] bg-[var(--surface-elevated)] px-10 py-2.5 text-sm text-[var(--ink)] placeholder-[#989289] shadow-sm transition-all duration-300 ease-in-out focus:border-[var(--bronze)] focus:outline-none focus:ring-2 focus:ring-[#aa8050]/20"
               autoFocus
             />
             <button
               type="submit"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 transition-colors duration-200 hover:text-black"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--ink-soft)] transition-colors duration-200 hover:text-[var(--ink)]"
             >
               <HiMagnifyingGlass className="h-5 w-5" />
             </button>
@@ -91,7 +91,7 @@ const SearchBar = () => {
       ) : (
         <button
           onClick={handleSearchToggle}
-          className="text-slate-700 transition-all duration-300 ease-in-out hover:text-black"
+          className="text-[var(--ink-soft)] transition-all duration-300 ease-in-out hover:text-[var(--ink)]"
           aria-label="Open search"
         >
           <HiMagnifyingGlass className="h-6 w-6" />
