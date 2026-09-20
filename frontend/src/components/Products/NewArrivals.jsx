@@ -72,13 +72,13 @@ const NewArrivals = () => {
   return (
     <>
     {
-      isLoading ? <p>Loading .....</p> : <section className="py-16 px-4 bg-white">
+      isLoading ? <p className="eyebrow">Loading new arrivals</p> : <section className="bg-[var(--paper)] px-4 py-16">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-3">
-            ✨ Explore New Arrivals
+          <h2 className="display-title mb-3 text-5xl">
+            Explore new arrivals
           </h2>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-lg text-[var(--ink-soft)]">
             Discover the latest styles crafted for fashion-forward individuals.
           </p>
         </div>
@@ -90,8 +90,8 @@ const NewArrivals = () => {
             disabled={!canScrollLeft}
             className={`p-3 rounded-full shadow-md transition ${
               canScrollLeft
-                ? "bg-white text-gray-700 hover:text-e-hover"
-                : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                ? "bg-[var(--surface-elevated)] text-[var(--ink)] hover:text-[var(--bronze-deep)]"
+                : "cursor-not-allowed bg-[var(--line)] text-[var(--ink-soft)]"
             }`}
           >
             <FiChevronLeft size={24} />
@@ -101,8 +101,8 @@ const NewArrivals = () => {
             disabled={!canScrollRight}
             className={`p-3 rounded-full shadow-md transition ${
               canScrollRight
-                ? "bg-white text-gray-700 hover:text-e-hover"
-                : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                ? "bg-[var(--surface-elevated)] text-[var(--ink)] hover:text-[var(--bronze-deep)]"
+                : "cursor-not-allowed bg-[var(--line)] text-[var(--ink-soft)]"
             }`}
           >
             <FiChevronRight size={24} />
@@ -123,7 +123,7 @@ const NewArrivals = () => {
           {newArrivals.map((product) => (
             <div
               key={product._id}
-              className="min-w-[280px] max-w-xs rounded-2xl overflow-hidden bg-white shadow-xl border border-gray-100 group transition-all duration-500 ease-in-out hover:shadow-2xl hover:-translate-y-1"
+              className="group min-w-[280px] max-w-xs overflow-hidden border border-[var(--line)] bg-[var(--surface-elevated)] shadow-xl transition-all duration-500 ease-in-out hover:-translate-y-1 hover:shadow-[var(--shadow)]"
             >
               <div className="relative overflow-hidden">
                 <img
@@ -134,11 +134,11 @@ const NewArrivals = () => {
                 />
 
                 {/* Blurred background text area */}
-                <div className="absolute bottom-0 left-0 w-full bg-white/40 backdrop-blur-md px-4 py-3 transition-all duration-500 ease-in-out">
-                  <h4 className="text-black text-lg font-semibold group-hover:text-xl transition-all duration-300">
+                <div className="absolute bottom-0 left-0 w-full bg-[var(--surface-elevated)]/85 px-4 py-3 backdrop-blur-md transition-all duration-500 ease-in-out">
+                  <h4 className="text-lg font-semibold transition-all duration-300 group-hover:text-xl">
                     {product.name}
                   </h4>
-                  <p className="text-black-300 text-sm group-hover:text-base transition-all duration-300">
+                  <p className="text-sm text-[var(--ink-soft)] transition-all duration-300 group-hover:text-base">
                     ${product.price}
                   </p>
                 </div>
