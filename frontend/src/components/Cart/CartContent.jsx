@@ -5,6 +5,7 @@ import {
   removeFromCart,
   updateCartItemQuantity,
 } from "../../redux/slices/CartSlice";
+import { toast } from "sonner";
 
 const CartContent = () => {
   const dispatch = useDispatch();
@@ -34,15 +35,15 @@ const CartContent = () => {
         guestId,
         userId,
       })
-    );
+    ).unwrap().then(() => toast.success("Item removed from cart", { duration: 1200 })).catch(() => toast.error("We couldn't remove that item"));
   };
 
   if (loading && cartItems.length === 0) {
-    return <p className="text-sm text-gray-500">Loading cart...</p>;
+    return <p className="eyebrow">Loading cart</p>;
   }
 
   if (cartItems.length === 0) {
-    return <p className="text-sm text-gray-500">Your cart is empty.</p>;
+    return <div className="border-y border-[var(--line)] py-10 text-center"><p className="display-title text-3xl">Your bag is quiet.</p><p className="mt-2 text-sm text-[var(--ink-soft)]">Add something considered to begin.</p></div>;
   }
 
   return (
@@ -50,30 +51,32 @@ const CartContent = () => {
       {cartItems.map((product, index) => (
         <div
           key={`${product.productId}_${product.size}_${product.color}_${index}`}
-          className="flex items-center justify-between py-4 border-b"
+          className="flex items-start justify-between gap-4 border-b border-[var(--line)] py-5"
         >
           <div className="flex items-start">
             <img
               src={product.image}
               alt={product.name}
-              className="w-20 h-24 object-cover mr-4 rounded"
+              className="mr-4 h-24 w-20 object-cover"
             />
             <div>
-              <h3>{product.name}</h3>
-              <p className="text-sm text-e-hover ">
-                size : {product.size} | color : {product.color}
+              <h3 className="text-sm font-semibold">{product.name}</h3>
+              <p className="mt-1 text-xs text-[var(--ink-soft)]">
+                {product.size} / {product.color}
               </p>
               <div className="flex items-center mt-2">
                 <button
                   onClick={() => changeQuantity(product, Math.max(0, Number(product.quantity || 1) - 1))}
-                  className="border rounded px-2 py-[2px] text-xl font-medium hover:bg-[#ff1414] hover:text-white"
+                  aria-label={`Decrease ${product.name} quantity`}
+                  className="h-9 w-9 border border-[var(--line)] text-lg hover:bg-[var(--paper)]"
                 >
                   -
                 </button>
-                <span className="mx-4">{product.quantity}</span>
+                <span className="mx-3 min-w-4 text-center text-sm" aria-live="polite">{product.quantity}</span>
                 <button
                   onClick={() => changeQuantity(product, Number(product.quantity || 1) + 1)}
-                  className="border rounded px-2 py-[2px] text-xl font-medium hover:bg-e-hover hover:text-white"
+                  aria-label={`Increase ${product.name} quantity`}
+                  className="h-9 w-9 border border-[var(--line)] text-lg hover:bg-[var(--paper)]"
                 >
                   +
                 </button>
@@ -81,9 +84,9 @@ const CartContent = () => {
             </div>
           </div>
           <div>
-            <p>Rs {(Number(product.price || 0) * Number(product.quantity || 0)).toLocaleString()}</p>
-            <button onClick={() => handleRemove(product)}>
-              <MdDelete className="h-6 w-6 mt-2 text-red-500 hover:text-[#ff1414]" />
+            <p className="whitespace-nowrap text-sm font-semibold">Rs {(Number(product.price || 0) * Number(product.quantity || 0)).toLocaleString()}</p>
+            <button onClick={() => handleRemove(product)} aria-label={`Remove ${product.name} from cart`} className="mt-2 text-[var(--error)] hover:text-[var(--ink)]">
+              <MdDelete className="h-5 w-5" />
             </button>
           </div>
         </div>
