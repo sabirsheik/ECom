@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProductDetails } from "../../redux/slices/ProductSlice";
 import { addToCart } from "../../redux/slices/CartSlice";
 import { trackProductView } from "../../redux/slices/ProductSlice";
+import { Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import { toggleWishlistProduct, fetchSimilarProducts } from "../../redux/slices/ProductSlice";
+import { setUserWishlist } from "../../redux/slices/authSlices";
 
 const ProductDetails = ({ productId }) => {
   const { id } = useParams();
@@ -14,23 +17,44 @@ const ProductDetails = ({ productId }) => {
     (state) => state.product
   );
   const { userId, guestId } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const { guestWishlist } = useSelector((state) => state.product);
   const { addToCartLoading } = useSelector((state) => state.cart);
   const [mainImg, setMainImg] = useState();
   const [selectedSize, setSelectedSize] = useState();
   const [selectedColor, setSelectedColor] = useState();
   const [quantity, setQuantity] = useState(1);
   const [zoom, setZoom] = useState(1);
+  const [wishlistPending, setWishlistPending] = useState(false);
   const productFetchId = productId || id;
   useEffect(() => {
     if (productFetchId) {
       dispatch(fetchProductDetails(productFetchId));
       dispatch(trackProductView({ productId: productFetchId }));
+      dispatch(fetchSimilarProducts({ id: productFetchId }));
     }
   }, [dispatch, productFetchId]);
   const handleQuantityChange = (action) => {
     action === "plus"
       ? setQuantity(quantity + 1)
       : quantity > 1 && setQuantity(quantity - 1);
+  };
+
+  const handleWishlistToggle = async () => {
+    if (!selectedProduct?._id) return;
+    setWishlistPending(true);
+    try {
+      const payload = await dispatch(toggleWishlistProduct({
+        productId: selectedProduct._id,
+        isAuthenticated: Boolean(user),
+      })).unwrap();
+      if (payload.wishlist) dispatch(setUserWishlist(payload.wishlist));
+      toast.success(isWishlisted ? "Removed from wishlist" : "Saved to wishlist", { duration: 1200 });
+    } catch (error) {
+      toast.error(error?.message || "Unable to update wishlist");
+    } finally {
+      setWishlistPending(false);
+    }
   };
 
   useEffect(() => {
@@ -100,34 +124,39 @@ const ProductDetails = ({ productId }) => {
 
   if (loading || !selectedProduct) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <p className="text-gray-500 text-lg">Loading product...</p>
+      <div className="flex h-64 items-center justify-center bg-[var(--paper)]">
+        <p className="eyebrow">Loading product</p>
       </div>
     );
   }
 
+  const images = selectedProduct.images || [];
+  const activeImageIndex = Math.max(0, images.findIndex((image) => image.url === mainImg));
+  const isWishlisted = user?.wishlist?.map((id) => id.toString()).includes(selectedProduct._id?.toString())
+    || guestWishlist?.includes(selectedProduct._id);
+  const stock = Number(selectedProduct.countInPrice || 0);
+
   return (
-    <div className="p-6">
-      <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-2xl p-10">
+    <div className="px-4 py-8 sm:px-6 lg:px-10">
+      <div className="mx-auto max-w-[1440px] border-y border-[var(--line)] bg-[var(--surface)] p-5 sm:p-8 lg:p-12">
         <div className="flex flex-col md:flex-row gap-10">
           {/* Thumbnails */}
           <div className="hidden md:flex flex-col space-y-4">
-            {selectedProduct.images.map((img, index) => (
-              <img
+            {images.map((img, index) => (
+              <button
                 key={index}
-                src={img.url}
-                alt={img.alt || `Thumbnail ${index}`}
                 onClick={() => setMainImg(img.url)}
-                className={`w-20 h-20 object-cover rounded-xl cursor-pointer hover:scale-105 transition-transform duration-300 ${
-                  mainImg === img.url ? "ring-2 ring-e-black" : ""
+                className={`h-20 w-20 overflow-hidden border transition ${
+                  mainImg === img.url ? "border-[var(--ink)]" : "border-transparent opacity-70 hover:opacity-100"
                 }`}
-              />
+                aria-label={`View image ${index + 1}`}
+              ><img src={img.url} alt="" className="h-full w-full object-cover" /></button>
             ))}
           </div>
 
           {/* Main Image with Zoom */}
           <div className="md:w-1/2">
-            <div className="overflow-hidden rounded-2xl shadow-lg relative group">
+            <div className="relative overflow-hidden bg-[var(--graphite)] shadow-[var(--shadow)] group">
               <div
                 className="relative overflow-hidden h-[400px]  md:h-[700px]"
                 style={{ width: "100%", cursor: "zoom-in" }}
@@ -143,8 +172,8 @@ const ProductDetails = ({ productId }) => {
               >
                 <img
                   src={mainImg}
-                  alt={selectedProduct.images[0]?.alt}
-                  className="w-full h-[700px] object-fill transition-transform duration-300"
+                  alt={images[activeImageIndex]?.alt || selectedProduct.name}
+                  className="h-full w-full object-cover transition-transform duration-300"
                   style={{
                     transform: `scale(${zoom})`,
                   }}
@@ -152,60 +181,72 @@ const ProductDetails = ({ productId }) => {
               </div>
 
               {/* Zoom Controls */}
-              <div className="absolute bottom-4 right-4 flex gap-2 bg-white p-2 rounded-lg shadow-md">
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                <div className="flex gap-2 bg-[var(--surface)] p-2 shadow-md">
+                <button aria-label="Previous product image" onClick={() => setMainImg(images[(activeImageIndex - 1 + images.length) % images.length]?.url)} className="flex h-10 w-10 items-center justify-center hover:bg-[var(--paper)]"><ChevronLeft size={18} /></button>
+                <button aria-label="Next product image" onClick={() => setMainImg(images[(activeImageIndex + 1) % images.length]?.url)} className="flex h-10 w-10 items-center justify-center hover:bg-[var(--paper)]"><ChevronRight size={18} /></button>
+                </div>
+                <div className="flex gap-2 bg-[var(--surface)] p-2 shadow-md">
                 <button
+                  aria-label="Zoom in"
                   onClick={() => setZoom((prev) => Math.min(prev + 0.2, 3))}
-                  className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-full hover:bg-gray-300 text-xl font-bold"
+                  className="flex h-10 w-10 items-center justify-center bg-[var(--surface)] text-xl font-bold hover:bg-[var(--bronze)]"
                 >
                   +
                 </button>
                 <button
+                  aria-label="Zoom out"
                   onClick={() => setZoom((prev) => Math.max(prev - 0.2, 1))}
-                  className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-full hover:bg-gray-300 text-xl font-bold"
+                  className="flex h-10 w-10 items-center justify-center bg-[var(--surface)] text-xl font-bold hover:bg-[var(--bronze)]"
                 >
                   -
                 </button>
+                </div>
               </div>
             </div>
 
             {/* Mobile Thumbnails */}
             <div className="flex md:hidden overflow-x-auto space-x-4 mt-4">
-              {selectedProduct.images.map((img, index) => (
-                <img
+              {images.map((img, index) => (
+                <button
                   key={index}
                   src={img.url}
-                  alt={img.alt || `Thumbnail ${index}`}
                   onClick={() => setMainImg(img.url)}
-                  className={`w-20 h-20 flex-shrink-0 object-cover rounded-xl cursor-pointer hover:scale-105 transition-transform duration-300 ${
-                    mainImg === img.url ? "ring-2 ring-e-black" : ""
+                  className={`h-20 w-20 flex-shrink-0 overflow-hidden border ${
+                    mainImg === img.url ? "border-[var(--ink)]" : "border-transparent opacity-70"
                   }`}
-                />
+                  aria-label={`View image ${index + 1}`}
+                ><img src={img.url} alt="" className="h-full w-full object-cover" /></button>
               ))}
             </div>
           </div>
 
           {/* Right Side Details */}
           <div className="flex-1">
-            <h1 className="text-3xl font-bold mb-4 text-gray-900">
+            <div className="flex items-start justify-between gap-4">
+            <h1 className="display-title mb-4 text-4xl font-semibold text-[var(--ink)] sm:text-5xl">
               {selectedProduct.name}
             </h1>
+            <button onClick={handleWishlistToggle} disabled={wishlistPending} aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"} className={`flex h-11 w-11 shrink-0 items-center justify-center border transition hover:bg-[var(--ink)] hover:text-white ${isWishlisted ? "bg-[var(--ink)] text-white" : "border-[var(--line)]"}`}><Heart size={19} fill={isWishlisted ? "currentColor" : "none"} /></button>
+            </div>
 
             <div className="flex items-center gap-4 mb-2">
               {selectedProduct.originalPrice && (
-                <p className="text-gray-400 line-through text-lg">
+                <p className="text-lg text-[var(--ink-soft)] line-through">
                   Rs {selectedProduct.originalPrice}
                 </p>
               )}
-              <p className="text-2xl text-e-black font-semibold">
-                Rs {selectedProduct.price}
+              <p className="text-3xl font-semibold text-[var(--ink)]">
+                Rs {Number(selectedProduct.price || 0).toLocaleString()}
               </p>
             </div>
 
-            <p className="text-gray-600 mb-6">{selectedProduct.description}</p>
+            <p className="mb-8 text-sm leading-7 text-[var(--ink-soft)]">{selectedProduct.description}</p>
+            <p className={`mb-6 text-sm font-semibold ${stock > 0 ? "text-[var(--success)]" : "text-[var(--error)]"}`}>{stock > 0 ? `${stock} available` : "Currently unavailable"}</p>
 
             {/* Colors */}
             <div className="mb-8">
-              <p className="text-gray-800 font-semibold text-lg mb-4">
+              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.12em] text-[var(--ink)]">
                 Select Color:
               </p>
               <div className="flex flex-wrap gap-4">
@@ -216,23 +257,23 @@ const ProductDetails = ({ productId }) => {
                     <button
                       key={color}
                       onClick={() => setSelectedColor(color)}
-                      className={`relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all duration-300 shadow-sm hover:shadow-md hover:scale-105
+                      className={`relative flex items-center gap-2 border px-4 py-3 text-sm font-medium transition
             ${
               isSelected
-                ? "border-black ring-2 ring-black bg-gray-50"
-                : "border-gray-300 bg-white"
+                ? "border-[var(--bronze)] bg-[var(--paper)] ring-2 ring-[var(--bronze)]"
+                : "border-[var(--line)] bg-[var(--surface-elevated)]"
             }
           `}
                     >
                       <span
-                        className="w-5 h-5 rounded-full border border-gray-300"
+                        className="h-5 w-5 rounded-full border border-[var(--line)]"
                         style={{ backgroundColor: color.toLowerCase() }}
                       ></span>
-                      <span className="capitalize text-gray-800">{color}</span>
+                      <span className="capitalize text-[var(--ink)]">{color}</span>
 
                       {isSelected && (
                         <svg
-                          className="w-4 h-4 text-e-black absolute -top-1 -right-1 bg-white rounded-full shadow p-[1px]"
+                          className="absolute -right-1 -top-1 h-4 w-4 rounded-full bg-[var(--surface-elevated)] p-[1px] text-[var(--ink)] shadow"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth={3}
@@ -253,17 +294,17 @@ const ProductDetails = ({ productId }) => {
 
             {/* Sizes */}
             <div className="mb-6">
-              <p className="text-gray-800 font-medium mb-2">Select Size:</p>
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.12em]">Select Size:</p>
               <div className="flex gap-3 flex-wrap">
                 {selectedProduct.sizes.map((size) => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`px-5 py-2 rounded-xl border ${
+                    className={`border px-5 py-3 ${
                       selectedSize === size
                         ? "bg-e-black text-white"
-                        : "border-gray-300 text-gray-700"
-                    } hover:bg-e-hover hover:text-white transition-colors duration-300`}
+                        : "border-[var(--line)] text-[var(--ink-soft)]"
+                      } hover:bg-[var(--bronze-deep)] hover:text-white transition-colors duration-300`}
                   >
                     {size}
                   </button>
@@ -273,18 +314,20 @@ const ProductDetails = ({ productId }) => {
 
             {/* Quantity */}
             <div className="mb-8">
-              <p className="text-gray-800 font-medium mb-2">Quantity:</p>
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.12em]">Quantity:</p>
               <div className="flex items-center gap-5">
                 <button
                   onClick={() => handleQuantityChange("minus")}
-                  className="w-10 h-10 bg-gray-200 text-2xl rounded-full hover:bg-gray-300 transition"
+                  aria-label="Decrease quantity"
+                  className="flex h-11 w-11 items-center justify-center border border-[var(--line)] hover:bg-[var(--paper)]"
                 >
                   -
                 </button>
-                <span className="text-lg font-semibold">{quantity}</span>
+                <span className="min-w-8 text-center text-lg font-semibold" aria-live="polite">{quantity}</span>
                 <button
                   onClick={() => handleQuantityChange("plus")}
-                  className="w-10 h-10 bg-gray-200 text-2xl rounded-full hover:bg-gray-300 transition"
+                  aria-label="Increase quantity"
+                  className="flex h-11 w-11 items-center justify-center border border-[var(--line)] hover:bg-[var(--paper)]"
                 >
                   +
                 </button>
@@ -295,10 +338,10 @@ const ProductDetails = ({ productId }) => {
             <button
               onClick={handleAddToCart}
               disabled={addToCartLoading}
-              className={`w-full py-3 rounded-xl text-lg font-bold text-white transition-all duration-300 ${
+              className={`w-full py-4 text-sm font-bold uppercase tracking-[0.14em] text-white transition ${
                 addToCartLoading
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-e-black hover:bg-e-hover"
+                  ? "cursor-not-allowed bg-[#aaa59c]"
+                  : "bg-[var(--graphite)] hover:bg-[var(--bronze-deep)]"
               }`}
             >
               {addToCartLoading ? "Adding..." : "Add to Cart"}
@@ -306,12 +349,12 @@ const ProductDetails = ({ productId }) => {
 
             {/* Characteristics */}
             <div className="mt-10">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
+              <h3 className="display-title mb-4 text-3xl">
                 Characteristics
               </h3>
-              <table className="w-full text-sm text-left text-gray-600">
+              <table className="w-full text-left text-sm text-[var(--ink-soft)]">
                 <tbody>
-                  <tr className="border-b">
+                  <tr className="border-b border-[var(--line)]">
                     <td className="py-2 font-semibold">Brand</td>
                     <td className="py-2">{selectedProduct.brand}</td>
                   </tr>
@@ -327,7 +370,7 @@ const ProductDetails = ({ productId }) => {
 
         {/* You May Also Like */}
         <div className="mt-20">
-          <h2 className="text-3xl text-center font-bold text-gray-900 mb-6">
+          <h2 className="display-title mb-6 text-center text-4xl">
             You May Also Like
           </h2>
           <ProductGrid products={similarProducts} />
