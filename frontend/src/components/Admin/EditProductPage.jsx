@@ -42,16 +42,17 @@ const EditProductPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 animate-fade-in">
-      <div className="max-w-4xl mx-auto bg-white p-10 rounded-2xl shadow-2xl border border-gray-100">
-        <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-10 tracking-tight">
+    <div className="min-h-screen bg-[var(--paper)] px-4 py-12 sm:px-6 lg:px-8 animate-fade-in">
+      <div className="premium-panel mx-auto max-w-4xl p-10">
+        <p className="eyebrow mb-3 text-center">Catalog / Product</p>
+        <h2 className="display-title mb-10 text-center text-5xl">
           Edit Product
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+            <label className="mb-1 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">Product Name</label>
             <input
               type="text"
               name="name"
@@ -65,7 +66,7 @@ const EditProductPage = () => {
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <label className="mb-1 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">Description</label>
             <textarea
               name="description"
               value={productData.description}
@@ -80,7 +81,7 @@ const EditProductPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {/* Price */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
+              <label className="mb-1 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">Price</label>
               <input
                 type="number"
                 name="price"
@@ -93,7 +94,7 @@ const EditProductPage = () => {
 
             {/* Stock */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Count In Stock</label>
+              <label className="mb-1 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">Count In Stock</label>
               <input
                 type="number"
                 name="countInStock"
@@ -106,7 +107,7 @@ const EditProductPage = () => {
 
             {/* SKU */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">SKU</label>
+              <label className="mb-1 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">SKU</label>
               <input
                 type="text"
                 name="sku"
@@ -119,7 +120,7 @@ const EditProductPage = () => {
 
             {/* Sizes */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Sizes (comma-separated)</label>
+              <label className="mb-1 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">Sizes (comma-separated)</label>
               <input
                 type="text"
                 name="sizes"
@@ -135,7 +136,7 @@ const EditProductPage = () => {
 
             {/* Colors */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Colors (comma-separated)</label>
+              <label className="mb-1 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">Colors (comma-separated)</label>
               <input
                 type="text"
                 name="colors"
@@ -152,7 +153,7 @@ const EditProductPage = () => {
 
           {/* Image Upload */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Upload Image</label>
+            <label className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">Upload Image</label>
             <input type="file" name="image" onChange={handleImageUpload} className="mb-4" />
             <div className="flex gap-4 flex-wrap">
               {productData.image.map((img, index) => (
@@ -169,7 +170,7 @@ const EditProductPage = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-xl transition duration-300 transform hover:scale-105"
+            className="premium-button w-full"
           >
             Update Product
           </button>
