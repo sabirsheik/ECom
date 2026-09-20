@@ -23,16 +23,21 @@ const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {
 
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? "hidden" : "";
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape" && drawerOpen) toggleCartDrawer();
+    };
+    document.addEventListener("keydown", closeOnEscape);
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("keydown", closeOnEscape);
     };
-  }, [drawerOpen]);
+  }, [drawerOpen, toggleCartDrawer]);
 
   const drawerUI = (
     <>
       {drawerOpen && (
         <div
-          className="fixed inset-0 z-[90] bg-black/35 backdrop-blur-md transition-opacity duration-300"
+          className="fixed inset-0 z-[90] bg-[var(--graphite)]/55 backdrop-blur-md transition-opacity duration-300"
           onClick={toggleCartDrawer}
           aria-hidden="true"
         ></div>
@@ -46,8 +51,8 @@ const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {
         aria-modal="true"
       >
         <div className="flex items-center justify-between border-b border-[var(--line)] px-6 py-5">
-          <h2 className="font-[var(--display)] text-3xl font-semibold text-[var(--ink)]">
-            Your edit
+          <h2 className="display-title text-3xl text-[var(--ink)]">
+            Your bag
           </h2>
           <button
             onClick={toggleCartDrawer}
@@ -58,7 +63,7 @@ const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {
           </button>
         </div>
 
-        <div className="h-full flex-grow space-y-4 overflow-y-auto bg-[var(--paper)] px-6 py-4 custom-scrollbar">
+        <div className="h-[calc(100dvh-13rem)] flex-grow space-y-4 overflow-y-auto bg-[var(--paper)] px-6 py-4 custom-scrollbar">
           <CartContent />
         </div>
 
