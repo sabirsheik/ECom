@@ -54,7 +54,7 @@ const Hero = () => {
           </p>
           <Link
             to="#"
-            className="inline-block bg-white text-black font-semibold px-8 py-3 rounded-full text-lg shadow-md hover:bg-e-black hover:text-white transition-all duration-300 ease-in-out"
+            className="premium-button"
           >
             Shop Now
           </Link>
