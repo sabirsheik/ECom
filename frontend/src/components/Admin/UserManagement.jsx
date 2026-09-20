@@ -45,18 +45,18 @@ const UserManagement = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-8 text-center text-e-black">
+      <h2 className="display-title mb-8 text-center text-5xl">
         User Management
       </h2>
 
       {/* Add user Form */}
-      <div className="bg-white p-8 rounded-xl shadow-lg mb-12">
-        <h3 className="text-2xl font-semibold mb-6 text-gray-800">
+      <div className="premium-panel mb-12 p-8">
+        <h3 className="display-title mb-6 text-3xl">
           Add New User
         </h3>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="name" className="block text-gray-600 mb-2">
+            <label htmlFor="name" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
               Name
             </label>
             <input
@@ -64,14 +64,14 @@ const UserManagement = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-e-hover focus:outline-none"
+              className="premium-input"
               placeholder="Enter Name"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-gray-600 mb-2">
+            <label htmlFor="email" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
               Email
             </label>
             <input
@@ -79,14 +79,14 @@ const UserManagement = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-e-hover focus:outline-none"
+              className="premium-input"
               placeholder="Enter Email"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-gray-600 mb-2">
+            <label htmlFor="password" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
               Password
             </label>
             <input
@@ -94,21 +94,21 @@ const UserManagement = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-e-hover focus:outline-none"
+              className="premium-input"
               placeholder="Enter Password"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="role" className="block text-gray-600 mb-2">
+            <label htmlFor="role" className="mb-2 block text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
               Role
             </label>
             <select
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-e-hover focus:outline-none"
+              className="premium-input"
             >
               <option value="customer">Customer</option>
               <option value="admin">Admin</option>
@@ -118,7 +118,7 @@ const UserManagement = () => {
           <div className="md:col-span-2 flex justify-end">
             <button
               type="submit"
-              className="bg-green-400 hover:bg-green-600 text-white py-3 px-6 rounded-lg font-semibold transition duration-300"
+              className="premium-button"
             >
               Add User
             </button>
@@ -127,29 +127,29 @@ const UserManagement = () => {
       </div>
 
       {/* User List */}
-      <div className="overflow-x-auto bg-white p-8 rounded-xl shadow-lg">
-        <h3 className="text-2xl font-semibold mb-6 text-gray-800">
+      <div className="premium-panel overflow-x-auto p-8">
+        <h3 className="display-title mb-6 text-3xl">
           Users List
         </h3>
         <table className="min-w-full table-auto">
-          <thead className="bg-indigo-100">
+          <thead className="border-y border-[var(--line)]">
             <tr>
-              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Name</th>
-              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Email</th>
-              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Role</th>
-              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Action</th>
+              <th className="px-6 py-4 text-left text-sm font-semibold text-[var(--ink-soft)]">Name</th>
+              <th className="px-6 py-4 text-left text-sm font-semibold text-[var(--ink-soft)]">Email</th>
+              <th className="px-6 py-4 text-left text-sm font-semibold text-[var(--ink-soft)]">Role</th>
+              <th className="px-6 py-4 text-left text-sm font-semibold text-[var(--ink-soft)]">Action</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user._id} className="border-b hover:bg-gray-50">
+              <tr key={user._id} className="border-b border-[var(--line)] hover:bg-[var(--paper)]">
                 <td className="px-6 py-4">{user.name}</td>
                 <td className="px-6 py-4">{user.email}</td>
                 <td className="px-6 py-4">
                   <select
                     value={user.role}
                     onChange={(e) => handleRoleChange(user._id, e.target.value)}
-                    className="p-2 rounded-lg border focus:ring-2 focus:ring-e-hover focus:outline-none"
+                    className="border border-[var(--line)] bg-[var(--surface-elevated)] p-2 focus:border-[var(--bronze)] focus:outline-none"
                   >
                     <option value="customer">Customer</option>
                     <option value="admin">Admin</option>
@@ -158,7 +158,7 @@ const UserManagement = () => {
                 <td className="px-6 py-4">
                   <button
                   onClick={()=>handleDeleteUSer(user._id)}
-                    className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg text-sm transition duration-300"
+                    className="bg-[var(--error)] px-4 py-2 text-sm text-white transition duration-300 hover:bg-[#873d35]"
                   >
                     Delete
                   </button>
