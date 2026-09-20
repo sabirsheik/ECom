@@ -28,7 +28,7 @@ const OrderDetailsPage = () => {
               <h3 className="text-lg md:text-xl font-semibold">
                 Order ID : #{orderDetails._id}
               </h3>
-              <p className="text-gray-600">
+              <p className="text-[var(--ink-soft)]">
                 {new Date(orderDetails.createdAt).toLocaleDateString()}
               </p>
             </div>
@@ -70,8 +70,8 @@ const OrderDetailsPage = () => {
           </div>
           <div className="overflow-x-auto">
             <h4 className="text-lg font-semibold mb-4">Products</h4>
-            <table className="min-w-full text-gray-600 mb-4">
-                <thead className="bg-gray-100">
+            <table className="mb-4 min-w-full text-[var(--ink-soft)]">
+              <thead className="border-y border-[var(--line)] text-left text-[0.62rem] uppercase tracking-[0.16em]">
                     <tr>
                         <th className="py-2 px-4">Name</th>
                         <th className="py-2 px-4">Unit Price</th>
@@ -85,7 +85,7 @@ const OrderDetailsPage = () => {
     <tr key={item.productId?.toString()} className="border-b">
       <td className="py-2 px-4 flex items-center">
         <img src={item.image} alt={item.name} className="w-12 h-12 object-cover mr-4" />
-        <Link to={`/product/${item.productId}`} className="text-blue-500 hover:underline">
+        <Link to={`/product/${item.productId}`} className="text-[var(--bronze-deep)] hover:underline">
           {item.name}
         </Link>
       </td>
@@ -100,7 +100,7 @@ const OrderDetailsPage = () => {
             </table>
           </div>
        
-        <Link to="/my-order" className="text-blue-500 hover:underline">
+        <Link to="/my-order" className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[var(--bronze-deep)] hover:underline">
         Back to My Order
         </Link>
         </div>
