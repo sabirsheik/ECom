@@ -44,13 +44,13 @@ const ProductManagement = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+      <h2 className="display-title mb-8 text-center text-5xl">
         Product Management
       </h2>
 
-      <div className="overflow-x-auto bg-white shadow-lg rounded-lg border border-gray-200">
-        <table className="min-w-full text-sm text-left text-gray-600">
-          <thead className="bg-gray-100 text-xs text-gray-700 uppercase tracking-wider">
+      <div className="premium-panel overflow-x-auto">
+        <table className="min-w-full text-left text-sm text-[var(--ink-soft)]">
+          <thead className="border-b border-[var(--line)] text-xs uppercase tracking-wider text-[var(--ink-soft)]">
             <tr>
               <th className="py-4 px-6">Name</th>
               <th className="py-4 px-6">Price</th>
@@ -63,12 +63,12 @@ const ProductManagement = () => {
               products.map((product) => (
                 <tr
                   key={product._id}
-                  className="hover:bg-gray-50 transition duration-150"
+                  className="border-b border-[var(--line)] transition duration-150 hover:bg-[var(--paper)]"
                 >
-                  <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  <td className="whitespace-nowrap px-6 py-4 font-medium text-[var(--ink)]">
                     {product.name}
                   </td>
-                  <td className="px-6 py-4 font-semibold text-gray-700">
+                  <td className="px-6 py-4 font-semibold text-[var(--ink)]">
                     Rs. {product.price}
                   </td>
                   <td className="px-6 py-4">{product.sku}</td>
@@ -76,13 +76,13 @@ const ProductManagement = () => {
                     <div className="flex flex-col sm:flex-row gap-2">
                       <Link
                         to={`/admin/products/${product._id}/edit`}
-                        className="w-full sm:w-auto text-center px-4 py-2 text-sm font-medium text-white bg-yellow-400 hover:bg-yellow-500 rounded transition"
+                        className="w-full bg-[var(--bronze)] px-4 py-2 text-center text-sm font-medium text-[var(--graphite)] transition hover:bg-[var(--bronze-deep)] hover:text-white sm:w-auto"
                       >
                         Edit
                       </Link>
                       <button
                         onClick={() => handleDelete(product._id)}
-                        className="w-full sm:w-auto text-center px-4 py-2 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded transition"
+                        className="w-full bg-[var(--error)] px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-[#873d35] sm:w-auto"
                       >
                         Delete
                       </button>
@@ -94,7 +94,7 @@ const ProductManagement = () => {
               <tr>
                 <td
                   colSpan={4}
-                  className="px-6 py-4 text-center text-gray-500"
+                  className="px-6 py-4 text-center text-[var(--ink-soft)]"
                 >
                   No products found.
                 </td>

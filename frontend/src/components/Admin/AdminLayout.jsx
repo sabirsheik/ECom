@@ -9,9 +9,9 @@ const AdminLayout = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
   return (
-    <div className="min-h-screen flex flex-col md:flex-row relative">
+    <div className="relative flex min-h-screen flex-col bg-[var(--paper)] md:flex-row">
       {/* Mobile Toggle Button */}
-      <div className="flex md:hidden p-4 bg-e-black text-white z-20">
+      <div className="z-20 flex bg-[var(--graphite)] p-4 text-white md:hidden">
         <button onClick={toggleSideBar}>
           <FaBars />
         </button>
@@ -26,12 +26,12 @@ const AdminLayout = () => {
         ></div>
       )}
       {/* sidebar */}
-      <div className={`bg-e-black w-64 min-h-screen text-white absolute md:relative transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 md:translate-x-0 md:static md:block z-20`}>
+      <div className={`z-20 min-h-screen w-64 transform bg-[var(--graphite)] text-white absolute md:relative md:static md:block ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 md:translate-x-0`}>
         {/* Sidebar Components */}
         <AdminSidebar />
       </div>
       {/* Main Content */}
-      <div className="flex-grow p-6 overflow-auto">
+      <div className="flex-grow overflow-auto p-6">
         <Outlet />
       </div>
     </div>

@@ -13,6 +13,7 @@ const CollectionPage = () => {
   const { products, loading, error } = useSelector((state) => state.product);
   const sidebarRef = useRef(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const activeFilterCount = [...searchParams.keys()].filter((key) => key !== "sortBy" && searchParams.get(key)).length;
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -59,15 +60,16 @@ const CollectionPage = () => {
             className="flex items-center justify-center gap-2 border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-xs font-bold uppercase tracking-[0.14em] lg:hidden"
         >
             <SlidersHorizontal size={16} strokeWidth={1.5} />
-            Filters
+            Filters {activeFilterCount > 0 ? `(${activeFilterCount})` : ""}
         </button>
+          {isSidebarOpen && <button aria-label="Close filters" onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 z-40 bg-black/30 lg:hidden" />}
         {/* Filter Sidebar */}
         <div>
           <FilterSidebar
             ref={sidebarRef}
             className={`${
               isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-            } fixed inset-y-0 z-50 left-0 w-64 bg-white overflow-y-auto transition-transform duration-300 lg:static lg:translate-x-0`}
+            } fixed inset-y-0 left-0 z-50 w-[min(88vw,22rem)] overflow-y-auto bg-[var(--surface)] transition-transform duration-300 lg:static lg:z-auto lg:w-64 lg:translate-x-0`}
           />
         </div>
         <div className="min-w-0 flex-grow">

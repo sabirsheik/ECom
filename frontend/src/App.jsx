@@ -3,7 +3,7 @@
 }
 
 import React, { useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import UserLayout from "./components/Layout/UserLayout";
 import Home from "./Pages/Home";
@@ -40,6 +40,40 @@ const AdminRoute = ({ children }) => {
   return children;
 };
 
+const RouteTransition = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [location.pathname]);
+
+  return (
+    <div key={location.pathname} className="page-transition">
+      <Routes>
+        <Route path="/" element={<UserLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/collections" element={<CollectionPage />} />
+          <Route path="product/:id" element={<ProductDetails />} />
+          <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+          <Route path="/order-confirmation" element={<ProtectedRoute><OrderConfirmationPage /></ProtectedRoute>} />
+          <Route path="order/:id" element={<ProtectedRoute><OrderDetailsPage /></ProtectedRoute>} />
+          <Route path="/my-order" element={<ProtectedRoute><MyOrderPages /></ProtectedRoute>} />
+        </Route>
+        <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+          <Route index element={<AdminHomePage />} />
+          <Route path="users" element={<UserManagement />} />
+          <Route path="products" element={<ProductManagement />} />
+          <Route path="products/:id/edit" element={<EditProductPage />} />
+          <Route path="orders" element={<OrderManagement />} />
+        </Route>
+      </Routes>
+    </div>
+  );
+};
+
 const AppContent = () => {
   const dispatch = useDispatch();
 
@@ -52,34 +86,8 @@ const AppContent = () => {
 
   return (
       <BrowserRouter>
-        <Toaster position="top-right" />
-        <Routes>
-          <Route path="/" element={<UserLayout />}>
-            <Route index element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-            <Route path="/collections" element={<CollectionPage />} />
-            <Route path="product/:id" element={<ProductDetails />} />
-            <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
-            <Route
-              path="/order-confirmation"
-              element={<ProtectedRoute><OrderConfirmationPage /></ProtectedRoute>}
-            />
-            <Route path="order/:id" element={<ProtectedRoute><OrderDetailsPage /></ProtectedRoute>} />
-            <Route path="/my-order" element={<ProtectedRoute><MyOrderPages /></ProtectedRoute>} />
-          </Route>
-            {/*Admin Layout*/}
-            <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>} >
-            <Route index element={<AdminHomePage />} />
-            <Route path="users" element={<UserManagement />} />
-            <Route path="products" element={<ProductManagement />} />
-            <Route path="products/:id/edit" element={<EditProductPage />} />
-            <Route path="orders" element={<OrderManagement />} />
-            </Route>
-          <Route>{/**/}</Route>
-          <Route>{/**/}</Route>
-        </Routes>
+        <Toaster position="top-right" toastOptions={{ className: "store-toast" }} />
+        <RouteTransition />
       </BrowserRouter>
   );
 };

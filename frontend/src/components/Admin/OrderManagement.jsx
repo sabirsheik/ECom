@@ -104,8 +104,8 @@ const OrderManagement = () => {
       <h2 className="text-2xl font-bold mb-6">Order Management</h2>
 
       <div className="overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="min-w-full text-left text-gray-500">
-          <thead className="bg-gray-100 text-xs uppercase text-gray-700">
+        <table className="min-w-full text-left text-[var(--ink-soft)]">
+          <thead className="border-y border-[var(--line)] text-xs uppercase text-[var(--ink-soft)]">
             <tr>
               <th className="py-3 px-4">Order ID</th>
               <th className="py-3 px-4">Customer</th>
@@ -119,9 +119,9 @@ const OrderManagement = () => {
               orders.map((order) => (
                 <tr
                   key={order._id}
-                  className="border-b hover:bg-gray-50 cursor-pointer"
+                  className="cursor-pointer border-b border-[var(--line)] hover:bg-[var(--paper)]"
                 >
-                  <td className="py-4 px-4 font-medium text-gray-900 whitespace-nowrap">
+                  <td className="whitespace-nowrap px-4 py-4 font-medium text-[var(--ink)]">
                     #{order._id}
                   </td>
                   <td className="p-4">{order.user.name}</td>
@@ -132,7 +132,7 @@ const OrderManagement = () => {
                       onChange={(e) =>
                         handleStatusChange(order._id, e.target.value)
                       }
-                      className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                      className="block border border-[var(--line)] bg-[var(--surface-elevated)] p-2.5 text-sm text-[var(--ink)] focus:border-[var(--bronze)] focus:ring-2 focus:ring-[#aa8050]/20"
                     >
                       <option value="Processing">Processing</option>
                       <option value="Shipped">Shipped</option>
@@ -143,7 +143,7 @@ const OrderManagement = () => {
                   <td className="p-4">
                     <button
                       onClick={() => handleStatusChange(order._id, "Delivered")}
-                      className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 focus:ring-4 focus:ring-green-300 transition duration-300"
+                      className="bg-[var(--success)] px-6 py-3 text-white transition duration-300 hover:bg-[#315440]"
                     >
                       Mark as Delivered
                     </button>
@@ -152,7 +152,7 @@ const OrderManagement = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={5} className="p-4 text-center text-gray-500">
+                <td colSpan={5} className="p-4 text-center text-[var(--ink-soft)]">
                   No Orders Found!
                 </td>
               </tr>
