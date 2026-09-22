@@ -43,8 +43,8 @@ const Hero = () => {
       </Swiper>
 
       {/* Overlay Content */}
-      <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center z-10 px-4">
-        <div className="text-center text-white max-w-2xl">
+      <div className="absolute inset-0 z-10 flex items-center justify-center px-4" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.28) 100%)" }}>
+        <div className="text-center text-white max-w-2xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)]">
           <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold uppercase mb-4 leading-tight">
             Vacation <br />
             <span>Ready</span>
