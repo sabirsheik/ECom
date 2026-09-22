@@ -79,7 +79,7 @@ const validateProductSelection = (product, size, color) => {
         return "Product is inactive";
     }
 
-    if (Number(product.countInPrice || 0) < 1) {
+    if (Number(product.countInStock || 0) < 1) {
         return "Product is out of stock";
     }
 
@@ -99,7 +99,7 @@ const validateProductSelection = (product, size, color) => {
 };
 
 const getMaxAllowedQty = (product) => {
-    const stock = Number(product.countInPrice || 0);
+    const stock = Number(product.countInStock || 0);
     return Math.max(1, Math.min(stock, MAX_CART_ITEM_QTY));
 };
 
