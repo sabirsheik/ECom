@@ -12,11 +12,19 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${scrolled ? "border-[var(--line)] bg-[rgba(255,253,249,0.96)] shadow-[0_8px_30px_rgba(23,22,20,0.06)] backdrop-blur" : "border-transparent bg-[rgba(245,241,234,0.88)]"}`}>
-      <div className="hidden border-b border-[var(--line)]/70 px-6 py-2 text-center text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-soft)] md:block">
-        Complimentary delivery on orders over Rs 10,000
+    <header
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
+        scrolled
+          ? "border-[var(--line)] bg-[rgba(255,253,249,0.96)] shadow-[0_8px_30px_rgba(23,22,20,0.06)] backdrop-blur"
+          : "border-transparent bg-[rgba(245,241,234,0.88)]"
+      }`}
+    >
+      <div className="hidden border-b border-[var(--line)]/70 py-2 text-center text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-[var(--ink-soft)] md:block">
+        <div className="content-shell">Complimentary delivery on orders over Rs 10,000</div>
       </div>
-      <Navbar compact={scrolled} />
+      <div className="content-shell">
+        <Navbar compact={scrolled} />
+      </div>
     </header>
   );
 };
