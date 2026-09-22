@@ -1,5 +1,7 @@
 # ECom Store
 
+This project is released under the [MIT License](LICENSE).
+
 A full-stack clothing e-commerce application with a React storefront, Redux state management, an Express REST API, MongoDB persistence, Cloudinary image uploads, and optional Stripe checkout.
 
 The project contains two independently runnable applications:
@@ -464,7 +466,7 @@ Roles are `customer` and `admin`.
 
 ### Product
 
-`name`, `description`, `price`, `discountPrice`, `countInPrice` (stock quantity), `sku`, `category`, `brand`, `sizes`, `colors`, `collections`, `material`, `gender`, `images`, feature/publication flags, ratings, tags, owner, and timestamps.
+`name`, `description`, `price`, `discountPrice`, `countInStock` (stock quantity), `sku`, `category`, `brand`, `sizes`, `colors`, `collections`, `material`, `gender`, `images`, feature/publication flags, ratings, tags, owner, and timestamps.
 
 ### Cart
 
@@ -484,7 +486,7 @@ Unique normalized email and subscription date.
 
 ## Seeding Products
 
-The seed script reads `backend/data/dummy-clothing-products.json`, connects to MongoDB, and upserts products by SKU:
+The seed script reads `backend/data/dummy-clothing-products.json`, connects to MongoDB, and upserts products by SKU. Catalog inventory is stored consistently as `countInStock`:
 
 ```bash
 cd backend
