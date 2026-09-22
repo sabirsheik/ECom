@@ -11,7 +11,7 @@ const createProduct = async (req, res) => {
             description,
             price,
             discountPrice,
-            countInPrice,
+            countInStock,
             sku,
             category,
             brand,
@@ -33,7 +33,7 @@ const createProduct = async (req, res) => {
             !name ||
             !description ||
             !price ||
-            countInPrice === undefined || // <-- this is the fix
+            countInStock === undefined ||
             !category ||
             !sku ||
             !sizes ||
@@ -48,7 +48,7 @@ const createProduct = async (req, res) => {
             description,
             price,
             discountPrice,
-            countInPrice,
+            countInStock,
             sku,
             category,
             brand,
@@ -88,7 +88,7 @@ const updateProduct = async (req, res, next) => {
             description,
             price,
             discountPrice,
-            countInPrice,
+            countInStock,
             sku,
             category,
             brand,
@@ -115,7 +115,7 @@ const updateProduct = async (req, res, next) => {
             product.description = description || product.description;
             product.price = price || product.price;
             product.discountPrice = discountPrice || product.discountPrice;
-            product.countInPrice = countInPrice || product.countInPrice;
+            product.countInStock = countInStock ?? product.countInStock;
             product.category = category || product.category;
             product.brand = brand || product.brand;
             product.sizes = sizes || product.sizes;
@@ -225,11 +225,11 @@ const getAllProducts = async (req, res, next) => {
         }
 
         if (availability === "inStock") {
-            query.countInPrice = { $gt: 0 };
+            query.countInStock = { $gt: 0 };
         }
 
         if (availability === "outOfStock") {
-            query.countInPrice = { $lte: 0 };
+            query.countInStock = { $lte: 0 };
         }
 
         if (search) {
