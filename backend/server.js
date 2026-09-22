@@ -2,8 +2,11 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const dotenv = require("dotenv")
-dotenv.config();
+const path = require("path");
+const dotenv = require("dotenv");
+
+dotenv.config({ path: path.resolve(__dirname, ".env") });
+
 const app = express();
 
 // Stripe webhook must receive the raw body for signature verification.
