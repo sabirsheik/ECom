@@ -3,137 +3,85 @@ import { Link } from "react-router-dom";
 import { TbBrandMeta } from "react-icons/tb";
 import { IoLogoInstagram } from "react-icons/io";
 import { RiTwitterXLine } from "react-icons/ri";
-import { FiPhoneCall } from "react-icons/fi";
 
 const Footer = () => {
   return (
-    <footer className="bg-[var(--graphite)] px-5 pb-8 pt-16 text-[#eee9df] sm:px-8 lg:px-12">
-      <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-4">
-        {/* Newsletter */}
-        <div>
+    <footer className="bg-[var(--graphite)] pb-8 pt-16 text-[#eee9df]">
+      <div className="content-shell grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="lg:col-span-2">
           <p className="eyebrow mb-4 text-[#c8a87e]">E / C journal</p>
-          <h4 className="display-title mb-4 text-3xl font-semibold">A considered edit.</h4>
-          <p className="text-sm mb-3">
+          <h4 className="display-title mb-4 text-4xl leading-none">A considered edit.</h4>
+          <p className="max-w-sm text-sm leading-7 text-[#c7c1b8]">
             New pieces, quiet launches, and notes from the studio.
           </p>
-          <form className="flex mt-4 max-w-sm">
+          <form className="mt-6 flex max-w-md">
             <input
               type="email"
               placeholder="Enter your email"
-              className="w-full border border-[#393a3b] bg-[#17181a] px-4 py-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-[#aa8050]"
+              className="w-full border border-[#393a3b] bg-[#17181a] px-4 py-3 text-sm text-white placeholder:text-[#8d877f] focus:outline-none focus:ring-1 focus:ring-[#aa8050]"
               required
             />
-            <button
-              type="submit"
-              className="bg-[#aa8050] px-5 py-2 text-sm text-[#0b0b0c] transition-all hover:bg-[#c39a66]"
-            >
-              Subscribe
+            <button type="submit" className="bg-[#aa8050] px-5 py-3 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-[#0b0b0c] transition-all hover:bg-[#c39a66]">
+              Join
             </button>
           </form>
-          <p className="mt-2 text-xs text-[#77736b]">
-            For people who notice the details.
-          </p>
         </div>
 
-        {/* Shop Links */}
         <div>
           <h4 className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#c8a87e]">Shop</h4>
-          <ul className="space-y-3 text-sm">
-            <li>
-              <Link to="#" className="hover:text-e-hover">
-                Men's Top Wear
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="hover:text-e-hover">
-                Women's Top Wear
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="hover:text-e-hover">
-                Men's Bottom Wear
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="hover:text-e-hover">
-                Women's Bottom Wear
-              </Link>
-            </li>
+          <ul className="space-y-3 text-sm text-[#d9d3ca]">
+            <li><Link to="/collections?gender=Men" className="hover:text-white">Men</Link></li>
+            <li><Link to="/collections?gender=Women" className="hover:text-white">Women</Link></li>
+            <li><Link to="/collections?category=Top%20Wear" className="hover:text-white">Top Wear</Link></li>
+            <li><Link to="/collections?category=Bottom%20Wear" className="hover:text-white">Bottom Wear</Link></li>
           </ul>
         </div>
 
-        {/* Support Links */}
         <div>
           <h4 className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#c8a87e]">Support</h4>
-          <ul className="space-y-3 text-sm">
-            <li>
-              <Link to="#" className="hover:text-e-hover">
-                Contact Us
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="hover:text-e-hover">
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="hover:text-e-hover">
-                FAQs
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="hover:text-e-hover">
-                Shipping & Returns
-              </Link>
-            </li>
+          <ul className="space-y-3 text-sm text-[#d9d3ca]">
+            <li><Link to="/collections" className="hover:text-white">Shipping</Link></li>
+            <li><Link to="/profile" className="hover:text-white">Account</Link></li>
+            <li><Link to="/my-order" className="hover:text-white">Orders</Link></li>
+            <li><Link to="/login" className="hover:text-white">Contact</Link></li>
           </ul>
         </div>
 
-        {/* Social & Contact */}
         <div>
           <h4 className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#c8a87e]">Connect</h4>
-          <div className="flex items-center space-x-5 mb-6">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-e-hover"
-            >
-              <TbBrandMeta className="w-6 h-6" />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-e-hover"
-            >
-              <IoLogoInstagram className="w-6 h-6" />
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-e-hover"
-            >
-              <RiTwitterXLine className="w-5 h-5" />
-            </a>
-          </div>
-          <div>
-            <p className="text-sm font-medium">Call Us</p>
-            <p className="text-sm text-[#aaa59c]">
-              <FiPhoneCall className="inline-block mr-2" />
-              0327-5359491
-            </p>
+          <div className="mb-6 flex items-center gap-5 text-[#f1eee7]">
+            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-[#d8c0a0]"><TbBrandMeta className="h-5 w-5" /></a>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-[#d8c0a0]"><IoLogoInstagram className="h-5 w-5" /></a>
+            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="hover:text-[#d8c0a0]"><RiTwitterXLine className="h-4 w-4" /></a>
           </div>
         </div>
       </div>
 
-      {/* Footer Bottom */}
-      <div className="mx-auto mt-12 max-w-[1440px] border-t border-[#393a3b] pt-6 text-center text-xs text-[#77736b]">
-        <p>
-          &copy; {new Date().getFullYear()} All rights reserved. Designed by{" "}
-          <span className="font-medium">Sabir Ali</span>
-        </p>
+      <div className="content-shell mt-14">
+        <div className="relative flex items-center">
+          <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#4a4947] to-transparent"></div>
+          <div className="mx-6 flex items-center gap-3">
+            <svg className="h-4 w-4 text-[#8b7355]" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
+            </svg>
+            <span className="text-[0.78rem] font-semibold uppercase tracking-[0.28em] text-[#c8a87e]">Est. Studio</span>
+            <svg className="h-4 w-4 text-[#8b7355]" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
+            </svg>
+          </div>
+          <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#4a4947] to-transparent"></div>
+        </div>
+
+        <div className="pt-7 pb-3 text-center">
+          <p className="text-sm leading-relaxed tracking-[0.06em] text-[#aaa49b]">
+            &copy; {new Date().getFullYear()}{" "}
+            <span className="font-semibold tracking-[0.1em] text-[#eee9df]">E / C Studio</span>
+            <span className="mx-3 text-[#8b7355]">·</span>
+            All rights reserved
+            <span className="mx-3 text-[#8b7355]">·</span>
+            <span className="text-[#c8a87e]">Crafted with care</span>
+          </p>
+        </div>
       </div>
     </footer>
   );
