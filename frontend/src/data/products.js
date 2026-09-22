@@ -1,990 +1,893 @@
-// product.js:
-
-const products = [
+[
   {
-    name: "Classic Oxford Button-Down Shirt",
-    description:
-      "This classic Oxford shirt is tailored for a polished yet casual look. Crafted from high-quality cotton, it features a button-down collar and a comfortable, slightly relaxed fit. Perfect for both formal and casual occasions, it comes with long sleeves, a button placket, and a yoke at the back. The shirt is finished with a gently rounded hem and adjustable button cuffs.",
-    price: 39.99,
-    discountPrice: 34.99,
-    countInStock: 20,
-    sku: "OX-SH-001",
-    category: "Top Wear",
-    brand: "Urban Threads",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    colors: ["Red", "Blue", "Yellow"],
-    collections: "Business Casual",
-    material: "Cotton",
-    gender: "Men",
-    images: [
+    "name": "Premium Oxford Shirt",
+    "description": "A refined cotton Oxford shirt designed with a clean silhouette, button-down collar and comfortable everyday construction. Ideal for office, smart-casual and weekend styling.",
+    "price": 59.99,
+    "discountPrice": 49.99,
+    "countInStock": 24,
+    "sku": "MN-TOP-001",
+    "category": "Top Wear",
+    "brand": "Northline",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "colors": ["White", "Sky Blue", "Navy"],
+    "collections": "Smart Casual",
+    "material": "100% Cotton",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=39",
-        altText: "Classic Oxford Button-Down Shirt Front View",
+        "url": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=900&q=85",
+        "altText": "Premium Oxford Shirt Front View"
       },
       {
-        url: "https://picsum.photos/500/500?random=40",
-        altText: "Classic Oxford Button-Down Shirt Back View",
-      },
+        "url": "https://images.unsplash.com/photo-1621072156002-e2fccdc0b176?auto=format&fit=crop&w=900&q=85",
+        "altText": "Premium Oxford Shirt Detail"
+      }
     ],
-    rating: 4.5,
-    numReviews: 12,
+    "rating": 4.8,
+    "numReviews": 34
   },
   {
-    name: "Slim-Fit Stretch Shirt",
-    description:
-      "A versatile slim-fit shirt perfect for business or evening events. Designed with a fitted silhouette, the added stretch provides maximum comfort throughout the day. Features a crisp turn-down collar, button placket, and adjustable cuffs.",
-    price: 29.99,
-    discountPrice: 24.99,
-    countInStock: 35,
-    sku: "SLIM-SH-002",
-    category: "Top Wear",
-    brand: "Modern Fit",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Black", "Navy Blue", "Burgundy"],
-    collections: "Formal Wear",
-    material: "Cotton Blend",
-    gender: "Men",
-    images: [
+    "name": "Tailored Navy Dress Shirt",
+    "description": "A sophisticated navy dress shirt featuring a tailored fit, structured collar and smooth cotton-blend fabric for polished formal and business looks.",
+    "price": 64.99,
+    "discountPrice": 54.99,
+    "countInStock": 18,
+    "sku": "MN-TOP-002",
+    "category": "Top Wear",
+    "brand": "Form & Thread",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Navy", "Black", "White"],
+    "collections": "Formal Edit",
+    "material": "Cotton Blend",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=41",
-        altText: "Slim-Fit Stretch Shirt Front View",
+        "url": "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=85",
+        "altText": "Tailored Navy Dress Shirt"
       },
       {
-        url: "https://picsum.photos/500/500?random=42",
-        altText: "Slim-Fit Stretch Shirt Back View",
-      },
+        "url": "https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=85",
+        "altText": "Tailored Dress Shirt Detail"
+      }
     ],
-    rating: 4.8,
-    numReviews: 15,
+    "rating": 4.7,
+    "numReviews": 28
   },
   {
-    name: "Casual Denim Shirt",
-    description:
-      "This casual denim shirt is made from lightweight cotton denim. It features a regular fit, snap buttons, and a straight hem. With Western-inspired details, this shirt is perfect for layering or wearing solo.",
-    price: 49.99,
-    discountPrice: 44.99,
-    countInStock: 15,
-    sku: "CAS-DEN-003",
-    category: "Top Wear",
-    brand: "Street Style",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    colors: ["Light Blue", "Dark Wash"],
-    collections: "Casual Wear",
-    material: "Denim",
-    gender: "Men",
-    images: [
+    "name": "Relaxed Linen Resort Shirt",
+    "description": "A lightweight linen-blend resort shirt with a relaxed silhouette and open collar. Designed for warm-weather days, holidays and effortless summer styling.",
+    "price": 54.99,
+    "discountPrice": 44.99,
+    "countInStock": 31,
+    "sku": "MN-TOP-003",
+    "category": "Top Wear",
+    "brand": "Coastline",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Cream", "Sand", "Olive"],
+    "collections": "Summer Collection",
+    "material": "Linen Blend",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=43",
-        altText: "Casual Denim Shirt Front View",
+        "url": "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?auto=format&fit=crop&w=900&q=85",
+        "altText": "Relaxed Linen Resort Shirt"
       },
       {
-        url: "https://picsum.photos/500/500?random=44",
-        altText: "Casual Denim Shirt Back View",
-      },
+        "url": "https://images.unsplash.com/photo-1627225924765-552d49cf47ad?auto=format&fit=crop&w=900&q=85",
+        "altText": "Linen Resort Shirt Styling"
+      }
     ],
-    rating: 4.6,
-    numReviews: 8,
+    "rating": 4.6,
+    "numReviews": 21
   },
   {
-    name: "Printed Resort Shirt",
-    description:
-      "Designed for summer, this printed resort shirt is perfect for vacation or weekend getaways. It features a relaxed fit, short sleeves, and a camp collar. The all-over tropical print adds a playful vibe.",
-    price: 29.99,
-    discountPrice: 22.99,
-    countInStock: 25,
-    sku: "PRNT-RES-004",
-    category: "Top Wear",
-    brand: "Beach Breeze",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Tropical Print", "Navy Palms"],
-    collections: "Vacation Wear",
-    material: "Viscose",
-    gender: "Men",
-    images: [
+    "name": "Essential Heavyweight T-Shirt",
+    "description": "A premium heavyweight cotton T-shirt with a structured relaxed fit, clean neckline and durable construction. Designed as an elevated everyday essential.",
+    "price": 34.99,
+    "discountPrice": 27.99,
+    "countInStock": 46,
+    "sku": "MN-TOP-004",
+    "category": "Top Wear",
+    "brand": "Core Supply",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "White", "Stone", "Charcoal"],
+    "collections": "Essentials",
+    "material": "Heavyweight Cotton",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=45",
-        altText: "Printed Resort Shirt Front View",
+        "url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85",
+        "altText": "Essential Heavyweight T-Shirt"
       },
       {
-        url: "https://picsum.photos/500/500?random=1",
-        altText: "Printed Resort Shirt Back View",
-      },
+        "url": "https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=900&q=85",
+        "altText": "Heavyweight Cotton T-Shirt"
+      }
     ],
-    rating: 4.4,
-    numReviews: 10,
+    "rating": 4.9,
+    "numReviews": 57
   },
   {
-    name: "Slim-Fit Easy-Iron Shirt",
-    description:
-      "A slim-fit, easy-iron shirt in woven cotton fabric with a fitted silhouette. Features a turn-down collar, classic button placket, and a yoke at the back. Long sleeves and adjustable button cuffs with a rounded hem.",
-    price: 34.99,
-    discountPrice: 29.99,
-    countInStock: 30,
-    sku: "SLIM-EIR-005",
-    category: "Top Wear",
-    brand: "Urban Chic",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["White", "Gray"],
-    collections: "Business Wear",
-    material: "Cotton",
-    gender: "Men",
-    images: [
+    "name": "Minimal Ribbed Polo",
+    "description": "A modern ribbed polo crafted from a soft cotton blend. Its streamlined silhouette and refined collar make it suitable for both casual and elevated outfits.",
+    "price": 49.99,
+    "discountPrice": 39.99,
+    "countInStock": 27,
+    "sku": "MN-TOP-005",
+    "category": "Top Wear",
+    "brand": "Modern Standard",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Black", "Cream", "Forest Green"],
+    "collections": "Modern Essentials",
+    "material": "Cotton Blend",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=47",
-        altText: "Slim-Fit Easy-Iron Shirt Front View",
+        "url": "https://images.unsplash.com/photo-1610652492500-ded49ceeb378?auto=format&fit=crop&w=900&q=85",
+        "altText": "Minimal Ribbed Polo"
       },
       {
-        url: "https://picsum.photos/500/500?random=2",
-        altText: "Slim-Fit Easy-Iron Shirt Front View",
-      },
+        "url": "https://images.unsplash.com/photo-1625910513413-5fc45a1f2b3d?auto=format&fit=crop&w=900&q=85",
+        "altText": "Ribbed Polo Detail"
+      }
     ],
-    rating: 5,
-    numReviews: 14,
+    "rating": 4.7,
+    "numReviews": 31
   },
   {
-    name: "Polo T-Shirt with Ribbed Collar",
-    description:
-      "A wardrobe classic, this polo t-shirt features a ribbed collar and cuffs. Made from 100% cotton, it offers breathability and comfort throughout the day. Tailored in a slim fit with a button placket at the neckline.",
-    price: 24.99,
-    discountPrice: 19.99,
-    countInStock: 50,
-    sku: "POLO-TSH-006",
-    category: "Top Wear",
-    brand: "Polo Classics",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["White", "Navy", "Red"],
-    collections: "Casual Wear",
-    material: "Cotton",
-    gender: "Men",
-    images: [
+    "name": "Classic Denim Overshirt",
+    "description": "A versatile denim overshirt featuring a relaxed fit, utility chest pockets and durable washed denim. Perfect for layering throughout the year.",
+    "price": 74.99,
+    "discountPrice": 64.99,
+    "countInStock": 19,
+    "sku": "MN-TOP-006",
+    "category": "Top Wear",
+    "brand": "West & Co.",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Mid Blue", "Dark Indigo"],
+    "collections": "Denim Collection",
+    "material": "Denim",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=3",
-        altText: "Polo T-Shirt Front View",
+        "url": "https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?auto=format&fit=crop&w=900&q=85",
+        "altText": "Classic Denim Overshirt"
       },
       {
-        url: "https://picsum.photos/500/500?random=4",
-        altText: "Polo T-Shirt Back View",
-      },
+        "url": "https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=900&q=85",
+        "altText": "Denim Overshirt Styling"
+      }
     ],
-    rating: 4.3,
-    numReviews: 22,
+    "rating": 4.6,
+    "numReviews": 19
   },
   {
-    name: "Oversized Graphic T-Shirt",
-    description:
-      "An oversized graphic t-shirt that combines comfort with street style. Featuring bold prints across the chest, this relaxed fit tee offers a modern vibe, perfect for pairing with jeans or joggers.",
-    price: 19.99,
-    discountPrice: 15.99,
-    countInStock: 40,
-    sku: "OVS-GRF-007",
-    category: "Top Wear",
-    brand: "Street Vibes",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Black", "Gray"],
-    collections: "Streetwear",
-    material: "Cotton",
-    gender: "Men",
-    images: [
+    "name": "Straight Fit Premium Jeans",
+    "description": "Classic straight-fit jeans made from premium stretch denim. Designed with a timeless five-pocket construction and comfortable everyday fit.",
+    "price": 89.99,
+    "discountPrice": 74.99,
+    "countInStock": 22,
+    "sku": "MN-BOT-001",
+    "category": "Bottom Wear",
+    "brand": "Denim District",
+    "sizes": ["30", "32", "34", "36", "38"],
+    "colors": ["Indigo", "Washed Blue", "Black"],
+    "collections": "Denim Collection",
+    "material": "Stretch Denim",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=5",
-        altText: "Oversized Graphic T-Shirt Front View",
+        "url": "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=900&q=85",
+        "altText": "Straight Fit Premium Jeans"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=900&q=85",
+        "altText": "Premium Denim Jeans"
+      }
     ],
-    rating: 4.6,
-    numReviews: 30,
+    "rating": 4.8,
+    "numReviews": 42
   },
   {
-    name: "Regular-Fit Henley Shirt",
-    description:
-      "A modern take on the classic Henley shirt, this regular-fit style features a buttoned placket and ribbed cuffs. Made from a soft cotton blend with a touch of elastane for stretch.",
-    price: 22.99,
-    discountPrice: 18.99,
-    countInStock: 35,
-    sku: "REG-HEN-008",
-    category: "Top Wear",
-    brand: "Heritage Wear",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Heather Gray", "Olive", "Black"],
-    collections: "Casual Wear",
-    material: "Cotton Blend",
-    gender: "Men",
-    images: [
+    "name": "Tapered Utility Cargo Pants",
+    "description": "Modern tapered cargo pants with multiple utility pockets, adjustable waist and durable cotton construction for everyday urban wear.",
+    "price": 79.99,
+    "discountPrice": 67.99,
+    "countInStock": 26,
+    "sku": "MN-BOT-002",
+    "category": "Bottom Wear",
+    "brand": "Urban Field",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Olive", "Black", "Stone"],
+    "collections": "Urban Utility",
+    "material": "Cotton Twill",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=6",
-        altText: "Regular-Fit Henley Shirt Front View",
+        "url": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85",
+        "altText": "Tapered Utility Cargo Pants"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85",
+        "altText": "Utility Cargo Pants Detail"
+      }
     ],
-    rating: 4.5,
-    numReviews: 25,
+    "rating": 4.6,
+    "numReviews": 24
   },
   {
-    name: "Long-Sleeve Thermal Tee",
-    description:
-      "Stay warm with this long-sleeve thermal tee, made from soft cotton with a waffle-knit texture. Ideal for layering in cooler months, the slim-fit design ensures a snug yet comfortable fit.",
-    price: 27.99,
-    discountPrice: 22.99,
-    countInStock: 20,
-    sku: "LST-THR-009",
-    category: "Top Wear",
-    brand: "Winter Basics",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    colors: ["Charcoal", "Dark Green", "Navy"],
-    collections: "Winter Essentials",
-    material: "Cotton",
-    gender: "Men",
-    images: [
+    "name": "Premium Tailored Trousers",
+    "description": "Clean-cut tailored trousers designed with a tapered leg and refined finish. A versatile foundation for business and formal wardrobes.",
+    "price": 84.99,
+    "discountPrice": 69.99,
+    "countInStock": 17,
+    "sku": "MN-BOT-003",
+    "category": "Bottom Wear",
+    "brand": "Form & Thread",
+    "sizes": ["30", "32", "34", "36", "38"],
+    "colors": ["Charcoal", "Black", "Navy"],
+    "collections": "Formal Edit",
+    "material": "Wool Blend",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=7",
-        altText: "Long-Sleeve Thermal Tee Front View",
+        "url": "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=900&q=85",
+        "altText": "Premium Tailored Trousers"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?auto=format&fit=crop&w=900&q=85",
+        "altText": "Tailored Trousers Styling"
+      }
     ],
-    rating: 4.4,
-    numReviews: 18,
+    "rating": 4.7,
+    "numReviews": 18
   },
   {
-    name: "V-Neck Classic T-Shirt",
-    description:
-      "A classic V-neck t-shirt for everyday wear. This regular-fit tee is made from breathable cotton and features a clean, simple design with a flattering V-neckline. Lightweight fabric and soft texture make it perfect for casual looks.",
-    price: 14.99,
-    discountPrice: 11.99,
-    countInStock: 60,
-    sku: "VNECK-CLS-010",
-    category: "Top Wear",
-    brand: "Everyday Comfort",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["White", "Black", "Navy"],
-    collections: "Basics",
-    material: "Cotton",
-    gender: "Men",
-    images: [
+    "name": "Relaxed Cotton Joggers",
+    "description": "Soft cotton-blend joggers featuring an elasticated waist, adjustable drawcord and tapered ankle for comfortable everyday movement.",
+    "price": 54.99,
+    "discountPrice": 44.99,
+    "countInStock": 38,
+    "sku": "MN-BOT-004",
+    "category": "Bottom Wear",
+    "brand": "Core Supply",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Heather Gray", "Black", "Navy"],
+    "collections": "Lounge Essentials",
+    "material": "Cotton Blend",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=8",
-        altText: "V-Neck Classic T-Shirt Front View",
+        "url": "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&w=900&q=85",
+        "altText": "Relaxed Cotton Joggers"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=900&q=85",
+        "altText": "Cotton Joggers Detail"
+      }
     ],
-    rating: 4.7,
-    numReviews: 28,
+    "rating": 4.5,
+    "numReviews": 36
   },
   {
-    name: "Slim Fit Joggers",
-    description:
-      "Slim-fit joggers with an elasticated drawstring waist. Features ribbed hems and side pockets. Ideal for casual outings or workouts.",
-    price: 40,
-    discountPrice: 35,
-    countInStock: 20,
-    sku: "BW-001",
-    category: "Bottom Wear",
-    brand: "ActiveWear",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Black", "Gray", "Navy"],
-    collections: "Casual Collection",
-    material: "Cotton Blend",
-    gender: "Men",
-    images: [
+    "name": "Lightweight Performance Shorts",
+    "description": "Lightweight performance shorts engineered for movement with a flexible waistband, breathable fabric and practical side pockets.",
+    "price": 39.99,
+    "discountPrice": 32.99,
+    "countInStock": 33,
+    "sku": "MN-BOT-005",
+    "category": "Bottom Wear",
+    "brand": "Motion Lab",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Black", "Slate", "Olive"],
+    "collections": "Active Collection",
+    "material": "Performance Fabric",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=9",
-        altText: "Slim Fit Joggers Front View",
+        "url": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85",
+        "altText": "Lightweight Performance Shorts"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=900&q=85",
+        "altText": "Performance Shorts Activewear"
+      }
     ],
-    rating: 4.5,
-    numReviews: 12,
+    "rating": 4.6,
+    "numReviews": 29
   },
   {
-    name: "Cargo Joggers",
-    description:
-      "Relaxed-fit cargo joggers featuring multiple pockets for functionality. Drawstring waist and cuffed hems for a modern look.",
-    price: 45,
-    discountPrice: 40,
-    countInStock: 15,
-    sku: "BW-002",
-    category: "Bottom Wear",
-    brand: "UrbanStyle",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Olive", "Black"],
-    collections: "Urban Collection",
-    material: "Cotton",
-    gender: "Men",
-    images: [
+    "name": "Structured Knit Crewneck",
+    "description": "A refined knit crewneck with a structured silhouette and soft-touch finish. Designed for layering during cooler seasons.",
+    "price": 69.99,
+    "discountPrice": 59.99,
+    "countInStock": 20,
+    "sku": "MN-TOP-007",
+    "category": "Top Wear",
+    "brand": "Northline",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Cream", "Charcoal", "Camel"],
+    "collections": "Autumn Essentials",
+    "material": "Cotton Knit",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=10",
-        altText: "Cargo Joggers Front View",
+        "url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=900&q=85",
+        "altText": "Structured Knit Crewneck"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85",
+        "altText": "Knit Crewneck Detail"
+      }
     ],
-    rating: 4.7,
-    numReviews: 20,
+    "rating": 4.7,
+    "numReviews": 23
   },
   {
-    name: "Tapered Sweatpants",
-    description:
-      "Tapered sweatpants designed for comfort. Elastic waistband with adjustable drawstring, perfect for lounging or athletic activities.",
-    price: 35,
-    discountPrice: 30,
-    countInStock: 25,
-    sku: "BW-003",
-    category: "Bottom Wear",
-    brand: "ChillZone",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Gray", "Charcoal", "Blue"],
-    collections: "Lounge Collection",
-    material: "Fleece",
-    gender: "Men",
-    images: [
+    "name": "Textured Casual Henley",
+    "description": "A relaxed Henley shirt crafted from textured cotton with a three-button placket and comfortable regular fit.",
+    "price": 44.99,
+    "discountPrice": 36.99,
+    "countInStock": 29,
+    "sku": "MN-TOP-008",
+    "category": "Top Wear",
+    "brand": "Heritage Form",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Stone", "Olive", "Navy"],
+    "collections": "Weekend Collection",
+    "material": "Cotton",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=11",
-        altText: "Tapered Sweatpants Front View",
+        "url": "https://images.unsplash.com/photo-1610652492500-ded49ceeb378?auto=format&fit=crop&w=900&q=85",
+        "altText": "Textured Casual Henley"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=900&q=85",
+        "altText": "Casual Henley Shirt"
+      }
     ],
-    rating: 4.3,
-    numReviews: 18,
+    "rating": 4.5,
+    "numReviews": 17
   },
   {
-    name: "Denim Jeans",
-    description:
-      "Classic slim-fit denim jeans with a slight stretch for comfort. Features a zip fly and five-pocket styling for a timeless look.",
-    price: 60,
-    discountPrice: 50,
-    countInStock: 30,
-    sku: "BW-004",
-    category: "Bottom Wear",
-    brand: "DenimCo",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Dark Blue", "Light Blue"],
-    collections: "Denim Collection",
-    material: "Denim",
-    gender: "Men",
-    images: [
+    "name": "Premium Black Bomber Jacket",
+    "description": "A clean modern bomber jacket with a structured collar, ribbed cuffs and lightweight construction for versatile transitional-season styling.",
+    "price": 119.99,
+    "discountPrice": 99.99,
+    "countInStock": 14,
+    "sku": "MN-OUT-001",
+    "category": "Outerwear",
+    "brand": "Urban Field",
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["Black", "Charcoal"],
+    "collections": "Outerwear",
+    "material": "Nylon Blend",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=12",
-        altText: "Denim Jeans Front View",
+        "url": "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=900&q=85",
+        "altText": "Premium Black Bomber Jacket"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1520975958225-58e0c8d2b4e8?auto=format&fit=crop&w=900&q=85",
+        "altText": "Black Bomber Jacket Detail"
+      }
     ],
-    rating: 4.6,
-    numReviews: 22,
+    "rating": 4.9,
+    "numReviews": 41
   },
   {
-    name: "Chino Pants",
-    description:
-      "Slim-fit chino pants made from stretch cotton twill. Features a button closure and front and back pockets. Ideal for both casual and semi-formal wear.",
-    price: 55,
-    discountPrice: 48,
-    countInStock: 40,
-    sku: "BW-005",
-    category: "Bottom Wear",
-    brand: "CasualLook",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Beige", "Navy", "Black"],
-    collections: "Smart Casual Collection",
-    material: "Cotton",
-    gender: "Men",
-    images: [
+    "name": "Minimal Leather Sneakers",
+    "description": "Clean low-top sneakers with a minimalist profile, cushioned sole and premium-inspired finish for everyday styling.",
+    "price": 99.99,
+    "discountPrice": 84.99,
+    "countInStock": 21,
+    "sku": "MN-FTW-001",
+    "category": "Footwear",
+    "brand": "Form & Thread",
+    "sizes": ["7", "8", "9", "10", "11", "12"],
+    "colors": ["White", "Black"],
+    "collections": "Essential Footwear",
+    "material": "Synthetic Leather",
+    "gender": "Men",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=13",
-        altText: "Chino Pants Front View",
+        "url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85",
+        "altText": "Minimal Leather Sneakers"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1495555961986-6d4c1ecb7be3?auto=format&fit=crop&w=900&q=85",
+        "altText": "Minimal Sneakers Side View"
+      }
     ],
-    rating: 4.8,
-    numReviews: 15,
+    "rating": 4.8,
+    "numReviews": 53
   },
   {
-    name: "Track Pants",
-    description:
-      "Comfortable track pants with an elasticated waistband and tapered leg. Features side stripes for a sporty look. Ideal for athletic and casual wear.",
-    price: 40,
-    discountPrice: 35,
-    countInStock: 20,
-    sku: "BW-006",
-    category: "Bottom Wear",
-    brand: "SportX",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Black", "Red", "Blue"],
-    collections: "Activewear Collection",
-    material: "Polyester",
-    gender: "Men",
-    images: [
+    "name": "High-Rise Wide-Leg Trousers",
+    "description": "Elegant high-rise trousers with a flowing wide-leg silhouette and clean waistband. Designed for polished office and occasion dressing.",
+    "price": 79.99,
+    "discountPrice": 67.99,
+    "countInStock": 25,
+    "sku": "WM-BOT-001",
+    "category": "Bottom Wear",
+    "brand": "Atelier Lane",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["Black", "Cream", "Taupe"],
+    "collections": "Modern Tailoring",
+    "material": "Polyester Blend",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=14",
-        altText: "Track Pants Front View",
+        "url": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85",
+        "altText": "High-Rise Wide-Leg Trousers"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1506629905607-d9c297d3b1f8?auto=format&fit=crop&w=900&q=85",
+        "altText": "Wide-Leg Trousers Styling"
+      }
     ],
-    rating: 4.2,
-    numReviews: 17,
+    "rating": 4.8,
+    "numReviews": 37
   },
   {
-    name: "Slim Fit Trousers",
-    description:
-      "Tailored slim-fit trousers with belt loops and a hook-and-eye closure. Suitable for formal occasions or smart-casual wear.",
-    price: 65,
-    discountPrice: 55,
-    countInStock: 15,
-    sku: "BW-007",
-    category: "Bottom Wear",
-    brand: "ExecutiveStyle",
-    sizes: ["M", "L", "XL"],
-    colors: ["Gray", "Black"],
-    collections: "Office Wear",
-    material: "Polyester",
-    gender: "Men",
-    images: [
+    "name": "Soft Ribbed Knit Top",
+    "description": "A refined ribbed knit top with a fitted silhouette, soft stretch and versatile neckline. Designed for effortless everyday layering.",
+    "price": 49.99,
+    "discountPrice": 39.99,
+    "countInStock": 32,
+    "sku": "WM-TOP-001",
+    "category": "Top Wear",
+    "brand": "Atelier Lane",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["Cream", "Black", "Mocha"],
+    "collections": "Everyday Essentials",
+    "material": "Viscose Blend",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=15",
-        altText: "Slim Fit Trousers Front View",
+        "url": "https://images.unsplash.com/photo-1564257577054-9e2f7c5f6d4b?auto=format&fit=crop&w=900&q=85",
+        "altText": "Soft Ribbed Knit Top"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=900&q=85",
+        "altText": "Ribbed Knit Top Detail"
+      }
     ],
-    rating: 4.7,
-    numReviews: 10,
+    "rating": 4.7,
+    "numReviews": 29
   },
   {
-    name: "Cargo Pants",
-    description:
-      "Loose-fit cargo pants with multiple utility pockets. Features adjustable ankle cuffs and a drawstring waist for versatility and comfort.",
-    price: 50,
-    discountPrice: 45,
-    countInStock: 25,
-    sku: "BW-008",
-    category: "Bottom Wear",
-    brand: "StreetWear",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Olive", "Brown", "Black"],
-    collections: "Street Style Collection",
-    material: "Cotton",
-    gender: "Men",
-    images: [
+    "name": "Relaxed Linen Blouse",
+    "description": "An airy linen-blend blouse featuring a relaxed silhouette, subtle texture and versatile styling suitable for warm-weather wardrobes.",
+    "price": 64.99,
+    "discountPrice": 54.99,
+    "countInStock": 28,
+    "sku": "WM-TOP-002",
+    "category": "Top Wear",
+    "brand": "Coastline",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["White", "Sand", "Sky Blue"],
+    "collections": "Summer Collection",
+    "material": "Linen Blend",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=16",
-        altText: "Cargo Pants Front View",
+        "url": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85",
+        "altText": "Relaxed Linen Blouse"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=900&q=85",
+        "altText": "Linen Blouse Styling"
+      }
     ],
-    rating: 4.5,
-    numReviews: 13,
+    "rating": 4.6,
+    "numReviews": 22
   },
   {
-    name: "Relaxed Fit Sweatpants",
-    description:
-      "Relaxed-fit sweatpants made from soft fleece fabric. Features an elastic waist and adjustable drawstring for a custom fit.",
-    price: 35,
-    discountPrice: 30,
-    countInStock: 35,
-    sku: "BW-009",
-    category: "Bottom Wear",
-    brand: "LoungeWear",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Gray", "Black", "Navy"],
-    collections: "Lounge Collection",
-    material: "Fleece",
-    gender: "Men",
-    images: [
+    "name": "Satin Wrap Blouse",
+    "description": "A sophisticated satin wrap blouse with a flattering waist tie and fluid drape. Perfect for evening events, dinners and elevated occasions.",
+    "price": 74.99,
+    "discountPrice": 62.99,
+    "countInStock": 19,
+    "sku": "WM-TOP-003",
+    "category": "Top Wear",
+    "brand": "Lustre",
+    "sizes": ["XS", "S", "M", "L"],
+    "colors": ["Champagne", "Black", "Burgundy"],
+    "collections": "Evening Edit",
+    "material": "Satin",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=17",
-        altText: "Relaxed Fit Sweatpants Front View",
+        "url": "https://images.unsplash.com/photo-1566206091558-7f218b696731?auto=format&fit=crop&w=900&q=85",
+        "altText": "Satin Wrap Blouse"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=900&q=85",
+        "altText": "Satin Blouse Detail"
+      }
     ],
-    rating: 4.3,
-    numReviews: 14,
+    "rating": 4.8,
+    "numReviews": 33
   },
   {
-    name: "Formal Dress Pants",
-    description:
-      "Classic formal dress pants with a slim fit. Made from lightweight, wrinkle-resistant fabric for a polished look at the office or formal events.",
-    price: 70,
-    discountPrice: 60,
-    countInStock: 20,
-    sku: "BW-010",
-    category: "Bottom Wear",
-    brand: "ElegantStyle",
-    sizes: ["M", "L", "XL"],
-    colors: ["Black", "Navy"],
-    collections: "Formal Collection",
-    material: "Polyester",
-    gender: "Men",
-    images: [
+    "name": "Structured Cotton Blazer",
+    "description": "A polished single-breasted blazer with a clean tailored silhouette, refined lapels and versatile construction for work and occasion dressing.",
+    "price": 129.99,
+    "discountPrice": 109.99,
+    "countInStock": 13,
+    "sku": "WM-OUT-001",
+    "category": "Outerwear",
+    "brand": "Atelier Lane",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["Black", "Cream", "Camel"],
+    "collections": "Modern Tailoring",
+    "material": "Cotton Blend",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=18",
-        altText: "Formal Dress Pants Front View",
+        "url": "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?auto=format&fit=crop&w=900&q=85",
+        "altText": "Structured Cotton Blazer"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85",
+        "altText": "Tailored Blazer Styling"
+      }
     ],
-    rating: 4.9,
-    numReviews: 8,
+    "rating": 4.9,
+    "numReviews": 45
   },
   {
-    name: "High-Waist Skinny Jeans",
-    description:
-      "High-waist skinny jeans in stretch denim with a button and zip fly. Features a flattering fit that hugs your curves and enhances your silhouette.",
-    price: 50,
-    discountPrice: 45,
-    countInStock: 30,
-    sku: "BW-W-001",
-    category: "Bottom Wear",
-    brand: "DenimStyle",
-    sizes: ["XS", "S", "M", "L", "XL"],
-    colors: ["Dark Blue", "Black", "Light Blue"],
-    collections: "Denim Collection",
-    material: "Denim",
-    gender: "Women",
-    images: [
+    "name": "High-Rise Straight Jeans",
+    "description": "Classic high-rise straight-leg jeans crafted from comfortable stretch denim with a clean five-pocket finish and versatile everyday silhouette.",
+    "price": 84.99,
+    "discountPrice": 69.99,
+    "countInStock": 30,
+    "sku": "WM-BOT-002",
+    "category": "Bottom Wear",
+    "brand": "Denim District",
+    "sizes": ["24", "26", "28", "30", "32", "34"],
+    "colors": ["Mid Blue", "Dark Indigo", "Black"],
+    "collections": "Denim Collection",
+    "material": "Stretch Denim",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=19",
-        altText: "High-Waist Skinny Jeans",
+        "url": "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=900&q=85",
+        "altText": "High-Rise Straight Jeans"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?auto=format&fit=crop&w=900&q=85",
+        "altText": "High-Rise Jeans Detail"
+      }
     ],
-    rating: 4.8,
-    numReviews: 20,
+    "rating": 4.8,
+    "numReviews": 51
   },
   {
-    name: "Wide-Leg Trousers",
-    description:
-      "Flowy, wide-leg trousers with a high waist and side pockets. Perfect for an elegant look that combines comfort and style.",
-    price: 60,
-    discountPrice: 55,
-    countInStock: 25,
-    sku: "BW-W-002",
-    category: "Bottom Wear",
-    brand: "ElegantWear",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Beige", "Black", "White"],
-    collections: "Formal Collection",
-    material: "Polyester",
-    gender: "Women",
-    images: [
+    "name": "Pleated Midi Skirt",
+    "description": "An elegant pleated midi skirt with a comfortable high waistband and fluid movement. Designed for both everyday and occasion styling.",
+    "price": 69.99,
+    "discountPrice": 57.99,
+    "countInStock": 23,
+    "sku": "WM-BOT-003",
+    "category": "Bottom Wear",
+    "brand": "Lustre",
+    "sizes": ["XS", "S", "M", "L"],
+    "colors": ["Black", "Ivory", "Dusty Rose"],
+    "collections": "Occasion Edit",
+    "material": "Polyester",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=20",
-        altText: "Wide-Leg Trousers Front View",
+        "url": "https://images.unsplash.com/photo-1583496661160-fb5886a13d77?auto=format&fit=crop&w=900&q=85",
+        "altText": "Pleated Midi Skirt"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1577900232427-18219b9166a0?auto=format&fit=crop&w=900&q=85",
+        "altText": "Pleated Midi Skirt Styling"
+      }
     ],
-    rating: 4.7,
-    numReviews: 15,
+    "rating": 4.7,
+    "numReviews": 27
   },
   {
-    name: "Stretch Leggings",
-    description:
-      "Soft, stretch leggings in a high-rise style. Perfect for lounging, working out, or casual wear, with a smooth fit that flatters your body.",
-    price: 25,
-    discountPrice: 20,
-    countInStock: 40,
-    sku: "BW-W-003",
-    category: "Bottom Wear",
-    brand: "ComfyFit",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Black", "Gray", "Navy"],
-    collections: "Activewear Collection",
-    material: "Cotton Blend",
-    gender: "Women",
-    images: [
+    "name": "Relaxed Tailored Jumpsuit",
+    "description": "A contemporary jumpsuit combining a relaxed fit with tailored details, defined waist and wide-leg silhouette for an effortless statement look.",
+    "price": 99.99,
+    "discountPrice": 84.99,
+    "countInStock": 16,
+    "sku": "WM-ONE-001",
+    "category": "One Piece",
+    "brand": "Atelier Lane",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["Black", "Olive", "Cream"],
+    "collections": "Statement Collection",
+    "material": "Viscose Blend",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=21",
-        altText: "Stretch Leggings Front View",
+        "url": "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=900&q=85",
+        "altText": "Relaxed Tailored Jumpsuit"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1496217590455-aa63a8350eea?auto=format&fit=crop&w=900&q=85",
+        "altText": "Tailored Jumpsuit Styling"
+      }
     ],
-    rating: 4.5,
-    numReviews: 30,
+    "rating": 4.6,
+    "numReviews": 18
   },
   {
-    name: "Pleated Midi Skirt",
-    description:
-      "Elegant pleated midi skirt with a high waistband and soft fabric that drapes beautifully. Ideal for both formal and casual occasions.",
-    price: 55,
-    discountPrice: 50,
-    countInStock: 20,
-    sku: "BW-W-004",
-    category: "Bottom Wear",
-    brand: "ChicStyle",
-    sizes: ["S", "M", "L"],
-    colors: ["Pink", "Navy", "Black"],
-    collections: "Spring Collection",
-    material: "Polyester",
-    gender: "Women",
-    images: [
+    "name": "Minimal Knit Cardigan",
+    "description": "A soft everyday cardigan with a clean open-front design, subtle texture and versatile layering profile for transitional weather.",
+    "price": 74.99,
+    "discountPrice": 59.99,
+    "countInStock": 21,
+    "sku": "WM-OUT-002",
+    "category": "Outerwear",
+    "brand": "Modern Standard",
+    "sizes": ["XS", "S", "M", "L"],
+    "colors": ["Cream", "Taupe", "Black"],
+    "collections": "Layering Essentials",
+    "material": "Cotton Knit",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=22",
-        altText: "Pleated Midi Skirt Front View",
+        "url": "https://images.unsplash.com/photo-1578681994506-b8f463449011?auto=format&fit=crop&w=900&q=85",
+        "altText": "Minimal Knit Cardigan"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=900&q=85",
+        "altText": "Knit Cardigan Detail"
+      }
     ],
-    rating: 4.6,
-    numReviews: 18,
+    "rating": 4.7,
+    "numReviews": 25
   },
   {
-    name: "Flared Palazzo Pants",
-    description:
-      "High-waist palazzo pants with a loose, flowing fit. Comfortable and stylish, making them perfect for casual outings or beach days.",
-    price: 45,
-    discountPrice: 40,
-    countInStock: 35,
-    sku: "BW-W-005",
-    category: "Bottom Wear",
-    brand: "BreezyVibes",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["White", "Beige", "Light Blue"],
-    collections: "Summer Collection",
-    material: "Linen Blend",
-    gender: "Women",
-    images: [
+    "name": "Premium Leather Tote",
+    "description": "A structured everyday tote with a spacious interior, refined handles and minimalist design suitable for work, travel and daily use.",
+    "price": 119.99,
+    "discountPrice": 99.99,
+    "countInStock": 12,
+    "sku": "WM-ACC-001",
+    "category": "Accessories",
+    "brand": "Lustre",
+    "sizes": ["One Size"],
+    "colors": ["Black", "Tan", "Dark Brown"],
+    "collections": "Leather Essentials",
+    "material": "Leather",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=23",
-        altText: "Flared Palazzo Pants Front View",
+        "url": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=85",
+        "altText": "Premium Leather Tote"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=900&q=85",
+        "altText": "Leather Tote Detail"
+      }
     ],
-    rating: 4.4,
-    numReviews: 22,
+    "rating": 4.9,
+    "numReviews": 39
   },
   {
-    name: "High-Rise Joggers",
-    description:
-      "Comfortable high-rise joggers with an elastic waistband and drawstring for a perfect fit. Great for lounging or working out.",
-    price: 40,
-    discountPrice: 35,
-    countInStock: 30,
-    sku: "BW-W-006",
-    category: "Bottom Wear",
-    brand: "ActiveWear",
-    sizes: ["XS", "S", "M", "L"],
-    colors: ["Black", "Gray", "Pink"],
-    collections: "Loungewear Collection",
-    material: "Cotton Blend",
-    gender: "Women",
-    images: [
+    "name": "Classic Tailored Midi Dress",
+    "description": "A timeless midi dress featuring a clean tailored silhouette, defined waist and elegant neckline for polished everyday and occasion dressing.",
+    "price": 94.99,
+    "discountPrice": 79.99,
+    "countInStock": 18,
+    "sku": "WM-DRS-001",
+    "category": "Dresses",
+    "brand": "Atelier Lane",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["Black", "Navy", "Burgundy"],
+    "collections": "Occasion Edit",
+    "material": "Viscose Blend",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=24",
-        altText: "High-Rise Joggers Front View",
+        "url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=900&q=85",
+        "altText": "Classic Tailored Midi Dress"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=900&q=85",
+        "altText": "Tailored Midi Dress Styling"
+      }
     ],
-    rating: 4.3,
-    numReviews: 25,
+    "rating": 4.8,
+    "numReviews": 44
   },
   {
-    name: "Paperbag Waist Shorts",
-    description:
-      "Stylish paperbag waist shorts with a belted waist and wide legs. Perfect for summer outings and keeping cool in style.",
-    price: 35,
-    discountPrice: 30,
-    countInStock: 20,
-    sku: "BW-W-007",
-    category: "Bottom Wear",
-    brand: "SunnyStyle",
-    sizes: ["S", "M", "L"],
-    colors: ["White", "Khaki", "Blue"],
-    collections: "Summer Collection",
-    material: "Cotton",
-    gender: "Women",
-    images: [
+    "name": "Flowy Summer Maxi Dress",
+    "description": "A lightweight maxi dress with a relaxed flowing silhouette, breathable fabric and effortless summer styling for holidays and warm-weather occasions.",
+    "price": 89.99,
+    "discountPrice": 74.99,
+    "countInStock": 26,
+    "sku": "WM-DRS-002",
+    "category": "Dresses",
+    "brand": "Coastline",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["Ivory", "Sky Blue", "Sage"],
+    "collections": "Summer Collection",
+    "material": "Viscose",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=25",
-        altText: "Paperbag Waist Shorts Front View",
+        "url": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=85",
+        "altText": "Flowy Summer Maxi Dress"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=900&q=85",
+        "altText": "Summer Maxi Dress Styling"
+      }
     ],
-    rating: 4.5,
-    numReviews: 19,
+    "rating": 4.7,
+    "numReviews": 32
   },
   {
-    name: "Stretch Denim Shorts",
-    description:
-      "Comfortable stretch denim shorts with a high-waisted fit and raw hem. Perfect for pairing with your favorite tops during warmer months.",
-    price: 40,
-    discountPrice: 35,
-    countInStock: 25,
-    sku: "BW-W-008",
-    category: "Bottom Wear",
-    brand: "DenimStyle",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Blue", "Black", "White"],
-    collections: "Denim Collection",
-    material: "Denim",
-    gender: "Women",
-    images: [
+    "name": "Cropped Utility Jacket",
+    "description": "A modern cropped utility jacket featuring functional pockets, structured shoulders and a versatile silhouette for layered everyday outfits.",
+    "price": 99.99,
+    "discountPrice": 84.99,
+    "countInStock": 15,
+    "sku": "WM-OUT-003",
+    "category": "Outerwear",
+    "brand": "Urban Field",
+    "sizes": ["XS", "S", "M", "L"],
+    "colors": ["Olive", "Black", "Stone"],
+    "collections": "Urban Utility",
+    "material": "Cotton Twill",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=26",
-        altText: "Stretch Denim Shorts Front View",
+        "url": "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=85",
+        "altText": "Cropped Utility Jacket"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=900&q=85",
+        "altText": "Utility Jacket Detail"
+      }
     ],
-    rating: 4.7,
-    numReviews: 15,
+    "rating": 4.6,
+    "numReviews": 20
   },
   {
-    name: "Culottes",
-    description:
-      "Wide-leg culottes with a flattering high waist and cropped length. The perfect blend of comfort and style for any casual occasion.",
-    price: 50,
-    discountPrice: 45,
-    countInStock: 30,
-    sku: "BW-W-009",
-    category: "Bottom Wear",
-    brand: "ChicStyle",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Black", "White", "Olive"],
-    collections: "Casual Collection",
-    material: "Polyester",
-    gender: "Women",
-    images: [
+    "name": "Soft Lounge Wide-Leg Pants",
+    "description": "Comfort-focused wide-leg lounge pants with a soft elastic waistband and fluid drape. Designed for relaxed days without compromising style.",
+    "price": 59.99,
+    "discountPrice": 49.99,
+    "countInStock": 35,
+    "sku": "WM-BOT-004",
+    "category": "Bottom Wear",
+    "brand": "Comfort House",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["Charcoal", "Cream", "Mocha"],
+    "collections": "Lounge Essentials",
+    "material": "Modal Blend",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=27",
-        altText: "Culottes Front View",
+        "url": "https://images.unsplash.com/photo-1506629905607-d9c297d3b1f8?auto=format&fit=crop&w=900&q=85",
+        "altText": "Soft Lounge Wide-Leg Pants"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=900&q=85",
+        "altText": "Wide-Leg Lounge Pants"
+      }
     ],
-    rating: 4.6,
-    numReviews: 23,
+    "rating": 4.5,
+    "numReviews": 23
   },
   {
-    name: "Classic Pleated Trousers",
-    description:
-      "Timeless pleated trousers with a tailored fit. A wardrobe essential for workwear or formal occasions.",
-    price: 70,
-    discountPrice: 65,
-    countInStock: 25,
-    sku: "BW-W-010",
-    category: "Bottom Wear",
-    brand: "ElegantWear",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Navy", "Black", "Gray"],
-    collections: "Formal Collection",
-    material: "Wool Blend",
-    gender: "Women",
-    images: [
+    "name": "Elevated Ribbed Tank",
+    "description": "A premium ribbed tank with a fitted silhouette and soft stretch construction. Designed as a versatile foundation for layered and standalone looks.",
+    "price": 34.99,
+    "discountPrice": 27.99,
+    "countInStock": 42,
+    "sku": "WM-TOP-004",
+    "category": "Top Wear",
+    "brand": "Core Supply",
+    "sizes": ["XS", "S", "M", "L"],
+    "colors": ["White", "Black", "Stone"],
+    "collections": "Essentials",
+    "material": "Cotton Stretch",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=28",
-        altText: "Classic Pleated Trousers Front View",
+        "url": "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=900&q=85",
+        "altText": "Elevated Ribbed Tank"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=85",
+        "altText": "Ribbed Tank Styling"
+      }
     ],
-    rating: 4.8,
-    numReviews: 20,
+    "rating": 4.6,
+    "numReviews": 35
   },
   {
-    name: "Knitted Cropped Top",
-    description:
-      "A stylish knitted cropped top with a flattering fitted silhouette. Perfect for pairing with high-waisted jeans or skirts for a casual look.",
-    price: 40,
-    discountPrice: 35,
-    countInStock: 25,
-    sku: "TW-W-001",
-    category: "Top Wear",
-    brand: "ChicKnit",
-    sizes: ["S", "M", "L"],
-    colors: ["Beige", "White"],
-    collections: "Knits Collection",
-    material: "Cotton Blend",
-    gender: "Women",
-    images: [
+    "name": "Relaxed Graphic Sweatshirt",
+    "description": "A premium relaxed-fit sweatshirt with a subtle graphic detail, soft interior and heavyweight cotton construction for comfortable streetwear styling.",
+    "price": 64.99,
+    "discountPrice": 54.99,
+    "countInStock": 30,
+    "sku": "WM-TOP-005",
+    "category": "Top Wear",
+    "brand": "Street Form",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "colors": ["Black", "Heather Gray", "Cream"],
+    "collections": "Street Essentials",
+    "material": "Cotton Fleece",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=29",
-        altText: "Knitted Cropped Top",
+        "url": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85",
+        "altText": "Relaxed Graphic Sweatshirt"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1578681994506-b8f463449011?auto=format&fit=crop&w=900&q=85",
+        "altText": "Relaxed Sweatshirt Styling"
+      }
     ],
-    rating: 4.6,
-    numReviews: 15,
+    "rating": 4.7,
+    "numReviews": 40
   },
   {
-    name: "Boho Floral Blouse",
-    description:
-      "Flowy boho blouse with floral patterns, featuring a relaxed fit and balloon sleeves. Ideal for casual summer days.",
-    price: 50,
-    discountPrice: 45,
-    countInStock: 30,
-    sku: "TW-W-002",
-    category: "Top Wear",
-    brand: "BohoVibes",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["White", "Pink"],
-    collections: "Summer Collection",
-    material: "Viscose",
-    gender: "Women",
-    images: [
+    "name": "Classic Pointed-Toe Flats",
+    "description": "Elegant pointed-toe flats with a refined silhouette and comfortable construction designed for workdays, occasions and everyday styling.",
+    "price": 69.99,
+    "discountPrice": 57.99,
+    "countInStock": 20,
+    "sku": "WM-FTW-001",
+    "category": "Footwear",
+    "brand": "Lustre",
+    "sizes": ["5", "6", "7", "8", "9", "10"],
+    "colors": ["Black", "Tan", "Cream"],
+    "collections": "Essential Footwear",
+    "material": "Synthetic Leather",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=30",
-        altText: "Boho Floral Blouse",
+        "url": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=85",
+        "altText": "Classic Pointed-Toe Flats"
       },
+      {
+        "url": "https://images.unsplash.com/photo-1560343090-f0409e92791a?auto=format&fit=crop&w=900&q=85",
+        "altText": "Pointed-Toe Flats Detail"
+      }
     ],
-    rating: 4.7,
-    numReviews: 20,
+    "rating": 4.8,
+    "numReviews": 26
   },
   {
-    name: "Casual T-Shirt",
-    description:
-      "A soft, breathable casual t-shirt with a classic fit. Features a round neckline and short sleeves, perfect for everyday wear.",
-    price: 25,
-    discountPrice: 20,
-    countInStock: 50,
-    sku: "TW-W-003",
-    category: "Top Wear",
-    brand: "ComfyTees",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Black", "White", "Gray"],
-    collections: "Essentials",
-    material: "Cotton",
-    gender: "Women",
-    images: [
+    "name": "Minimal Everyday Sneakers",
+    "description": "Clean everyday sneakers featuring a streamlined profile, cushioned sole and versatile finish designed to pair with casual wardrobes.",
+    "price": 89.99,
+    "discountPrice": 74.99,
+    "countInStock": 24,
+    "sku": "WM-FTW-002",
+    "category": "Footwear",
+    "brand": "Modern Standard",
+    "sizes": ["5", "6", "7", "8", "9", "10"],
+    "colors": ["White", "Cream", "Black"],
+    "collections": "Essential Footwear",
+    "material": "Synthetic Leather",
+    "gender": "Women",
+    "images": [
       {
-        url: "https://picsum.photos/500/500?random=31",
-        altText: "Casual T-Shirt",
+        "url": "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=85",
+        "altText": "Minimal Everyday Sneakers"
       },
-    ],
-    rating: 4.5,
-    numReviews: 25,
-  },
-  {
-    name: "Off-Shoulder Top",
-    description:
-      "An elegant off-shoulder top with ruffled sleeves and a flattering fit. Ideal for adding a touch of femininity to your outfit.",
-    price: 45,
-    discountPrice: 40,
-    countInStock: 35,
-    sku: "TW-W-004",
-    category: "Top Wear",
-    brand: "Elegance",
-    sizes: ["S", "M", "L"],
-    colors: ["Red", "White", "Blue"],
-    collections: "Evening Collection",
-    material: "Polyester",
-    gender: "Women",
-    images: [
       {
-        url: "https://picsum.photos/500/500?random=32",
-        altText: "Off-Shoulder Top",
-      },
+        "url": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=900&q=85",
+        "altText": "Everyday Sneakers Side View"
+      }
     ],
-    rating: 4.7,
-    numReviews: 18,
-  },
-  {
-    name: "Lace-Trimmed Cami Top",
-    description:
-      "A delicate cami top with lace trim and adjustable straps. The lightweight fabric makes it perfect for layering or wearing alone during warmer weather.",
-    price: 35,
-    discountPrice: 30,
-    countInStock: 40,
-    sku: "TW-W-005",
-    category: "Top Wear",
-    brand: "DelicateWear",
-    sizes: ["S", "M", "L"],
-    colors: ["Black", "White"],
-    collections: "Lingerie-Inspired",
-    material: "Silk Blend",
-    gender: "Women",
-    images: [
-      {
-        url: "https://picsum.photos/500/500?random=33",
-        altText: "Lace-Trimmed Cami Top",
-      },
-    ],
-    rating: 4.8,
-    numReviews: 22,
-  },
-  {
-    name: "Graphic Print Tee",
-    description:
-      "A trendy graphic print tee with a relaxed fit. Pair it with jeans or skirts for a cool and casual look.",
-    price: 30,
-    discountPrice: 25,
-    countInStock: 45,
-    sku: "TW-W-006",
-    category: "Top Wear",
-    brand: "StreetStyle",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["White", "Black"],
-    collections: "Urban Collection",
-    material: "Cotton",
-    gender: "Women",
-    images: [
-      {
-        url: "https://picsum.photos/500/500?random=34",
-        altText: "Graphic Print Tee",
-      },
-    ],
-    rating: 4.6,
-    numReviews: 30,
-  },
-  {
-    name: "Ribbed Long-Sleeve Top",
-    description:
-      "A cozy ribbed long-sleeve top that offers comfort and style. Perfect for layering during cooler months.",
-    price: 55,
-    discountPrice: 50,
-    countInStock: 30,
-    sku: "TW-W-007",
-    category: "Top Wear",
-    brand: "ComfortFit",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["Gray", "Pink", "Brown"],
-    collections: "Fall Collection",
-    material: "Cotton Blend",
-    gender: "Women",
-    images: [
-      {
-        url: "https://picsum.photos/500/500?random=35",
-        altText: "Ribbed Long-Sleeve Top",
-      },
-    ],
-    rating: 4.7,
-    numReviews: 26,
-  },
-  {
-    name: "Ruffle-Sleeve Blouse",
-    description:
-      "A lightweight ruffle-sleeve blouse with a flattering fit. Perfect for a feminine touch to any outfit.",
-    price: 45,
-    discountPrice: 40,
-    countInStock: 20,
-    sku: "TW-W-008",
-    category: "Top Wear",
-    brand: "FeminineWear",
-    sizes: ["S", "M", "L"],
-    colors: ["White", "Navy", "Lavender"],
-    collections: "Summer Collection",
-    material: "Viscose",
-    gender: "Women",
-    images: [
-      {
-        url: "https://picsum.photos/500/500?random=36",
-        altText: "Ruffle-Sleeve Blouse",
-      },
-    ],
-    rating: 4.5,
-    numReviews: 19,
-  },
-  {
-    name: "Classic Button-Up Shirt",
-    description:
-      "A versatile button-up shirt that can be dressed up or down. Made from soft fabric with a tailored fit, it's perfect for both casual and formal occasions.",
-    price: 60,
-    discountPrice: 55,
-    countInStock: 25,
-    sku: "TW-W-009",
-    category: "Top Wear",
-    brand: "ClassicStyle",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["White", "Light Blue", "Black"],
-    collections: "Office Collection",
-    material: "Cotton",
-    gender: "Women",
-    images: [
-      {
-        url: "https://picsum.photos/500/500?random=37",
-        altText: "Classic Button-Up Shirt",
-      },
-    ],
-    rating: 4.8,
-    numReviews: 25,
-  },
-  {
-    name: "V-Neck Wrap Top",
-    description:
-      "A chic v-neck wrap top with a tie waist. Its elegant style makes it perfect for both casual and semi-formal occasions.",
-    price: 50,
-    discountPrice: 45,
-    countInStock: 30,
-    sku: "TW-W-010",
-    category: "Top Wear",
-    brand: "ChicWrap",
-    sizes: ["S", "M", "L"],
-    colors: ["Red", "Black", "White"],
-    collections: "Evening Collection",
-    material: "Polyester",
-    gender: "Women",
-    images: [
-      {
-        url: "https://picsum.photos/500/500?random=38",
-        altText: "V-Neck Wrap Top",
-      },
-    ],
-    rating: 4.7,
-    numReviews: 22,
-  },
-];
-
-module.exports = products;
+    "rating": 4.7,
+    "numReviews": 48
+  }
+]
