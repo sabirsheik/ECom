@@ -66,6 +66,7 @@ const RouteTransition = () => {
           <Route index element={<AdminHomePage />} />
           <Route path="users" element={<UserManagement />} />
           <Route path="products" element={<ProductManagement />} />
+          <Route path="shop" element={<Navigate to="/admin/products" replace />} />
           <Route path="products/:id/edit" element={<EditProductPage />} />
           <Route path="orders" element={<OrderManagement />} />
         </Route>
