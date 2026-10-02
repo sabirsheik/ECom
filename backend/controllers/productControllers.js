@@ -32,12 +32,14 @@ const createProduct = async (req, res) => {
         if (
             !name ||
             !description ||
-            !price ||
+            price === undefined ||
+            Number(price) < 0 ||
             countInStock === undefined ||
+            Number(countInStock) < 0 ||
             !category ||
             !sku ||
-            !sizes ||
-            !colors ||
+            !Array.isArray(sizes) ||
+            !Array.isArray(colors) ||
             !collections
         ) {
             return res.status(400).json({ message: "Missing required fields" });
@@ -71,6 +73,9 @@ const createProduct = async (req, res) => {
         res.status(201).json(createdProduct);
     } catch (error) {
         console.error("Error creating product:", error.message);
+        if (error.code === 11000) {
+            return res.status(400).json({ message: "SKU already exists" });
+        }
         if (error.name === "ValidationError") {
             const messages = Object.values(error.errors).map((val) => val.message);
             return res
@@ -111,28 +116,29 @@ const updateProduct = async (req, res, next) => {
 
         if (product) {
             // Update product fields
-            product.name = name || product.name;
-            product.description = description || product.description;
-            product.price = price || product.price;
-            product.discountPrice = discountPrice || product.discountPrice;
+            product.name = name ?? product.name;
+            product.description = description ?? product.description;
+            product.price = price ?? product.price;
+            product.discountPrice =
+                discountPrice !== undefined ? discountPrice : product.discountPrice;
             product.countInStock = countInStock ?? product.countInStock;
-            product.category = category || product.category;
-            product.brand = brand || product.brand;
-            product.sizes = sizes || product.sizes;
-            product.colors = colors || product.colors;
-            product.collections = collections || product.collections;
-            product.material = material || product.material;
-            product.gender = gender || product.gender;
-            product.images = images || product.images;
+            product.category = category ?? product.category;
+            product.brand = brand ?? product.brand;
+            product.sizes = sizes ?? product.sizes;
+            product.colors = colors ?? product.colors;
+            product.collections = collections ?? product.collections;
+            product.material = material ?? product.material;
+            product.gender = gender ?? product.gender;
+            product.images = images ?? product.images;
             product.isFeatured =
                 isFeatured !== undefined ? isFeatured : product.isFeatured;
             product.isPublished =
                 isPublished !== undefined ? isPublished : product.isPublished;
-            product.tags = tags || product.tags;
-            product.dimensions = dimensions || product.dimensions;
-            product.weight = weight || product.weight;
-            product.height = height || product.height;
-            product.sku = sku || product.sku;
+            product.tags = tags ?? product.tags;
+            product.dimensions = dimensions ?? product.dimensions;
+            product.weight = weight ?? product.weight;
+            product.height = height ?? product.height;
+            product.sku = sku ?? product.sku;
 
             // Save the updated product
             const updatedProduct = await product.save();
@@ -141,6 +147,9 @@ const updateProduct = async (req, res, next) => {
             res.status(404).json({ message: "Product not found" });
         }
     } catch (error) {
+        if (error.name === "ValidationError" || error.code === 11000) {
+            return res.status(400).json({ message: error.code === 11000 ? "SKU already exists" : error.message });
+        }
         res.status(500).json({ message: "Server error", error: error.message });
     }
 };
@@ -255,6 +264,7 @@ const getAllProducts = async (req, res, next) => {
                 break;
         }
 
+        query.isPublished = true;
         const products = await Product.find(query)
             .sort(sort)
             .limit(Number(limit) || 0);
@@ -269,7 +279,7 @@ const getAllProducts = async (req, res, next) => {
 
 const productBestSeller = async (req, res, next) => {
     try {
-        const bestSeller = await Product.findOne().sort({ rating: -1 });
+        const bestSeller = await Product.findOne({ isPublished: true }).sort({ rating: -1 });
         if (bestSeller) {
             res.status(200).json(bestSeller);
         } else {
@@ -285,7 +295,7 @@ const productBestSeller = async (req, res, next) => {
 // Get / product /new-arrivals
 const productNewArrivals = async (req, res, next) => {
     try {
-        const newArrivals = await Product.find()
+        const newArrivals = await Product.find({ isPublished: true })
             .sort({ createdAt: -1 })
             .limit(8)
             .select('name price images createdAt') // adjust as per your needs
@@ -302,6 +312,9 @@ const productNewArrivals = async (req, res, next) => {
 const getProduct = async (req, res, next) => {
     try {
         const product = await Product.findById(req.params.id);
+        if (product && !product.isPublished && req.user?.role !== "admin") {
+            return res.status(404).json({ message: "Product Not Found" });
+        }
         if (product) {
             res.status(200).json(product);
         } else {
@@ -316,7 +329,7 @@ const getProduct = async (req, res, next) => {
 const productSimilar = async (req, res, next) => {
     const { id } = req.params;
     try {
-        const product = await Product.findById(id);
+        const product = await Product.findOne({ _id: id, isPublished: true });
         if (!product) {
             return res.status(400).json({ message: " Product not Found" });
         };
@@ -324,6 +337,7 @@ const productSimilar = async (req, res, next) => {
             _id: { $ne: id },
             gender: product.gender,
             category: product.category,
+            isPublished: true,
         }).limit(4);
         res.status(200).json(similarProduct);
         console.log(similarProduct.length)
@@ -341,7 +355,7 @@ const trackProductView = async (req, res) => {
             return res.status(400).json({ message: "Invalid product id" });
         }
 
-        const product = await Product.findById(id).select("_id");
+        const product = await Product.findOne({ _id: id, isPublished: true }).select("_id");
         if (!product) {
             return res.status(404).json({ message: "Product Not Found" });
         }
@@ -374,7 +388,7 @@ const toggleWishlistProduct = async (req, res) => {
             return res.status(400).json({ message: "Invalid product id" });
         }
 
-        const product = await Product.findById(id).select("_id");
+        const product = await Product.findOne({ _id: id, isPublished: true }).select("_id");
         if (!product) {
             return res.status(404).json({ message: "Product Not Found" });
         }
@@ -472,7 +486,7 @@ const rateProduct = async (req, res) => {
             return res.status(400).json({ message: "Rating must be an integer between 1 and 5" });
         }
 
-        const product = await Product.findById(id);
+        const product = await Product.findOne({ _id: id, isPublished: true });
         if (!product) {
             return res.status(404).json({ message: "Product Not Found" });
         }
