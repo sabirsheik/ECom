@@ -1,60 +1,54 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { adminError, adminRequest } from "../adminApi";
 
-const API_URL = `${import.meta.env.VITE_BACKEND_URL}`;
-const USER_TOKEN = `Bearer ${localStorage.getItem("userToken")}`;
-
-// async thunk to fetch all orders (Admin Only)
+const withAdminError = (error, rejectWithValue) =>
+  rejectWithValue(adminError(error));
 
 export const fetchAdminOrders = createAsyncThunk(
   "adminOrders/fetchAdminOrders",
-  async (_DO_NOT_USE__ACTIONTYPE, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/auth/admin/orders`, {
-        headers: {
-          Authorization: `${USER_TOKEN}`,
-        },
-      });
-      return response.data;
+      return await adminRequest({ method: "get", url: "/auth/admin/orders" });
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return withAdminError(error, rejectWithValue);
     }
   }
 );
 
-// async function to update order status
+export const fetchAdminDashboard = createAsyncThunk(
+  "adminOrders/fetchAdminDashboard",
+  async (_, { rejectWithValue }) => {
+    try {
+      return await adminRequest({ method: "get", url: "/auth/admin/dashboard" });
+    } catch (error) {
+      return withAdminError(error, rejectWithValue);
+    }
+  }
+);
+
 export const updateOrderStatus = createAsyncThunk(
   "adminOrders/updateOrderStatus",
   async ({ id, status }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(
-        `${API_URL}/auth/admin/order-update/${id}`,
-        { status },
-        {
-          headers: {
-            Authorization: `${USER_TOKEN}`,
-          },
-        }
-      );
-      return response.data;
+      return await adminRequest({
+        method: "put",
+        url: `/auth/admin/order-update/${id}`,
+        data: { status },
+      });
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return withAdminError(error, rejectWithValue);
     }
   }
 );
-// Async thunk to delete a Order
+
 export const deleteOrder = createAsyncThunk(
   "adminOrders/deleteOrder",
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`${API_URL}/auth/admin/order-delete/${id}`, {
-        headers: {
-          Authorization: `${USER_TOKEN}`,
-        },
-      });
+      await adminRequest({ method: "delete", url: `/auth/admin/order-delete/${id}` });
       return id;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return withAdminError(error, rejectWithValue);
     }
   }
 );
@@ -63,15 +57,16 @@ const adminOrderSlice = createSlice({
   name: "adminOrders",
   initialState: {
     orders: [],
-    totalOrders: 0,
-    totalSales: 0,
+    dashboard: null,
     loading: false,
+    dashboardLoading: false,
     error: null,
+    updatingId: null,
+    deletingId: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // Handle Fetch Admin Orders
       .addCase(fetchAdminOrders.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -79,33 +74,61 @@ const adminOrderSlice = createSlice({
       .addCase(fetchAdminOrders.fulfilled, (state, action) => {
         state.loading = false;
         state.orders = action.payload;
-        state.totalOrders = action.payload.length;
-        //   Calculate the Total Sales
-        const totalSales = action.payload.reduce((acc, order) => {
-          return acc + order.totalSales;
-        }, 0);
-        state.totalSales = totalSales;
       })
       .addCase(fetchAdminOrders.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload?.message || action.error.message;
       })
-      // handle Update Orders
+      .addCase(fetchAdminDashboard.pending, (state) => {
+        state.dashboardLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchAdminDashboard.fulfilled, (state, action) => {
+        state.dashboardLoading = false;
+        state.dashboard = action.payload;
+      })
+      .addCase(fetchAdminDashboard.rejected, (state, action) => {
+        state.dashboardLoading = false;
+        state.error = action.payload?.message || action.error.message;
+      })
+      .addCase(updateOrderStatus.pending, (state, action) => {
+        state.updatingId = action.meta.arg.id;
+        state.error = null;
+      })
       .addCase(updateOrderStatus.fulfilled, (state, action) => {
-        const updateaOrder = action.payload;
-        const orderIndex = state.orders.findIndex(
+        state.updatingId = null;
+        const index = state.orders.findIndex(
           (order) => order._id === action.payload._id
         );
-        if (orderIndex !== 1) {
-          state.orders[orderIndex] = updateaOrder;
+        if (index !== -1) state.orders[index] = action.payload;
+        if (state.dashboard?.recentOrders) {
+          const recentIndex = state.dashboard.recentOrders.findIndex(
+            (order) => order._id === action.payload._id
+          );
+          if (recentIndex !== -1) {
+            state.dashboard.recentOrders[recentIndex] = action.payload;
+          }
         }
       })
-      // Handle Delete Products
+      .addCase(updateOrderStatus.rejected, (state, action) => {
+        state.updatingId = null;
+        state.error = action.payload?.message || action.error.message;
+      })
+      .addCase(deleteOrder.pending, (state, action) => {
+        state.deletingId = action.meta.arg;
+        state.error = null;
+      })
       .addCase(deleteOrder.fulfilled, (state, action) => {
-        state.orders = action.orders.filter(
+        state.deletingId = null;
+        state.orders = state.orders.filter(
           (order) => order._id !== action.payload
         );
+      })
+      .addCase(deleteOrder.rejected, (state, action) => {
+        state.deletingId = null;
+        state.error = action.payload?.message || action.error.message;
       });
   },
 });
+
 export default adminOrderSlice.reducer;
