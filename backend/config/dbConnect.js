@@ -5,15 +5,15 @@ dotenv.config();
 
 const dbConnect = async () => {
     try {
-        await mongoose.connect(process.env.MONGODB_URI).then(() => {
-            console.log("Databsae Server Connected");
-          })
-          .catch((error) => {
-            console.log("Database connection failed", error.message);
-          });
+        if (!process.env.MONGODB_URI) {
+            throw new Error("MONGODB_URI is required");
+        }
+        await mongoose.connect(process.env.MONGODB_URI);
+        console.log("Database server connected");
+        return mongoose.connection;
     } catch (error) {
-        console.log(error);
-        process.exit(1);
+        console.error("Database connection failed:", error.message);
+        throw error;
     }
 };
 module.exports = dbConnect;
