@@ -1,166 +1,151 @@
-import React from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
+import {
+  deleteOrder,
+  fetchAdminOrders,
+  updateOrderStatus,
+} from "../../redux/slices/AdminOrderSlice";
+
+const statuses = ["Processing", "Shipped", "Delivered", "Cancelled"];
+const currency = new Intl.NumberFormat("en-PK", {
+  style: "currency",
+  currency: "PKR",
+  maximumFractionDigits: 0,
+});
 
 const OrderManagement = () => {
-  const orders = [
-    {
-      _id: 12312312,
-      user: { name: "Shah Nawaz" },
-      totalPrice: 2000,
-      status: "Processing",
-    },
-    {
-      _id: 12312313,
-      user: { name: "Ayesha Khan" },
-      totalPrice: 3500,
-      status: "Shipped",
-    },
-    {
-      _id: 12312314,
-      user: { name: "Ali Hassan" },
-      totalPrice: 4200,
-      status: "Delivered",
-    },
-    {
-      _id: 12312315,
-      user: { name: "Sarah Malik" },
-      totalPrice: 1500,
-      status: "Cancelled",
-    },
-    {
-      _id: 12312316,
-      user: { name: "Ahmed Bilal" },
-      totalPrice: 1800,
-      status: "Processing",
-    },
-    {
-      _id: 12312317,
-      user: { name: "Fatima Ali" },
-      totalPrice: 2800,
-      status: "Shipped",
-    },
-    {
-      _id: 12312318,
-      user: { name: "Usman Javed" },
-      totalPrice: 2500,
-      status: "Delivered",
-    },
-    {
-      _id: 12312319,
-      user: { name: "Zohaib Saeed" },
-      totalPrice: 3000,
-      status: "Processing",
-    },
-    {
-      _id: 12312320,
-      user: { name: "Mehmood Tariq" },
-      totalPrice: 4500,
-      status: "Shipped",
-    },
-    {
-      _id: 12312321,
-      user: { name: "Sania Khan" },
-      totalPrice: 3500,
-      status: "Delivered",
-    },
-    {
-      _id: 12312322,
-      user: { name: "Rehman Shah" },
-      totalPrice: 4000,
-      status: "Cancelled",
-    },
-    {
-      _id: 12312323,
-      user: { name: "Nadia Hameed" },
-      totalPrice: 2200,
-      status: "Processing",
-    },
-    {
-      _id: 12312324,
-      user: { name: "Arslan Ahmed" },
-      totalPrice: 3600,
-      status: "Shipped",
-    },
-    {
-      _id: 12312325,
-      user: { name: "Muneeb Khan" },
-      totalPrice: 3000,
-      status: "Delivered",
-    },
-    {
-      _id: 12312326,
-      user: { name: "Samina Shah" },
-      totalPrice: 3200,
-      status: "Processing",
-    },
-  ];
-  
+  const dispatch = useDispatch();
+  const { orders, loading, updatingId, deletingId, error } = useSelector((state) => state.adminOrder);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
-  const handleStatusChange = (orderId, status) => {
-    console.log({ id: orderId, status: status });
+  useEffect(() => {
+    dispatch(fetchAdminOrders());
+  }, [dispatch]);
+
+  const filteredOrders = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    return orders.filter((order) => {
+      const matchesQuery =
+        !query ||
+        order._id?.toLowerCase().includes(query) ||
+        order.user?.name?.toLowerCase().includes(query) ||
+        order.user?.email?.toLowerCase().includes(query);
+      return matchesQuery && (statusFilter === "all" || order.status === statusFilter);
+    });
+  }, [orders, search, statusFilter]);
+
+  const handleStatusChange = async (order, status) => {
+    if (status === order.status) return;
+    try {
+      await dispatch(updateOrderStatus({ id: order._id, status })).unwrap();
+      toast.success(`Order status changed to ${status}`);
+    } catch (requestError) {
+      toast.error(requestError.message || "Could not update order status");
+    }
+  };
+
+  const handleDelete = async (order) => {
+    if (!window.confirm(`Delete order #${order._id.slice(-8)}? This cannot be undone.`)) return;
+    try {
+      await dispatch(deleteOrder(order._id)).unwrap();
+      toast.success("Order deleted");
+    } catch (requestError) {
+      toast.error(requestError.message || "Could not delete order");
+    }
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6">Order Management</h2>
+    <section className="mx-auto max-w-7xl space-y-7">
+      <header>
+        <p className="eyebrow mb-2">Operations / Fulfillment</p>
+        <h1 className="display-title text-4xl sm:text-5xl">Orders</h1>
+        <p className="mt-3 text-sm text-[var(--ink-soft)]">{orders.length} orders in total.</p>
+      </header>
 
-      <div className="overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="min-w-full text-left text-[var(--ink-soft)]">
-          <thead className="border-y border-[var(--line)] text-xs uppercase text-[var(--ink-soft)]">
-            <tr>
-              <th className="py-3 px-4">Order ID</th>
-              <th className="py-3 px-4">Customer</th>
-              <th className="py-3 px-4">Total Price</th>
-              <th className="py-3 px-4">Status</th>
-              <th className="py-3 px-4">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.length > 0 ? (
-              orders.map((order) => (
-                <tr
-                  key={order._id}
-                  className="cursor-pointer border-b border-[var(--line)] hover:bg-[var(--paper)]"
-                >
-                  <td className="whitespace-nowrap px-4 py-4 font-medium text-[var(--ink)]">
-                    #{order._id}
-                  </td>
-                  <td className="p-4">{order.user.name}</td>
-                  <td className="p-4">Rs {order.totalPrice}</td>
-                  <td className="p-4">
-                    <select
-                      value={order.status}
-                      onChange={(e) =>
-                        handleStatusChange(order._id, e.target.value)
-                      }
-                      className="block border border-[var(--line)] bg-[var(--surface-elevated)] p-2.5 text-sm text-[var(--ink)] focus:border-[var(--bronze)] focus:ring-2 focus:ring-[#aa8050]/20"
-                    >
-                      <option value="Processing">Processing</option>
-                      <option value="Shipped">Shipped</option>
-                      <option value="Delivered">Delivered</option>
-                      <option value="Cancelled">Cancelled</option>
-                    </select>
-                  </td>
-                  <td className="p-4">
-                    <button
-                      onClick={() => handleStatusChange(order._id, "Delivered")}
-                      className="bg-[var(--success)] px-6 py-3 text-white transition duration-300 hover:bg-[#315440]"
-                    >
-                      Mark as Delivered
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
+      {error && (
+        <div role="alert" className="border border-[#d9aaa0] bg-[#f7e9e5] p-4 text-sm text-[var(--error)]">{error}</div>
+      )}
+
+      <div className="premium-panel overflow-hidden">
+        <div className="grid gap-3 border-b border-[var(--line)] p-5 sm:grid-cols-[minmax(15rem,1fr)_12rem] sm:p-6">
+          <input
+            type="search"
+            aria-label="Search orders"
+            placeholder="Search order, customer or email"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            className="premium-input"
+          />
+          <select aria-label="Filter orders by status" value={statusFilter} onChange={(event) => setStatusFilter(event.target.value)} className="premium-input">
+            <option value="all">All statuses</option>
+            {statuses.map((status) => <option key={status} value={status}>{status}</option>)}
+          </select>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-left text-sm">
+            <thead className="bg-[var(--paper)] text-xs uppercase tracking-wide text-[var(--ink-soft)]">
               <tr>
-                <td colSpan={5} className="p-4 text-center text-[var(--ink-soft)]">
-                  No Orders Found!
-                </td>
+                <th className="px-5 py-4">Order</th>
+                <th className="px-5 py-4">Customer</th>
+                <th className="px-5 py-4">Placed</th>
+                <th className="px-5 py-4">Total</th>
+                <th className="px-5 py-4">Payment</th>
+                <th className="px-5 py-4">Status</th>
+                <th className="px-5 py-4">Actions</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-[var(--line)]">
+              {loading ? (
+                <tr><td colSpan="7" className="px-5 py-10 text-center text-[var(--ink-soft)]">Loading orders…</td></tr>
+              ) : filteredOrders.length ? (
+                filteredOrders.map((order) => (
+                  <tr key={order._id} className="hover:bg-[var(--paper)]">
+                    <td className="whitespace-nowrap px-5 py-4 font-semibold text-[var(--ink)]">#{order._id.slice(-8).toUpperCase()}</td>
+                    <td className="min-w-[12rem] px-5 py-4">
+                      <div className="font-medium text-[var(--ink)]">{order.user?.name || "Deleted account"}</div>
+                      {order.user?.email && <div className="mt-1 text-xs text-[var(--ink-soft)]">{order.user.email}</div>}
+                    </td>
+                    <td className="whitespace-nowrap px-5 py-4 text-[var(--ink-soft)]">{order.createdAt ? new Date(order.createdAt).toLocaleDateString() : "—"}</td>
+                    <td className="whitespace-nowrap px-5 py-4 font-medium text-[var(--ink)]">{currency.format(order.totalPrice || 0)}</td>
+                    <td className="whitespace-nowrap px-5 py-4 text-[var(--ink-soft)]">
+                      <div>{order.paymentMethod || "—"}</div>
+                      <div className="mt-1 text-xs">{order.isPaid ? "Paid" : order.paymentStatus || "Unpaid"}</div>
+                    </td>
+                    <td className="px-5 py-4">
+                      <select
+                        aria-label={`Status for order ${order._id}`}
+                        value={order.status}
+                        disabled={updatingId === order._id || order.status === "Cancelled"}
+                        onChange={(event) => handleStatusChange(order, event.target.value)}
+                        className="border border-[var(--line)] bg-[var(--surface-elevated)] px-3 py-2 disabled:opacity-60"
+                      >
+                        {statuses.map((status) => <option key={status} value={status}>{status}</option>)}
+                      </select>
+                      {order.status === "Cancelled" && <span className="ml-2 text-xs text-[var(--ink-soft)]">Final</span>}
+                      {updatingId === order._id && <span role="status" className="ml-2 text-xs text-[var(--ink-soft)]">Saving…</span>}
+                    </td>
+                    <td className="px-5 py-4">
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(order)}
+                        disabled={deletingId === order._id}
+                        className="border border-[var(--error)] px-3 py-2 text-xs font-semibold text-[var(--error)] transition hover:bg-[var(--error)] hover:text-white disabled:opacity-50"
+                      >
+                        {deletingId === order._id ? "Deleting…" : "Delete"}
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr><td colSpan="7" className="px-5 py-10 text-center text-[var(--ink-soft)]">No matching orders found.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
