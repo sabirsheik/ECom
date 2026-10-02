@@ -1,39 +1,46 @@
-import React, { useState } from "react";
-import { FaBars } from "react-icons/fa";
+import { useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { Outlet } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
-import { Outlet } from "react-router-dom"
 
 const AdminLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState();
-  const toggleSideBar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-  return (
-    <div className="relative flex min-h-screen flex-col bg-[var(--paper)] md:flex-row">
-      {/* Mobile Toggle Button */}
-      <div className="z-20 flex bg-[var(--graphite)] p-4 text-white md:hidden">
-        <button onClick={toggleSideBar}>
-          <FaBars />
-        </button>
-        <h1 className="ml-4 text-xl font-medium">Admin Dashborad</h1>
-      </div>
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const closeSidebar = () => setIsSidebarOpen(false);
 
-      {/* Overlay for Mobile Sidebar */}
+  return (
+    <div className="min-h-screen bg-[var(--paper)] md:flex">
+      <header className="sticky top-0 z-20 flex items-center gap-4 bg-[var(--graphite)] px-4 py-3 text-white md:hidden">
+        <button
+          type="button"
+          onClick={() => setIsSidebarOpen((open) => !open)}
+          aria-label={isSidebarOpen ? "Close admin navigation" : "Open admin navigation"}
+          aria-expanded={isSidebarOpen}
+          className="grid h-10 w-10 place-items-center border border-white/20"
+        >
+          {isSidebarOpen ? <FaTimes /> : <FaBars />}
+        </button>
+        <span className="font-semibold tracking-wide">E-Com Admin</span>
+      </header>
+
       {isSidebarOpen && (
-        <div
-          className="fixed inset-0 z-10 bg-e-black bg-opacity-50 md:hidden"
-          onClick={toggleSideBar}
-        ></div>
+        <button
+          type="button"
+          aria-label="Close admin navigation"
+          onClick={closeSidebar}
+          className="fixed inset-0 z-30 bg-black/50 md:hidden"
+        />
       )}
-      {/* sidebar */}
-      <div className={`z-20 min-h-screen w-64 transform bg-[var(--graphite)] text-white absolute md:relative md:static md:block ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 md:translate-x-0`}>
-        {/* Sidebar Components */}
-        <AdminSidebar />
-      </div>
-      {/* Main Content */}
-      <div className="flex-grow overflow-auto p-6">
+      <aside
+        className={`fixed inset-y-0 left-0 z-40 w-64 transform bg-[var(--graphite)] transition-transform duration-200 md:sticky md:top-0 md:z-auto md:h-screen md:translate-x-0 ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <AdminSidebar onNavigate={closeSidebar} />
+      </aside>
+
+      <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 };
