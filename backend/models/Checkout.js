@@ -47,6 +47,11 @@ const checkoutSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        stockReservationState: {
+            type: String,
+            enum: ["none", "reserving", "reserved", "releasing"],
+            default: "none",
+        },
         finalizedAt: {
             type: Date,
         },
