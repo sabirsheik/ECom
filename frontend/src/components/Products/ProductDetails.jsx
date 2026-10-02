@@ -78,7 +78,7 @@ const ProductDetails = ({ productId }) => {
       return;
     }
 
-    const stock = Number(selectedProduct.countInPrice || 0);
+    const stock = Number(selectedProduct.countInStock || 0);
     if (stock < 1) {
       toast.error("This product is out of stock.", {
         duration: 1200,
@@ -134,7 +134,7 @@ const ProductDetails = ({ productId }) => {
   const activeImageIndex = Math.max(0, images.findIndex((image) => image.url === mainImg));
   const isWishlisted = user?.wishlist?.map((id) => id.toString()).includes(selectedProduct._id?.toString())
     || guestWishlist?.includes(selectedProduct._id);
-  const stock = Number(selectedProduct.countInPrice || 0);
+  const stock = Number(selectedProduct.countInStock || 0);
 
   return (
     <div className="px-4 py-8 sm:px-6 lg:px-10">
