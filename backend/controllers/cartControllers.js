@@ -305,7 +305,7 @@ const getCarts = async (req, res, next) => {
             recalculateCart(cart);
             return res.status(200).json(cart);
         } else {
-            return res.status(404).json({ message: "Carts Not Found" });
+            return res.status(200).json({ products: [], totalPrice: 0 });
         }
     } catch (error) {
         return res.status(500).json({
