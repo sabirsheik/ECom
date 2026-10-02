@@ -139,31 +139,33 @@ const Home = () => {
 
   return (
     <main className="storefront-shell">
-      <section className="section-shell pt-8 md:pt-10">
+      <section className="section-shell pt-0">
         <div className="grid min-h-[68vh] items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
-          <div className="pt-6 lg:pt-12">
-            <p className="eyebrow reveal-up">The current edit</p>
-            <h1 className="display-title reveal-up mt-5 max-w-xl text-5xl leading-[0.9] sm:text-6xl lg:text-[5rem]" style={{ animationDelay: "120ms" }}>
-              Everyday pieces, considered.
-            </h1>
-            <p className="reveal-up mt-6 max-w-lg text-sm leading-7 text-[var(--ink-soft)] sm:text-base" style={{ animationDelay: "220ms" }}>
-              A quiet wardrobe of elevated essentials for modern movement—clean silhouettes, tactile fabrics, and the kind of pieces that work harder and live longer.
-            </p>
-            <div className="reveal-up mt-8 flex flex-wrap items-center gap-5" style={{ animationDelay: "320ms" }}>
-              <Link to="/collections" className="inline-flex items-center gap-3 bg-[var(--graphite)] px-6 py-4 text-[0.66rem] font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--bronze-deep)]">
-                Shop the collection <ArrowRight size={15} strokeWidth={1.8} />
-              </Link>
-              <Link to="/collections?gender=Women" className="editorial-link">
-                Women <ChevronRight size={14} strokeWidth={1.8} />
-              </Link>
-            </div>
-            {heroProduct && (
-              <div className="reveal-up mt-10 flex items-center gap-3 text-[0.7rem] uppercase tracking-[0.18em] text-[var(--ink-soft)]" style={{ animationDelay: "420ms" }}>
-                Featured now
-                <span className="text-[var(--bronze)]">/</span>
-                <span className="text-[var(--ink)]">{heroProduct.name}</span>
+          <div className="flex h-full w-full items-center justify-center pt-0">
+            <div className="w-full max-w-xl">
+              <p className="eyebrow reveal-up">The current edit</p>
+              <h1 className="display-title reveal-up mt-5 text-5xl leading-[0.9] sm:text-6xl lg:text-[5rem]" style={{ animationDelay: "120ms" }}>
+                Everyday pieces, considered.
+              </h1>
+              <p className="reveal-up mt-6 max-w-lg text-sm leading-7 text-[var(--ink-soft)] sm:text-base" style={{ animationDelay: "220ms" }}>
+                A quiet wardrobe of elevated essentials for modern movement—clean silhouettes, tactile fabrics, and the kind of pieces that work harder and live longer.
+              </p>
+              <div className="reveal-up mt-8 flex flex-wrap items-center gap-5" style={{ animationDelay: "320ms" }}>
+                <Link to="/collections" className="inline-flex items-center gap-3 bg-[var(--graphite)] px-6 py-4 text-[0.66rem] font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--bronze-deep)]">
+                  Shop the collection <ArrowRight size={15} strokeWidth={1.8} />
+                </Link>
+                <Link to="/collections?gender=Women" className="editorial-link">
+                  Women <ChevronRight size={14} strokeWidth={1.8} />
+                </Link>
               </div>
-            )}
+              {heroProduct && (
+                <div className="reveal-up mt-10 flex items-center gap-3 text-[0.7rem] uppercase tracking-[0.18em] text-[var(--ink-soft)]" style={{ animationDelay: "420ms" }}>
+                  Featured now
+                  <span className="text-[var(--bronze)]">/</span>
+                  <span className="text-[var(--ink)]">{heroProduct.name}</span>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="hero-card reveal-up" style={{ animationDelay: "170ms" }}>
