@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { ArrowRight, ChevronRight, Heart, Sparkles } from "lucide-react";
+import { ArrowRight, ChevronRight, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -159,7 +159,6 @@ const Home = () => {
             </div>
             {heroProduct && (
               <div className="reveal-up mt-10 flex items-center gap-3 text-[0.7rem] uppercase tracking-[0.18em] text-[var(--ink-soft)]" style={{ animationDelay: "420ms" }}>
-                <Sparkles size={13} className="text-[var(--bronze-deep)]" />
                 Featured now
                 <span className="text-[var(--bronze)]">/</span>
                 <span className="text-[var(--ink)]">{heroProduct.name}</span>
