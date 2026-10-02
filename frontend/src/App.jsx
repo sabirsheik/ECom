@@ -2,11 +2,10 @@
   /* Start Project Date Sunday 21 April 2025 */
 }
 
-import React, { useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import UserLayout from "./components/Layout/UserLayout";
-import Home from "./Pages/Home";
 import { Toaster } from "sonner";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
@@ -27,6 +26,8 @@ import EditProductPage from "./components/Admin/EditProductPage";
 import {Provider} from "react-redux";
 import {store} from "./redux/store";
 import { fetchUserProfile } from "./redux/slices/authSlices";
+
+const Home = lazy(() => import("./Pages/Home"));
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useSelector((state) => state.auth);
@@ -51,7 +52,22 @@ const RouteTransition = () => {
     <div key={location.pathname} className="page-transition">
       <Routes>
         <Route path="/" element={<UserLayout />}>
-          <Route index element={<Home />} />
+          <Route
+            index
+            element={
+              <Suspense
+                fallback={
+                  <main className="storefront-shell">
+                    <div className="section-shell py-24">
+                      <div className="animate-pulse bg-[#e7e0d5]" style={{ height: "68vh" }} />
+                    </div>
+                  </main>
+                }
+              >
+                <Home />
+              </Suspense>
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
