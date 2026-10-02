@@ -93,6 +93,24 @@ a:focus-visible {
   outline-offset: 4px;
 }
 
+.sort-select {
+  background-image: none;
+  color: var(--ink);
+  border-radius: 0;
+}
+
+.sort-select option {
+  background: var(--surface-elevated);
+  color: var(--ink);
+  padding: 0.8rem 0.9rem;
+}
+
+.sort-select option:checked,
+.sort-select option:hover {
+  background: rgba(122, 151, 194, 0.18);
+  color: var(--ink);
+}
+
 @layer components {
   .page-transition {
     animation: page-enter var(--motion-emphasis) var(--ease-standard) both;
@@ -635,6 +653,31 @@ a:focus-visible {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.filter-sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(113, 96, 83, 0.7) rgba(151, 139, 128, 0.12);
+}
+
+.filter-sidebar-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.filter-sidebar-scroll::-webkit-scrollbar-track {
+  background: rgba(151, 139, 128, 0.12);
+  border-radius: 999px;
+}
+
+.filter-sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(113, 96, 83, 0.68);
+  border: 2px solid rgba(151, 139, 128, 0.12);
+  border-radius: 999px;
+  transition: background 180ms ease;
+}
+
+.filter-sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(81, 67, 57, 0.88);
 }
 
 @media (max-width: 1024px) {
