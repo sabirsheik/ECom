@@ -1,87 +1,137 @@
-import React from "react";
+import React, { useState } from "react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import { TbBrandMeta } from "react-icons/tb";
 import { IoLogoInstagram } from "react-icons/io";
 import { RiTwitterXLine } from "react-icons/ri";
+import "./Footer.css";
 
-const Footer = () => {
+const Footer = ({ showNewsletter = true }) => {
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [feedbackType, setFeedbackType] = useState("");
+
+  const handleSubscribe = async (event) => {
+    event.preventDefault();
+    if (submitting) return;
+
+    setSubmitting(true);
+    setFeedback("");
+    setFeedbackType("");
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/subscribe`,
+        { email: email.trim() }
+      );
+      setEmail("");
+      setFeedbackType("success");
+      setFeedback(response.data?.message || "You’re on the list. Thank you.");
+      toast.success("You’re on the list.");
+    } catch (error) {
+      const message =
+        error.response?.data?.message || "We couldn’t subscribe you. Please try again.";
+      setFeedbackType("error");
+      setFeedback(message);
+      toast.error(message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
-    <footer className="bg-[var(--graphite)] pb-8 pt-16 text-[#eee9df]">
-      <div className="content-shell grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
-        <div className="lg:col-span-2">
-          <p className="eyebrow mb-4 text-[#c8a87e]">E / C journal</p>
-          <h4 className="display-title mb-4 text-4xl leading-none">A considered edit.</h4>
-          <p className="max-w-sm text-sm leading-7 text-[#c7c1b8]">
-            New pieces, quiet launches, and notes from the studio.
+    <footer className="store-footer">
+      <div className="store-footer-top content-shell">
+        <div className="store-footer-brand">
+          <Link to="/" className="store-footer-wordmark" aria-label="E / C Studio home">
+            E<span>/</span>C
+          </Link>
+          <p className="store-footer-brand-line">A considered wardrobe for everyday life.</p>
+          <p className="store-footer-brand-copy">
+            Thoughtful pieces. Personal style. A little more room to be yourself.
           </p>
-          <form className="mt-6 flex max-w-md">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full border border-[#393a3b] bg-[#17181a] px-4 py-3 text-sm text-white placeholder:text-[#8d877f] focus:outline-none focus:ring-1 focus:ring-[#aa8050]"
-              required
-            />
-            <button type="submit" className="bg-[#aa8050] px-5 py-3 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-[#0b0b0c] transition-all hover:bg-[#c39a66]">
-              Join
-            </button>
-          </form>
-        </div>
-
-        <div>
-          <h4 className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#c8a87e]">Shop</h4>
-          <ul className="space-y-3 text-sm text-[#d9d3ca]">
-            <li><Link to="/collections?gender=Men" className="hover:text-white">Men</Link></li>
-            <li><Link to="/collections?gender=Women" className="hover:text-white">Women</Link></li>
-            <li><Link to="/collections?category=Top%20Wear" className="hover:text-white">Top Wear</Link></li>
-            <li><Link to="/collections?category=Bottom%20Wear" className="hover:text-white">Bottom Wear</Link></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#c8a87e]">Support</h4>
-          <ul className="space-y-3 text-sm text-[#d9d3ca]">
-            <li><Link to="/collections" className="hover:text-white">Shipping</Link></li>
-            <li><Link to="/profile" className="hover:text-white">Account</Link></li>
-            <li><Link to="/my-order" className="hover:text-white">Orders</Link></li>
-            <li><Link to="/login" className="hover:text-white">Contact</Link></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#c8a87e]">Connect</h4>
-          <div className="mb-6 flex items-center gap-5 text-[#f1eee7]">
-            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-[#d8c0a0]"><TbBrandMeta className="h-5 w-5" /></a>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-[#d8c0a0]"><IoLogoInstagram className="h-5 w-5" /></a>
-            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="hover:text-[#d8c0a0]"><RiTwitterXLine className="h-4 w-4" /></a>
+          <div className="store-footer-socials" aria-label="Follow E / C Studio">
+            <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <IoLogoInstagram />
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">
+              <TbBrandMeta />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="X">
+              <RiTwitterXLine />
+            </a>
           </div>
         </div>
+
+        {showNewsletter && (
+          <div className="store-footer-newsletter">
+            <p className="store-footer-label">A note from the studio</p>
+            <h2 className="display-title">The good things, occasionally.</h2>
+            <p className="store-footer-newsletter-copy">
+              New arrivals, thoughtful styling, and notes from the current edit.
+            </p>
+            <form className="store-footer-form" onSubmit={handleSubscribe}>
+              <label className="sr-only" htmlFor="footer-newsletter-email">
+                Email address
+              </label>
+              <input
+                id="footer-newsletter-email"
+                type="email"
+                name="email"
+                autoComplete="email"
+                maxLength={254}
+                placeholder="Your email address"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                disabled={submitting}
+                required
+              />
+              <button type="submit" disabled={submitting} aria-label="Subscribe to the newsletter">
+                {submitting ? "Joining…" : "Join the edit"}
+                {!submitting && <ArrowRight size={16} />}
+              </button>
+            </form>
+            {feedback && (
+              <p
+                className={`store-footer-feedback is-${feedbackType}`}
+                role={feedbackType === "error" ? "alert" : "status"}
+              >
+                {feedback}
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
-      <div className="content-shell mt-14">
-        <div className="relative flex items-center">
-          <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#4a4947] to-transparent"></div>
-          <div className="mx-6 flex items-center gap-3">
-            <svg className="h-4 w-4 text-[#8b7355]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
-            </svg>
-            <span className="text-[0.78rem] font-semibold uppercase tracking-[0.28em] text-[#c8a87e]">Est. Studio</span>
-            <svg className="h-4 w-4 text-[#8b7355]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
-            </svg>
-          </div>
-          <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#4a4947] to-transparent"></div>
+      <div className="content-shell store-footer-links">
+        <div className="store-footer-link-column">
+          <h3>Explore</h3>
+          <Link to="/collections">All pieces <ArrowUpRight size={13} /></Link>
+          <Link to="/collections?gender=Women">Women <ArrowUpRight size={13} /></Link>
+          <Link to="/collections?gender=Men">Men <ArrowUpRight size={13} /></Link>
+          <Link to="/collections?category=Top%20Wear">Top wear <ArrowUpRight size={13} /></Link>
+          <Link to="/collections?category=Bottom%20Wear">Bottom wear <ArrowUpRight size={13} /></Link>
         </div>
+        <div className="store-footer-link-column">
+          <h3>Your account</h3>
+          <Link to="/profile">Account <ArrowUpRight size={13} /></Link>
+          <Link to="/my-order">Your orders <ArrowUpRight size={13} /></Link>
+          <Link to="/login">Get in touch <ArrowUpRight size={13} /></Link>
+        </div>
+        <Link to="/collections" className="store-footer-backtop">
+          Find your everyday <ArrowRight size={16} />
+        </Link>
+      </div>
 
-        <div className="pt-7 pb-3 text-center">
-          <p className="text-sm leading-relaxed tracking-[0.06em] text-[#aaa49b]">
-            &copy; {new Date().getFullYear()}{" "}
-            <span className="font-semibold tracking-[0.1em] text-[#eee9df]">E / C Studio</span>
-            <span className="mx-3 text-[#8b7355]">·</span>
-            All rights reserved
-            <span className="mx-3 text-[#8b7355]">·</span>
-            <span className="text-[#c8a87e]">Crafted with care</span>
-          </p>
-        </div>
+      <div className="content-shell store-footer-bottom">
+        <Link to="/" className="store-footer-bottom-mark">E / C STUDIO</Link>
+        <p>
+          © {new Date().getFullYear()} E / C Studio <span>·</span> All rights reserved
+        </p>
+        <span className="store-footer-signoff">Wear what feels like you.</span>
       </div>
     </footer>
   );
