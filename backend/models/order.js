@@ -69,7 +69,7 @@ const orderSchema = new mongoose.Schema({
         type: Date,
     },
     isDelivered: {
-        type: String,
+        type: Boolean,
         default: false,
     },
     deliveredAt: {
@@ -83,7 +83,11 @@ const orderSchema = new mongoose.Schema({
         type: String,
         enum: ["Processing", "Shipped", "Delivered", "Cancelled"],
         default: "Processing",
-    }
+    },
+    inventoryAdjusted: {
+        type: Boolean,
+        default: false,
+    },
 },
     { timestamps: true },);
 
