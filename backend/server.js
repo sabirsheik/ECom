@@ -32,7 +32,6 @@ const adminRoutes = require("./routes/Admin/adminRoutes");
 const adminProductRoutes = require("./routes/Admin/productAdminRoutes");
 const adminOrderRoutes = require("./routes/Admin/adminOrderRoutes");
 const dbConnect = require("./config/dbConnect");
-dbConnect()
 // Cors Privacy Policy
 const corsOptions = {
   // origin: "http://localhost:5000",  // Allow frontend's origin
@@ -67,7 +66,16 @@ app.use("/auth/admin", adminOrderRoutes);
 
 const port = process.env.PORT || 5100;
 const host = process.env.HOST || "localhost";
-app.listen(port, host, () => {
-  console.log(`Server is running at http://${host}:${port}`);
-});
+const startServer = async () => {
+  try {
+    await dbConnect();
+    app.listen(port, host, () => {
+      console.log(`Server is running at http://${host}:${port}`);
+    });
+  } catch (error) {
+    console.error("Server startup failed:", error.message);
+    process.exitCode = 1;
+  }
+};
 
+startServer();
