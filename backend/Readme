@@ -106,7 +106,6 @@ Admin endpoints additionally require a user whose `role` is `admin`.
 | GET | `/api/order/my-orders` | List the authenticated user's orders. |
 | GET | `/api/order/:id` | Get one authenticated user's order. |
 | POST | `/api/subscribe` | Subscribe with `{ "email": "customer@example.com" }`. |
-| POST | `/api/upload` | Upload an image as multipart form field `image`; returns a Cloudinary URL. |
 | POST | `/api/checkout/webhook` | Stripe webhook endpoint; configure this URL in Stripe. No JWT is required. |
 
 ### Admin endpoints
@@ -116,9 +115,11 @@ All admin routes require a JWT and `role: "admin"`.
 | Method | Endpoint | Description |
 |---|---|---|
 | GET/POST/PUT/DELETE | `/auth/admin/all-users`, `/auth/admin/create-user`, `/auth/admin/user-update/:id`, `/auth/admin/user-delete/:id` | Manage users. |
-| GET | `/auth/admin/products` | List all products, including unpublished products. |
+| GET | `/auth/admin/dashboard` | Return live account/product/order counts, paid revenue, low-stock count, and recent orders. |
+| GET | `/auth/admin/products` and `/auth/admin/products/:id` | List all products, including unpublished products, or get one product for editing. |
 | POST/PUT/DELETE | `/api/products/create`, `/api/products/:id`, `/api/products/:id` | Create, update, or delete products. |
 | GET/PUT/DELETE | `/auth/admin/orders`, `/auth/admin/order-update/:id`, `/auth/admin/order-delete/:id` | Manage orders. Order status can be `Processing`, `Shipped`, `Delivered`, or `Cancelled`. |
+| POST | `/api/upload` | Upload an image as multipart form field `image` (JPEG, PNG, WebP, or GIF; max 5 MB); returns a Cloudinary URL. |
 
 ## Database Schema
 
@@ -129,11 +130,18 @@ MongoDB collections are created by Mongoose:
 - `Cart`: optional user or guest ID, selected products, quantities, and total price.
 - `Checkout`: checkout items, shipping address, payment method/status, total, and finalization state.
 - `Order`: user, items, shipping address, payment information, delivery state, and order status.
+- Product stock is decremented for COD orders when placed and reserved before a Stripe payment session; failed/expired payments, cancellations, and order deletion release the reservation.
 - `Subscriber`: unique email and subscription timestamp.
 
 ## Running Tests
 
-No automated tests are configured yet. `npm test` currently exits with the package placeholder message. Use `npm start` and exercise the API with Postman or the frontend.
+Run the backend's built-in Node.js tests with:
+
+```bash
+npm test
+```
+
+The current suite covers bearer-token/admin-role checks and inventory reservation, rollback, COD checkout pricing, and order-cancellation behavior. Exercise MongoDB, Stripe, and Cloudinary integrations with their configured services before deployment.
 
 ## Common Issues
 
