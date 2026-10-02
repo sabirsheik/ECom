@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { upload, uploads } = require("../controllers/uploadControllers");
+const { adminImageUpload, uploads } = require("../controllers/uploadControllers");
+const { auth, checkRole } = require("../Middleware/authMiddleware");
 
-router.post("/", upload.single("image"), uploads);
+router.post("/", auth, checkRole, adminImageUpload, uploads);
 
 module.exports = router;
