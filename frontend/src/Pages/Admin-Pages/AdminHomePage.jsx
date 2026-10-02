@@ -1,99 +1,109 @@
-import React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAdminDashboard } from "../../redux/slices/AdminOrderSlice";
+
+const currency = new Intl.NumberFormat("en-PK", {
+  style: "currency",
+  currency: "PKR",
+  maximumFractionDigits: 0,
+});
+
+const statusStyles = {
+  Processing: "bg-[#f3eadc] text-[var(--warning)]",
+  Shipped: "bg-[#e4e9ed] text-[#4d6575]",
+  Delivered: "bg-[#e2eee5] text-[var(--success)]",
+  Cancelled: "bg-[#f3e3de] text-[var(--error)]",
+};
 
 const AdminHomePage = () => {
-  const orders = [
-    { _id: 123123, user: { name: "Sabir Ali" }, totalPrice: 5000, status: "processing" },
-    { _id: 234234, user: { name: "Haider Ali" }, totalPrice: 4000, status: "shipped" },
-    { _id: 483234, user: { name: "Khan Ali" }, totalPrice: 3000, status: "delivered" },
-    { _id: 348723847, user: { name: "Anyat Khan" }, totalPrice: 7000, status: "processing" },
-    { _id: 989, user: { name: "Shah Nawaz" }, totalPrice: 9000, status: "cancelled" },
+  const dispatch = useDispatch();
+  const { dashboard, dashboardLoading, error } = useSelector((state) => state.adminOrder);
+
+  useEffect(() => {
+    dispatch(fetchAdminDashboard());
+  }, [dispatch]);
+
+  const metrics = dashboard?.metrics;
+  const cards = [
+    { title: "Collected revenue", value: metrics ? currency.format(metrics.revenue) : "—", detail: "Paid orders to date", href: "/admin/orders" },
+    { title: "Orders", value: metrics?.orders ?? "—", detail: "All order statuses", href: "/admin/orders" },
+    { title: "Products", value: metrics?.products ?? "—", detail: `${metrics?.lowStock ?? 0} low or out of stock`, href: "/admin/products" },
+    { title: "Customers & admins", value: metrics?.users ?? "—", detail: "Registered accounts", href: "/admin/users" },
   ];
 
-  // Status color map
-  const statusColors = {
-    processing: "bg-[#f3eadc] text-[var(--warning)]",
-    shipped: "bg-[#e4e9ed] text-[#4d6575]",
-    delivered: "bg-[#e2eee5] text-[var(--success)]",
-    cancelled: "bg-[#f3e3de] text-[var(--error)]",
-  };
-
   return (
-    <div className="min-h-screen bg-[var(--paper)] p-6">
-      <p className="eyebrow mb-3 text-center">Operations / Overview</p>
-      <h1 className="display-title mb-10 text-center text-5xl">
-        Admin Dashboard
-      </h1>
+    <section className="mx-auto max-w-7xl space-y-9">
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="eyebrow mb-2">Operations / Overview</p>
+          <h1 className="display-title text-4xl sm:text-5xl">Admin dashboard</h1>
+          <p className="mt-3 text-sm text-[var(--ink-soft)]">Live store performance and order activity.</p>
+        </div>
+        <button type="button" onClick={() => dispatch(fetchAdminDashboard())} disabled={dashboardLoading} className="border border-[var(--line)] px-4 py-3 text-sm font-semibold transition hover:border-[var(--bronze)] disabled:opacity-50">
+          {dashboardLoading ? "Refreshing…" : "Refresh data"}
+        </button>
+      </header>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-        {[
-          { title: "Revenue", value: "Rs 250k", link: "" },
-          { title: "Total Orders", value: "120", link: "/admin/orders" },
-          { title: "Products", value: "200", link: "/admin/products" },
-        ].map((card, idx) => (
-          <div
-            key={idx}
-            className="premium-panel cursor-pointer p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--bronze)]"
-          >
-            <h2 className="eyebrow">{card.title}</h2>
-            <p className="display-title my-3 text-4xl">{card.value}</p>
-            {card.link && (
-              <Link
-                to={card.link}
-                className="mt-2 inline-block text-sm font-medium text-[var(--bronze-deep)] hover:underline"
-              >
-                Manage {card.title}
-              </Link>
-            )}
-          </div>
+      {error && (
+        <div role="alert" className="border border-[#d9aaa0] bg-[#f7e9e5] p-4 text-sm text-[var(--error)]">
+          {error}
+        </div>
+      )}
+
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {cards.map((card) => (
+          <Link key={card.title} to={card.href} className="premium-panel block p-5 transition hover:-translate-y-0.5 hover:border-[var(--bronze)] sm:p-6">
+            <p className="eyebrow">{card.title}</p>
+            <p className="display-title my-4 text-3xl sm:text-4xl">{dashboardLoading && !metrics ? "…" : card.value}</p>
+            <p className="text-sm text-[var(--ink-soft)]">{card.detail}</p>
+            <span className="mt-5 inline-block text-sm font-semibold text-[var(--bronze-deep)]">View details →</span>
+          </Link>
         ))}
       </div>
 
-      {/* Recent Orders */}
-      <div className="premium-panel p-6">
-        <h2 className="display-title mb-6 text-4xl">
-          Recent Orders
-        </h2>
+      <div className="premium-panel overflow-hidden">
+        <div className="flex items-end justify-between gap-4 border-b border-[var(--line)] p-5 sm:p-6">
+          <div>
+            <p className="eyebrow mb-2">Latest activity</p>
+            <h2 className="display-title text-3xl">Recent orders</h2>
+          </div>
+          <Link to="/admin/orders" className="text-sm font-semibold text-[var(--bronze-deep)] hover:underline">All orders</Link>
+        </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full text-sm text-[var(--ink-soft)]">
-            <thead className="border-y border-[var(--line)] uppercase text-[var(--ink-soft)] text-xs">
+          <table className="min-w-full text-left text-sm">
+            <thead className="bg-[var(--paper)] text-xs uppercase tracking-wide text-[var(--ink-soft)]">
               <tr>
-                <th className="py-3 px-6 text-left">Order ID</th>
-                <th className="py-3 px-6 text-left">User</th>
-                <th className="py-3 px-6 text-left">Total Price</th>
-                <th className="py-3 px-6 text-left">Status</th>
+                <th className="px-5 py-4">Order</th>
+                <th className="px-5 py-4">Customer</th>
+                <th className="px-5 py-4">Date</th>
+                <th className="px-5 py-4">Total</th>
+                <th className="px-5 py-4">Status</th>
               </tr>
             </thead>
-            <tbody>
-              {orders.length > 0 ? (
-                orders.map((order) => (
-                  <tr
-                    key={order._id}
-                    className="cursor-pointer border-b border-[var(--line)] transition-all duration-300 hover:bg-[var(--paper)]"
-                  >
-                    <td className="py-4 px-6 font-semibold text-[var(--ink)]">#{order._id}</td>
-                    <td className="py-4 px-6">{order.user.name}</td>
-                    <td className="py-4 px-6">Rs {order.totalPrice}</td>
-                    <td className="py-4 px-6">
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[order.status]}`}>
-                        {order.status}
-                      </span>
+            <tbody className="divide-y divide-[var(--line)]">
+              {dashboardLoading && !dashboard ? (
+                <tr><td colSpan="5" className="px-5 py-10 text-center text-[var(--ink-soft)]">Loading store data…</td></tr>
+              ) : dashboard?.recentOrders?.length ? (
+                dashboard.recentOrders.map((order) => (
+                  <tr key={order._id} className="hover:bg-[var(--paper)]">
+                    <td className="whitespace-nowrap px-5 py-4 font-semibold text-[var(--ink)]">#{order._id.slice(-8).toUpperCase()}</td>
+                    <td className="px-5 py-4 text-[var(--ink-soft)]">{order.user?.name || "Deleted account"}</td>
+                    <td className="whitespace-nowrap px-5 py-4 text-[var(--ink-soft)]">{order.createdAt ? new Date(order.createdAt).toLocaleDateString() : "—"}</td>
+                    <td className="whitespace-nowrap px-5 py-4 font-medium text-[var(--ink)]">{currency.format(order.totalPrice || 0)}</td>
+                    <td className="px-5 py-4">
+                      <span className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${statusStyles[order.status] || "bg-[var(--paper)] text-[var(--ink-soft)]"}`}>{order.status}</span>
                     </td>
                   </tr>
                 ))
               ) : (
-                <tr>
-                  <td colSpan="4" className="px-6 py-6 text-center text-[var(--ink-soft)]">
-                    No orders found
-                  </td>
-                </tr>
+                <tr><td colSpan="5" className="px-5 py-10 text-center text-[var(--ink-soft)]">No orders have been placed yet.</td></tr>
               )}
             </tbody>
           </table>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
