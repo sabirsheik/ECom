@@ -36,7 +36,7 @@ const ProductGrid = ({ products, loading, error, onWishlistToggle }) => {
         const firstImage = product.images?.[0];
         const secondImage = product.images?.[1];
         const isLiked = likedIds.includes(product._id) || likedIds.includes(product._id?.toString());
-        const inStock = Number(product.countInPrice || 0) > 0;
+        const inStock = Number(product.countInStock || 0) > 0;
         return (
           <article key={product._id} className="group">
             <div className="relative aspect-[3/4] overflow-hidden bg-[#e9e3da]">
