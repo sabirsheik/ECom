@@ -52,36 +52,39 @@ const CollectionPage = () => {
     );
   }, [dispatch, searchParams]);
   return (
-    <div className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-14 lg:px-12">
-      <div ref={sidebarRef} className="flex flex-col gap-8 lg:flex-row">
+    <div className="w-full px-3 py-6 sm:px-4 lg:px-0 lg:py-0">
+      <div ref={sidebarRef} className="flex w-full flex-col gap-6 lg:flex-row lg:items-start">
         {/* Mobile Filter Button */}
         <button
           onClick={toggleSidebar}
-            className="flex items-center justify-center gap-2 border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-xs font-bold uppercase tracking-[0.14em] lg:hidden"
+          className="flex items-center justify-center gap-2 border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-xs font-bold uppercase tracking-[0.14em] lg:hidden"
         >
-            <SlidersHorizontal size={16} strokeWidth={1.5} />
-            Filters {activeFilterCount > 0 ? `(${activeFilterCount})` : ""}
+          <SlidersHorizontal size={16} strokeWidth={1.5} />
+          Filters {activeFilterCount > 0 ? `(${activeFilterCount})` : ""}
         </button>
-          {isSidebarOpen && <button aria-label="Close filters" onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 z-40 bg-black/30 lg:hidden" />}
+        {isSidebarOpen && <button aria-label="Close filters" onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 z-40 bg-black/30 lg:hidden" />}
+
         {/* Filter Sidebar */}
-        <div>
+        <div className="lg:sticky lg:top-0 lg:w-[17.5rem] lg:shrink-0 lg:self-start">
           <FilterSidebar
             ref={sidebarRef}
             className={`${
               isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-            } fixed inset-y-0 left-0 z-50 w-[min(88vw,22rem)] overflow-y-auto bg-[var(--surface)] transition-transform duration-300 lg:static lg:z-auto lg:w-64 lg:translate-x-0`}
+            } fixed inset-y-0 left-0 z-50 w-[min(88vw,22rem)] overflow-y-auto bg-[var(--surface)] transition-transform duration-300 lg:static lg:z-auto lg:w-full lg:translate-x-0`}
           />
         </div>
-        <div className="min-w-0 flex-grow">
+
+        <div className="min-w-0 flex-1 px-0 sm:px-1 lg:px-4">
           <div className="mb-8 flex flex-col justify-between gap-4 border-b border-[var(--line)] pb-6 sm:flex-row sm:items-end">
-            <div><p className="eyebrow mb-2">The catalogue</p><h1 className="display-title text-5xl">All collection</h1></div>
+            <div>
+              <p className="eyebrow mb-2">The catalogue</p>
+              <h1 className="display-title text-5xl">All collection</h1>
+            </div>
             <p className="text-sm text-[var(--ink-soft)]">Discover pieces for the everyday edit.</p>
           </div>
 
-            {/* Sort Options */}
-             <SortOptions />
-             {/* Product Grid */}
-             <ProductGrid products={products} loading={loading} error={error} />
+          <SortOptions />
+          <ProductGrid products={products} loading={loading} error={error} />
         </div>
       </div>
     </div>
