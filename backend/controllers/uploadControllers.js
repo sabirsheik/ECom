@@ -11,7 +11,27 @@ cloudinary.config({
 
 // Multer setup
 const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (_req, file, callback) => {
+    if (!["image/jpeg", "image/png", "image/webp", "image/gif"].includes(file.mimetype)) {
+      const error = new Error("Only JPEG, PNG, WebP, and GIF images are supported");
+      error.statusCode = 400;
+      return callback(error);
+    }
+    return callback(null, true);
+  },
+});
+const adminImageUpload = (req, res, next) => {
+  upload.single("image")(req, res, (error) => {
+    if (error) {
+      return res.status(error.statusCode || (error.code === "LIMIT_FILE_SIZE" ? 413 : 400))
+        .json({ message: error.code === "LIMIT_FILE_SIZE" ? "Image must be 5 MB or smaller" : error.message });
+    }
+    return next();
+  });
+};
 
 // Function to stream upload to Cloudinary
 const streamUpload = (fileBuffer) => {
@@ -20,7 +40,7 @@ const streamUpload = (fileBuffer) => {
       if (result) {
         resolve(result);
       } else {
-        reject(error);
+        reject(error || new Error("Image provider did not return an upload result"));
       }
     });
     streamifier.createReadStream(fileBuffer).pipe(stream);
@@ -33,9 +53,12 @@ const uploads = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
+    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+      return res.status(503).json({ message: "Image upload is not configured on this server" });
+    }
 
     const result = await streamUpload(req.file.buffer);
-    res.json({ imageUrl: result.secure_url });
+    return res.status(201).json({ imageUrl: result.secure_url });
   } catch (error) {
     return res.status(500).json({
       message: "Server error while uploading image",
@@ -45,6 +68,6 @@ const uploads = async (req, res) => {
 };
 
 module.exports = {
-  upload, // multer middleware
-  uploads, // controller function
+  adminImageUpload,
+  uploads,
 };
