@@ -34,7 +34,7 @@ const adminOrderRoutes = require("./routes/Admin/adminOrderRoutes");
 const dbConnect = require("./config/dbConnect");
 // Cors Privacy Policy
 const corsOptions = {
-  // origin: "http://localhost:5000",  // Allow frontend's origin
+  origin: "https://e-com-sabir-dev.vercel.app",  // Allow frontend's origin
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
