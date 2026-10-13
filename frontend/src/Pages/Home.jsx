@@ -298,7 +298,10 @@ const Home = () => {
     dispatch(fetchRecommendations({ user, viewedProductIds }));
   }, [dispatch, user, viewedProductIds]);
 
+  const fallbackHeroImage = "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80";
+
   const heroProduct = useMemo(
+<<<<<<< HEAD
     () => products.find((product) => product.gender === "Women") || products[0] || newArrivals[0],
     [products, newArrivals]
   );
@@ -372,6 +375,54 @@ const Home = () => {
       setSubmittingNewsletter(false);
     }
   };
+=======
+    () =>
+      products.find(
+        (product) => product.gender === "Women" && Array.isArray(product.images) && product.images.length > 0
+      ) ||
+      products.find((product) => Array.isArray(product.images) && product.images.length > 0) ||
+      null,
+    [products]
+  );
+
+  const saleProducts = useMemo(
+    () =>
+      products
+        .filter(
+          (product) => Number(product.discountPrice || 0) > 0 && Number(product.discountPrice) < Number(product.price || 0)
+        )
+        .slice(0, 4),
+    [products]
+  );
+
+  const womenEdit = useMemo(
+    () => products.filter((product) => product.gender === "Women").slice(0, 3),
+    [products]
+  );
+
+  const topWear = useMemo(
+    () => products.filter((product) => product.category === "Top Wear").slice(0, 4),
+    [products]
+  );
+
+  const curatedSupport = useMemo(
+    () => products.filter((product) => product.category === "Bottom Wear").slice(0, 3),
+    [products]
+  );
+
+  const recommendationProducts = Array.isArray(recommendations) ? recommendations.slice(0, 4) : [];
+  const heroImage = heroProduct?.images?.find((image) => image?.url)?.url || fallbackHeroImage;
+
+  const getProductCardImage = (predicate) =>
+    products.find(predicate)?.images?.find((image) => image?.url)?.url || fallbackHeroImage;
+
+  const categoryCards = [
+    { title: "Men", link: "/collections?gender=Men", image: getProductCardImage((product) => product.gender === "Men") },
+    { title: "Women", link: "/collections?gender=Women", image: getProductCardImage((product) => product.gender === "Women") },
+    { title: "Top Wear", link: "/collections?category=Top%20Wear", image: getProductCardImage((product) => product.category === "Top Wear") },
+    { title: "Bottom Wear", link: "/collections?category=Bottom%20Wear", image: getProductCardImage((product) => product.category === "Bottom Wear") },
+  ];
+>>>>>>> c7d2749 (Refactor Home component to improve hero image selection, add fallback image, and streamline product card image retrieval)
 
   if (loading) {
     return (
